@@ -82,15 +82,15 @@ export const UserProfile = () => {
     heroCollection: heroData?.hero_collection || "",
     heroTitle: heroData?.hero_title || "",
     heroSubTitle: heroData?.hero_subtitle || "",
-    heroUrlImage: heroData?.url_image || "",
+    heroUrlImage: heroData?.hero_url_image || "",
   });
   const [imageHeroPreview, setHeroPreview] = useState<string | null>(null);
   const [imageFooterPreview, setFooterPreview] = useState<string | null>(null);
   const [footerFormData, setFooterFormData] = useState<FooterFormData>({
-    title: footerData?.title || "",
-    location: footerData?.location || "",
-    schedule: footerData?.schedule || "",
-    footerUrlImage: footerData?.url_image || "",
+    title: footerData?.footer_title || "",
+    location: footerData?.footer_location || "",
+    schedule: footerData?.footer_schedule || "",
+    footerUrlImage: footerData?.footer_url_image || "",
   });
   const [discountFormData, setDiscountFormData] =
     useState<DiscountContentProps>({
@@ -932,7 +932,7 @@ export const UserProfile = () => {
                       Personalizar Portada
                     </h3>
                     <small className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded text-[10px] md:text-[12px]">
-                      Actualizada el {formatDate(heroData.updated_at, true)}
+                      Actualizada el {formatDate(heroData.hero_updated_at, true)}
                     </small>
                   </div>
                   <div className="md:p-6">
@@ -957,9 +957,9 @@ export const UserProfile = () => {
                   <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-[#2C2420]">
                     Personalizar Pié de Página
                   </h3>
-                  {footerData?.updated_at && (
+                  {footerData?.footer_updated_at && (
                     <small className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded text-[10px] md:text-[12px]">
-                      Actualizada el {formatDate(footerData.updated_at, true)}
+                      Actualizada el {formatDate(footerData.footer_updated_at, true)}
                     </small>
                   )}
                 </div>

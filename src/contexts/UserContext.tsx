@@ -22,19 +22,19 @@ export interface HeroData {
   hero_collection: string;
   hero_title: string;
   hero_subtitle: string;
-  url_image: string;
-  created_at?: string;
-  updated_at?: string;
+  hero_url_image: string;
+  hero_created_at?: string;
+  hero_updated_at?: string;
 }
 
 export interface FooterData {
   id: number;
-  title: string;
-  location: string;
-  schedule: string;
-  url_image: string;
-  created_at?: string;
-  updated_at?: string;
+  footer_title: string;
+  footer_location: string;
+  footer_schedule: string;
+  footer_created_at?: string;
+  footer_updated_at?: string;
+  footer_url_image: string;
 }
 
 interface PartialFormData {
