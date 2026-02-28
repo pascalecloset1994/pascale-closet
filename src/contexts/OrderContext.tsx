@@ -108,7 +108,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         );
         return;
       }
-      setSellerOrders(data);
+      setSellerOrders(Array.isArray(data) ? data : data.orders ?? []);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Error desconocido");
     } finally {
