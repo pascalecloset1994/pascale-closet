@@ -146,10 +146,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (response.status === 409) {
         return showDialog({ content: <div>{data.message}</div> });
       }
-
-      setIsLoading(false);
-      setUser(data);
-      showDialog({ content: <div>{data.message}</div> });
+      if (response.status === 200) {
+        setUser(data);
+        showDialog({ content: <div>{data.message}</div> });
+      }
+      
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Error desconocido");
       setUser(null);
