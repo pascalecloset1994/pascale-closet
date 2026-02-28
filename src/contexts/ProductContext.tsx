@@ -126,7 +126,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/list-products`,
+        `${import.meta.env.VITE_BACK_API_URL}/list-products`,
         {
           method: "GET",
           credentials: "include",
@@ -154,7 +154,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/products`,
+        `${import.meta.env.VITE_BACK_API_URL}/products`,
         {
           method: "GET",
           credentials: "include",
@@ -199,7 +199,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
       formData.append("image", newProduct.image);
 
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/product`,
+        `${import.meta.env.VITE_BACK_API_URL}/product`,
         {
           method: "POST",
           credentials: "include",
@@ -237,7 +237,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/product/${productId}`,
+        `${import.meta.env.VITE_BACK_API_URL}/product/${productId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -271,7 +271,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/product/${productId}`,
+        `${import.meta.env.VITE_BACK_API_URL}/product/${productId}`,
         {
           method: "DELETE",
           credentials: "include",

@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const refreshUser = useCallback(async () => {
     try {
-      const response = await fetch(`${BACK_URL}/api/user/profile`, {
+      const response = await fetch(`${BACK_URL}/user/profile`, {
         method: "GET",
         credentials: "include",
       });
@@ -104,7 +104,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setError("");
 
     try {
-      const response = await fetch(`${BACK_URL}/api/user/login`, {
+      const response = await fetch(`${BACK_URL}/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -129,7 +129,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const register = async (formData: RegisterFormData) => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${BACK_URL}/api/user/signup`, {
+      const response = await fetch(`${BACK_URL}/user/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -161,7 +161,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = async () => {
     setIsLoading(true);
     try {
-      await fetch(`${BACK_URL}/api/user/logout`, {
+      await fetch(`${BACK_URL}/user/logout`, {
         method: "GET",
         credentials: "include",
       });
@@ -177,7 +177,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const recoveryPassword = async (email: string) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${BACK_URL}/api/user/recovery-password`, {
+      const res = await fetch(`${BACK_URL}/user/recovery-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -201,7 +201,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const resetPassword = async (password: string) => {
     try {
-      const res = await fetch(`${BACK_URL}/api/user/reset-password`, {
+      const res = await fetch(`${BACK_URL}/user/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

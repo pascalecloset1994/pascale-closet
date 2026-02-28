@@ -67,7 +67,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/user/orders/${user.user_id}`,
+        `${import.meta.env.VITE_BACK_API_URL}/user/orders/${user.user_id}`,
         {
           method: "GET",
           credentials: "include",
@@ -94,7 +94,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/seller/orders`,
+        `${import.meta.env.VITE_BACK_API_URL}/seller/orders`,
         {
           method: "GET",
           credentials: "include",
@@ -159,7 +159,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/seller/orders`,
+        `${import.meta.env.VITE_BACK_API_URL}/seller/orders`,
         {
           credentials: "include",
         },
@@ -186,7 +186,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const deleteOrderById = async (id: string | number) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/order/${id}`,
+        `${import.meta.env.VITE_BACK_API_URL}/order/${id}`,
         {
           method: "DELETE",
           credentials: "include",

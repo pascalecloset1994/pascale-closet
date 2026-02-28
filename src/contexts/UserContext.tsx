@@ -70,7 +70,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const getUserHero = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${BACK_URL}/api/user/user_hero`, {
+      const response = await fetch(`${BACK_URL}/user/user_hero`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -99,7 +99,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       formData.append("heroUrlImage", form.heroUrlImage);
 
       try {
-        const response = await fetch(`${BACK_URL}/api/user/user_hero/1`, {
+        const response = await fetch(`${BACK_URL}/user/user_hero/1`, {
           method: "POST",
           body: formData,
           credentials: "include",
@@ -126,7 +126,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const getUserFooter = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${BACK_URL}/api/user/user_footer`, {
+      const response = await fetch(`${BACK_URL}/user/user_footer`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -155,7 +155,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       formData.append("footerUrlImage", form.footerUrlImage);
 
       try {
-        const response = await fetch(`${BACK_URL}/api/user/user_footer/1`, {
+        const response = await fetch(`${BACK_URL}/user/user_footer/1`, {
           method: "POST",
           body: formData,
           credentials: "include",
@@ -200,7 +200,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     formData.append("address", form.address || "");
     formData.append("phone", form.phone || "");
     try {
-      const response = await fetch(`${BACK_URL}/api/user/update`, {
+      const response = await fetch(`${BACK_URL}/user/update`, {
         method: "PUT",
         credentials: "include",
         body: formData,
@@ -219,7 +219,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${BACK_URL}/api/user/update`, {
+      const response = await fetch(`${BACK_URL}/user/update`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -246,7 +246,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const deleteUser = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${BACK_URL}/api/user/delete`, {
+      const response = await fetch(`${BACK_URL}/user/delete`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

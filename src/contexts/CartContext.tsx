@@ -212,7 +212,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const getDiscountContent = useCallback(async () => {
     try {
-      const response = await fetch(`${BACK_URL}/api/user/content`, {
+      const response = await fetch(`${BACK_URL}/user/content`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -232,7 +232,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const updateDiscountContent = async (form: DiscountContentProps) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${BACK_URL}/api/user/content-update`, {
+      const response = await fetch(`${BACK_URL}/user/content-update`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -274,7 +274,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setLoadingPayment(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/payment/create`,
+        `${import.meta.env.VITE_BACK_API_URL}/payment/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
