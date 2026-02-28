@@ -1,0 +1,28 @@
+import { useAuth } from "./contexts/AuthContext";
+import { Footer } from "./components/layout/Footer";
+import Header from "./components/layout/Header";
+import { WhatsAppButton } from "./components/common/WhatsAppButton";
+
+/**
+ * Componente Layout que envuelve la aplicación con Header y Footer
+ * @param {React.ReactNode} children - Contenido principal de la página
+ * @returns {React.JSX.Element} Layout con estructura de 3 niveles (header, main, footer)
+ */
+export const Layout = ({ children }) => {
+  const { isAuthenticated, user, userRole, logout, isLoading } = useAuth();
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header
+        isAuthenticated={isAuthenticated}
+        user={user}
+        userRole={userRole}
+        onLogout={logout}
+        isLoading={isLoading}
+      />
+      <main className="flex-1">{children}</main>
+      <Footer />
+      <WhatsAppButton url={"https://www.instagram.com/pascalecloset/"} />
+    </div>
+  );
+};

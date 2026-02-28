@@ -1,0 +1,16 @@
+.swiper-button-next, .swiper-button-prev {
+  color: #1A1A1A !important;
+  top: 40%;
+  transition: background 0.2s, color 0.2s;
+}
+.swiper-button-next:hover, .swiper-button-prev:hover {
+  color: #6B6B6B !important;
+}
+.swiper-button-next:after, .swiper-button-prev:after {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.swiper-button-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
