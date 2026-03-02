@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const refreshUser = useCallback(async () => {
     abortRef.current?.abort();
     abortRef.current = new AbortController();
-    
+
     try {
       const response = await fetch(`${BACK_URL}/user/profile`, {
         method: "GET",
@@ -156,7 +156,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(data);
         showDialog({ content: <div>{data.message}</div> });
       }
-      
+
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Error desconocido");
       setUser(null);
@@ -166,6 +166,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
+    abortRef.current?.abort();
     setIsLoading(true);
     try {
       await fetch(`${BACK_URL}/user/logout`, {
