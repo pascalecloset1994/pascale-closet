@@ -286,6 +286,8 @@ const ProductDetail = () => {
     return "";
   };
 
+  const images = JSON.parse(product.image);
+
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
       {/* Main Product Section */}
@@ -326,7 +328,7 @@ const ProductDetail = () => {
               )}
               {product.image ? (
                 <img
-                  src={product.image}
+                  src={images[0]}
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
@@ -344,16 +346,13 @@ const ProductDetail = () => {
                 <button className="w-12 h-12 bg-white border-2 border-[#2C2420] overflow-hidden">
                   {product.image ? (
                     <img
-                      src={product.image}
+                      src={images[1]}
                       alt=""
                       className="w-full h-full object-cover"
                     />
                   ) : (
                     <div className="w-full h-full bg-[#F5F0EB]"></div>
                   )}
-                </button>
-                <button className="w-12 h-12 bg-white border border-[#E0D6CC] overflow-hidden opacity-50">
-                  <div className="w-full h-full bg-[#F5F0EB]"></div>
                 </button>
               </div>
             </div>
@@ -534,7 +533,7 @@ const ProductDetail = () => {
                       </li>
                     </ul>
 
-                    <picture className=" aspect-video">
+                    <picture className="aspect-video">
                       <img
                         src="/assets/guia-talles.png"
                         width="100%"

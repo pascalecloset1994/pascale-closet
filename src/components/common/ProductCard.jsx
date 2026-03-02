@@ -43,7 +43,7 @@ export const ProductCard = ({ product }) => {
     }
   };
 
-  console.log;
+  const images = JSON.parse(product.image)
 
   return (
     <div className="group bg-white h-full flex flex-col">
@@ -52,7 +52,7 @@ export const ProductCard = ({ product }) => {
         <div className="relative w-full aspect-[3/4] bg-[#F5F0EB] overflow-hidden">
           {product.image ? (
             <img
-              src={product.image}
+              src={images[0]}
               alt={product.name}
               className="w-full h-full object-cover"
             />
