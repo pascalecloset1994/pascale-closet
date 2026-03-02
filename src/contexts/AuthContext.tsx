@@ -165,6 +165,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       await fetch(`${BACK_URL}/user/logout`, {
         method: "POST",
         credentials: "include",
+        cache: "no-store"
       });
     } finally {
       setIsLoading(false);
