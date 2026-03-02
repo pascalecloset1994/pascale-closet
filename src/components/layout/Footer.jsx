@@ -7,6 +7,7 @@ import {
   Facebook
 } from "lucide-react";
 import { WhatsAppIcon } from "../common/WhatsAppButton";
+import { CreditCards } from "../common/CreditCards";
 
 const TikTokIcon = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -111,6 +112,8 @@ export const Footer = () => {
           <p className="text-xs text-white/50 font-sans-elegant">
             © 2026 Pascale Closet. Todos los derechos reservados.
           </p>
+
+          <CreditCards />
         </div>
       </div>
     </footer>
