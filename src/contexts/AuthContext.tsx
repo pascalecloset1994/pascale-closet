@@ -7,6 +7,7 @@ import {
   type ReactNode,
   type Dispatch,
   type SetStateAction,
+  useRef,
 } from "react";
 import { showDialog } from "../components/common/Dialog";
 import { useLocation } from "./LocationContext";
@@ -61,12 +62,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { ip, city, country } = useLocation();
+  const abortRef = useRef<AbortController | null>(null);
 
   const refreshUser = useCallback(async () => {
+    abortRef.current?.abort();
+    abortRef.current = new AbortController();
+    
     try {
       const response = await fetch(`${BACK_URL}/user/profile`, {
         method: "GET",
         credentials: "include",
+        signal: abortRef.current.signal
       });
 
       if (response.status === 401) {
