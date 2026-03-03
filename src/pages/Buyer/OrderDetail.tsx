@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useOrder } from "../../contexts/OrderContext";
+import type { Order } from "../../contexts/OrderContext";
 import { formatDate } from "../../utils/formatDate";
 import {
   ArrowLeft,
@@ -21,22 +22,21 @@ const OrderDetail = () => {
   const { id } = useParams();
   const { orders, deleteOrderById, refreshOrders } = useOrder();
   const { getCartTotal, MAX_PAYMENT, SHIPMENT_COST } = useCart();
-  const [order, setOrder] = useState(null);
+  const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (orders && orders.length > 0) {
       const foundOrder = orders.find((o) => o.id === id);
-      setOrder(foundOrder);
+      setOrder(foundOrder ?? null);
       setLoading(false);
     } else {
       navigate("/buyer/orders");
     }
-    
   }, [orders, id, navigate]);
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case "approved":
         return "bg-[#F0FFF0] border-[#2C2420] text-[#2C2420]";
@@ -52,7 +52,7 @@ const OrderDetail = () => {
     }
   };
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: string) => {
     switch (status) {
       case "approved":
         return <CheckCircle size={16} className="mr-2" />;
@@ -68,7 +68,7 @@ const OrderDetail = () => {
     }
   };
 
-  const getStatusLabel = (status) => {
+  const getStatusLabel = (status: string) => {
     switch (status) {
       case "approved":
         return "Pago Aprobado";
@@ -84,7 +84,8 @@ const OrderDetail = () => {
     }
   };
 
-  const handleDelteOrder = () => {
+  const handleDeleteOrder = () => {
+    if (!order) return;
     showDialog({
       content: (
         <div className="text-center">
@@ -187,7 +188,7 @@ const OrderDetail = () => {
               </h2>
               <aside className="flex gap-3 items-center">
                 <button
-                  onClick={() => handleDelteOrder()}
+                  onClick={() => handleDeleteOrder()}
                   className="px-4 py-2 border text-xs font-sans-elegant uppercase tracking-wide bg-destructive text-white hover:opacity-80 transition-opacity"
                 >
                   Anular Orden
@@ -220,7 +221,7 @@ const OrderDetail = () => {
               </div>
 
               {/* Payment ID */}
-              {order.payment_id && (
+              {(order as Order & { payment_id?: string }).payment_id && (
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-[#F5F0EB] border border-[#E0D6CC] flex items-center justify-center">
                     <CreditCard size={18} className="text-[#2C2420]" />
@@ -230,7 +231,7 @@ const OrderDetail = () => {
                       ID de Pago
                     </p>
                     <p className="text-[#2C2420] font-sans-elegant mt-1 break-all">
-                      {order.payment_id}
+                      {(order as Order & { payment_id?: string }).payment_id}
                     </p>
                   </div>
                 </div>
@@ -286,10 +287,17 @@ const OrderDetail = () => {
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 bg-[#F5F0EB] border border-[#E0D6CC] flex items-center justify-center">
-                      {item.image_url ? (
+                      {(item as typeof item & { image_url?: string })
+                        .image_url ? (
                         <img
-                          src={item.image_url}
-                          alt={item.product_name}
+                          src={
+                            (item as typeof item & { image_url?: string })
+                              .image_url
+                          }
+                          alt={
+                            (item as typeof item & { product_name?: string })
+                              .product_name ?? item.name
+                          }
                           className="w-full h-full object-cover"
                         />
                       ) : (
@@ -298,14 +306,16 @@ const OrderDetail = () => {
                     </div>
                     <div>
                       <p className="font-sans-elegant text-sm text-[#2C2420] uppercase tracking-wide">
-                        {item.product_name}
+                        {(item as typeof item & { product_name?: string })
+                          .product_name ?? item.name}
                       </p>
                       <p className="text-xs text-[#7A6B5A] font-sans-elegant mt-1">
                         Cantidad: {item.quantity}
                       </p>
-                      {item.size && (
+                      {(item as typeof item & { size?: string }).size && (
                         <p className="text-xs text-[#7A6B5A] font-sans-elegant">
-                          Talle: {item.size}
+                          Talle:{" "}
+                          {(item as typeof item & { size?: string }).size}
                         </p>
                       )}
                     </div>

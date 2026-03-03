@@ -3,11 +3,27 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
-import { Loader2 } from "lucide-react";
+import { Loader2, TruckElectricIcon, Tag } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useUser } from "../../contexts/UserContext";
-import { TruckElectricIcon } from "lucide-react";
-import { Tag } from "lucide-react";
+
+interface CheckoutFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  cardNumber: string;
+  cardName: string;
+  expiryDate: string;
+  cvv: string;
+}
+
+type FormErrors = Partial<Record<keyof CheckoutFormData, string>>;
 
 export const Checkout = () => {
   const { user } = useAuth();
@@ -19,21 +35,22 @@ export const Checkout = () => {
     loadingPayment,
     SHIPMENT_COST,
     MAX_PAYMENT,
+    discountContent,
   } = useCart();
-  const { updatePartialInformation, discountContent } = useUser();
+  const { updatePartialInformation } = useUser();
 
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<CheckoutFormData>({
     // Shipping Info
-    firstName: user.name || "",
-    lastName: user.lastname || "",
-    email: user.email || "",
-    phone: user.phone || "",
-    address: user.address || "",
-    city: user.city || "",
-    state: user.state || "",
-    zipCode: user.postal_code || "",
-    country: user.country || "",
+    firstName: user?.name || "",
+    lastName: user?.lastname || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    address: user?.address || "",
+    city: user?.city || "",
+    state: "",
+    zipCode: user?.postal_code || "",
+    country: user?.country || "",
     // Payment Info
     cardNumber: "",
     cardName: "",
@@ -41,16 +58,16 @@ export const Checkout = () => {
     cvv: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
   const [step, setStep] = useState(1); // 1: Shipping, 2: Payment, 3: Review
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    if (errors[name]) {
+    if (errors[name as keyof CheckoutFormData]) {
       setErrors((prev) => ({
         ...prev,
         [name]: "",
@@ -58,8 +75,8 @@ export const Checkout = () => {
     }
   };
 
-  const validateShipping = () => {
-    const newErrors = {};
+  const validateShipping = (): FormErrors => {
+    const newErrors: FormErrors = {};
     if (!formData.firstName.trim()) newErrors.firstName = "Requerido";
     if (!formData.lastName.trim()) newErrors.lastName = "Requerido";
     if (!formData.email.trim()) newErrors.email = "Requerido";
@@ -71,8 +88,8 @@ export const Checkout = () => {
     return newErrors;
   };
 
-  const validatePayment = () => {
-    const newErrors = {};
+  const validatePayment = (): FormErrors => {
+    const newErrors: FormErrors = {};
     if (!formData.cardNumber.trim()) newErrors.cardNumber = "Requerido";
     if (!formData.cardName.trim()) newErrors.cardName = "Requerido";
     if (!formData.expiryDate.trim()) newErrors.expiryDate = "Requerido";
@@ -103,7 +120,6 @@ export const Checkout = () => {
   };
 
   const handlePlaceOrder = () => {
-    // Simulación de procesamiento de pedido
     clearCart();
     navigate("/order-confirmation", {
       state: {
@@ -301,7 +317,6 @@ export const Checkout = () => {
                     Método de Pago
                   </h2>
 
-                  {/* Aca se crea el brick que redirecciona a pagar evitando el uso de Wallet */}
                   <div id="wallet_container" className="my-4">
                     <button
                       onClick={handlePayment}
@@ -402,7 +417,7 @@ export const Checkout = () => {
                       {item.name} x{item.quantity}
                     </span>
                     <span className="text-[#2C2420]">
-                      ${(item.price * item.quantity).toFixed(2)}
+                      ${(item.price * (item.quantity ?? 1)).toFixed(2)}
                     </span>
                   </div>
                 ))}
@@ -429,17 +444,17 @@ export const Checkout = () => {
                   </span>
                 </div>
 
-                {Number(discountContent && discountContent.discount) > 0 && (
+                {Number(discountContent?.discount) > 0 && (
                   <div className="flex justify-between text-sm font-sans-elegant">
                     <span className="text-[#7A6B5A] flex gap-1 items-center">
                       <Tag size={14} />
-                      {Number(discountContent && discountContent.discount)}% OFF
+                      {Number(discountContent?.discount)}% OFF
                     </span>
                     <span className="text-[#2C2420]">
                       $
                       {(
                         (getCartTotal() *
-                          Number(discountContent && discountContent.discount)) /
+                          Number(discountContent?.discount)) /
                         100
                       ).toLocaleString("es-CL")}
                     </span>
@@ -453,13 +468,11 @@ export const Checkout = () => {
                     </span>
                     <span className="font-sans-elegant text-xl text-[#2C2420]">
                       $
-                      {Number(discountContent && discountContent.discount) > 0
+                      {Number(discountContent?.discount) > 0
                         ? Math.floor(
                             getCartTotal() -
                               (getCartTotal() *
-                                Number(
-                                  discountContent && discountContent.discount,
-                                )) /
+                                Number(discountContent?.discount)) /
                                 100,
                           ).toLocaleString("es-CL")
                         : getCartTotal().toLocaleString("es-CL")}

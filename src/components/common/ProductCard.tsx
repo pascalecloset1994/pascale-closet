@@ -1,20 +1,27 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import { toast } from "./Toast";
-import { ShoppingBag } from "lucide-react";
-import { Loader } from "lucide-react";
+import { ShoppingBag, Loader } from "lucide-react";
+import type { Product } from "../../contexts/ProductContext";
 
-export const ProductCard = ({ product }) => {
+interface ProductCardProps {
+  product: Product;
+}
+
+export const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart, cartItems, getStockFromProduct, discount, isLoading } =
     useCart();
 
   const currentCartItem = cartItems.find((it) => it.id === product.id);
-  const currentQty = currentCartItem ? currentCartItem.quantity : 0;
+  const currentQty = currentCartItem ? currentCartItem.quantity ?? 0 : 0;
   const stock = getStockFromProduct(product);
   const isSoldOut = typeof stock === "number" && stock <= 0;
   const cannotAddMore = typeof stock === "number" && currentQty >= stock;
 
-  const handleAddWithSize = (e, size) => {
+  const handleAddWithSize = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    size: string,
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     if (isSoldOut || cannotAddMore) {
@@ -25,9 +32,11 @@ export const ProductCard = ({ product }) => {
       });
       return;
     }
-    const ok = addToCart({ ...product, selectedSize: size }, 1);
+    const ok = addToCart({ ...product, selectedSize: size } as Product, 1);
     if (!ok) {
-      toast(<div>No se pudo agregar, no hay stock suficiente.</div>);
+      toast({
+        message: <div>No se pudo agregar, no hay stock suficiente.</div>,
+      });
     } else {
       toast({
         timer: 4,
@@ -36,14 +45,15 @@ export const ProductCard = ({ product }) => {
           <div className="flex gap-2 items-center">
             <ShoppingBag />
             Agregado al carrito:
-            <span className="font-semibold">{product.name}</span> - Talla {size}
+            <span className="font-semibold">{product.name}</span> - Talla{" "}
+            {size}
           </div>
         ),
       });
     }
   };
 
-  const images = JSON.parse(product.image)
+  const images: string[] = JSON.parse(product.image ?? "[]");
 
   return (
     <div className="group bg-white h-full flex flex-col">
@@ -65,7 +75,9 @@ export const ProductCard = ({ product }) => {
           {/* Badge de oferta */}
           {discount > 0 && (
             <div className="absolute top-1 left-1">
-              <small className="text-[10px] px-1 py-0.5 bg-zinc-950/80 text-white tracking-wide">%{discount} OFF</small>
+              <small className="text-[10px] px-1 py-0.5 bg-zinc-950/80 text-white tracking-wide">
+                %{discount} OFF
+              </small>
             </div>
           )}
 
@@ -80,8 +92,9 @@ export const ProductCard = ({ product }) => {
             <div className="flex justify-center ">
               {["XS", "S", "M", "L", "XL"].map((size) => {
                 const currentSizes =
-                  product.size.split(",").map((s) => s.trim().toUpperCase()) ||
-                  [];
+                  product.size
+                    ?.split(",")
+                    .map((s) => s.trim().toUpperCase()) ?? [];
                 const isAvailable = currentSizes.includes(size);
 
                 return (
@@ -89,8 +102,7 @@ export const ProductCard = ({ product }) => {
                     key={size}
                     onClick={(e) => handleAddWithSize(e, size)}
                     disabled={isSoldOut || cannotAddMore || !isAvailable}
-                    className={`px-4 py-4 text-[12
-                    px] font-sans-elegant uppercase tracking-wider transition-all duration-200 ${
+                    className={`px-4 py-4 text-[12px] font-sans-elegant uppercase tracking-wider transition-all duration-200 ${
                       isSoldOut || cannotAddMore
                         ? "border-[#E0D6CC] text-[#CCC] cursor-not-allowed bg-white"
                         : "border-[#E0D6CC] text-[#2C2420] hover:bg-[#2C2420] hover:text-white hover:border-[#2C2420] bg-white"
@@ -113,9 +125,12 @@ export const ProductCard = ({ product }) => {
           {product.name}
         </h3>
         <div className="flex items-center justify-center gap-2">
-          {product.originalPrice && (
+          {(product as Product & { originalPrice?: number }).originalPrice && (
             <span className="text-[11px] text-[#999] line-through font-sans-elegant">
-              ${product.originalPrice.toLocaleString("es-CL")}
+              $
+              {(
+                product as Product & { originalPrice?: number }
+              ).originalPrice?.toLocaleString("es-CL")}
             </span>
           )}
           {discount > 0 && (
@@ -127,7 +142,8 @@ export const ProductCard = ({ product }) => {
             {discount > 0 && <span>-10%</span>}$
             {discount > 0
               ? Math.abs(
-                  Number(product.price) - (Number(product.price) * discount) / 100,
+                  Number(product.price) -
+                    (Number(product.price) * discount) / 100,
                 ).toLocaleString("es-CL")
               : Number(product.price).toLocaleString("es-CL")}{" "}
             CLP

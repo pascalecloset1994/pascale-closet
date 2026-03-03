@@ -122,17 +122,10 @@ export const Help = () => {
                 </thead>
                 <tbody className="font-sans-elegant text-sm">
                   <tr>
-                    <td className="border border-[#E0D6CC] p-3 text-[#7A6B5A]">Argentina</td>
+                    <td className="border border-[#E0D6CC] p-3 text-[#7A6B5A]">Chile</td>
                     <td className="border border-[#E0D6CC] p-3 text-[#2C2420] font-medium">5-7 días hábiles</td>
                   </tr>
-                  <tr>
-                    <td className="border border-[#E0D6CC] p-3 text-[#7A6B5A]">Resto de LATAM</td>
-                    <td className="border border-[#E0D6CC] p-3 text-[#2C2420] font-medium">10-15 días hábiles</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-[#E0D6CC] p-3 text-[#7A6B5A]">Internacional</td>
-                    <td className="border border-[#E0D6CC] p-3 text-[#2C2420] font-medium">15-30 días hábiles</td>
-                  </tr>
+                  
                 </tbody>
               </table>
             </div>
@@ -145,7 +138,7 @@ export const Help = () => {
                 <div className="bg-[#F5F0EB] border border-[#E0D6CC] p-4">
                   <p className="font-sans-elegant font-medium text-[#2C2420] mb-1">✓ Envío Gratis</p>
                   <p className="text-sm text-[#7A6B5A] font-sans-elegant">
-                    En compras superiores a $45.000 dentro de Argentina
+                    En compras superiores a $60.000 dentro de Chile
                   </p>
                 </div>
                 <div className="border border-[#E0D6CC] p-4">

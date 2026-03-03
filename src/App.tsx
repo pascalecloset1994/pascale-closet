@@ -31,7 +31,7 @@ import OrderDetail from "./pages/Buyer/OrderDetail";
 
 // Páginas vendedor
 import SellerDashboard from "./pages/Seller/SellerDashboard";
-import ProductManagement from "./pages/Seller/ProductManagement.tsx";
+import ProductManagement from "./pages/Seller/ProductManagement";
 import ProductForm from "./pages/Seller/ProductForm";
 
 import "./App.css";

@@ -11,21 +11,21 @@ export const ResetPassword = () => {
     password: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    if (errors[name]) {
+    if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: Record<string, string> = {};
 
     if (!formData.password) {
       newErrors.password = "La contraseña es requerida";
@@ -42,7 +42,7 @@ export const ResetPassword = () => {
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
@@ -54,8 +54,9 @@ export const ResetPassword = () => {
     try {
       await resetPassword(formData.password);
       setIsSubmitted(true);
-    } catch (error) {
-      newErrors.resetPassword = error.message;
+    } catch (err: unknown) {
+      newErrors.resetPassword = err instanceof Error ? err.message : "Error desconocido";
+      setErrors(newErrors);
     } finally {
       setIsLoading(false);
     }

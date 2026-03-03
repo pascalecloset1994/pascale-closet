@@ -2,9 +2,24 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useProducts } from "../../contexts/ProductContext";
 import { useOrder } from "../../contexts/OrderContext";
+import type { Order } from "../../contexts/OrderContext";
 import { formatDate } from "../../utils/formatDate";
 import { useMemo } from "react";
-import { DollarSign, Package, CheckCircle, ShoppingBag, Plus, BarChart2, Clock } from 'lucide-react';
+import {
+  DollarSign,
+  Package,
+  CheckCircle,
+  ShoppingBag,
+  Plus,
+  Clock,
+} from "lucide-react";
+
+interface ProductSale {
+  id: string | number;
+  name: string;
+  sales: number;
+  revenue: number;
+}
 
 const SellerDashboard = () => {
   const { user } = useAuth();
@@ -12,43 +27,54 @@ const SellerDashboard = () => {
   const { sellerOrders, sellerStats, isLoading } = useOrder();
 
   // Calcular productos más vendidos basado en las órdenes
-  const topProducts = useMemo(() => {
+  const topProducts = useMemo<ProductSale[]>(() => {
     if (!sellerOrders || sellerOrders.length === 0) return [];
-    
+
     // Agrupar items de órdenes aprobadas por producto
-    const productSales = {};
-    
+    const productSales: Record<string, ProductSale> = {};
+
     sellerOrders
-      .filter(order => order.status === 'approved')
-      .forEach(order => {
+      .filter((order) => order.status === "approved")
+      .forEach((order) => {
         if (order.items && Array.isArray(order.items)) {
-          order.items.forEach(item => {
-            const productId = item.product_id || item.id;
+          order.items.forEach((item) => {
+            const productId = String(
+              (item as typeof item & { product_id?: string }).product_id ||
+                item.id,
+            );
             if (!productSales[productId]) {
               productSales[productId] = {
                 id: productId,
-                name: item.name || item.product_name || 'Producto',
+                name:
+                  item.name ||
+                  (item as typeof item & { product_name?: string })
+                    .product_name ||
+                  "Producto",
                 sales: 0,
                 revenue: 0,
               };
             }
             productSales[productId].sales += item.quantity || 1;
-            productSales[productId].revenue += (item.price || 0) * (item.quantity || 1);
+            productSales[productId].revenue +=
+              (item.price || 0) * (item.quantity || 1);
           });
         }
       });
 
-    // Convertir a array y ordenar por ventas
     return Object.values(productSales)
       .sort((a, b) => b.sales - a.sales)
       .slice(0, 5);
   }, [sellerOrders]);
 
   // Obtener órdenes recientes (últimas 5)
-  const recentOrders = useMemo(() => {
+  const recentOrders = useMemo<Order[]>(() => {
     if (!sellerOrders || sellerOrders.length === 0) return [];
     return [...sellerOrders]
-      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      .sort(
+        (a, b) =>
+          new Date(b.created_at ?? 0).getTime() -
+          new Date(a.created_at ?? 0).getTime(),
+      )
       .slice(0, 5);
   }, [sellerOrders]);
 
@@ -81,40 +107,63 @@ const SellerDashboard = () => {
             <div className="flex items-center justify-between mb-2">
               <DollarSign size={22} className="text-[#2C2420]" />
               <span className="text-[10px] text-[#2C2420] font-sans-elegant uppercase tracking-wide">
-                {sellerStats.approvedOrders > 0 ? 'Activo' : '-'}
+                {sellerStats.approvedOrders > 0 ? "Activo" : "-"}
               </span>
             </div>
-            <p className="text-xs text-[#7A6B5A] font-sans-elegant uppercase tracking-wide mb-1">Ventas Totales</p>
+            <p className="text-xs text-[#7A6B5A] font-sans-elegant uppercase tracking-wide mb-1">
+              Ventas Totales
+            </p>
             <p className="text-2xl font-sans-elegant text-[#2C2420]">
-              ${sellerStats.totalSales.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+              $
+              {sellerStats.totalSales.toLocaleString("es-AR", {
+                minimumFractionDigits: 2,
+              })}
             </p>
           </div>
 
           <div className="bg-white border border-[#E0D6CC] p-5">
             <div className="flex items-center justify-between mb-2">
               <Clock size={22} className="text-[#2C2420]" />
-              <span className="text-[10px] text-[#7A6B5A] font-sans-elegant uppercase tracking-wide">Pendiente</span>
+              <span className="text-[10px] text-[#7A6B5A] font-sans-elegant uppercase tracking-wide">
+                Pendiente
+              </span>
             </div>
-            <p className="text-xs text-[#7A6B5A] font-sans-elegant uppercase tracking-wide mb-1">Pedidos Pendientes</p>
-            <p className="text-2xl font-sans-elegant text-[#2C2420]">{sellerStats.pendingOrders}</p>
+            <p className="text-xs text-[#7A6B5A] font-sans-elegant uppercase tracking-wide mb-1">
+              Pedidos Pendientes
+            </p>
+            <p className="text-2xl font-sans-elegant text-[#2C2420]">
+              {sellerStats.pendingOrders}
+            </p>
           </div>
 
           <div className="bg-white border border-[#E0D6CC] p-5">
             <div className="flex items-center justify-between mb-2">
               <CheckCircle size={22} className="text-[#2C2420]" />
-              <span className="text-[10px] text-[#2C2420] font-sans-elegant uppercase tracking-wide">Completados</span>
+              <span className="text-[10px] text-[#2C2420] font-sans-elegant uppercase tracking-wide">
+                Completados
+              </span>
             </div>
-            <p className="text-xs text-[#7A6B5A] font-sans-elegant uppercase tracking-wide mb-1">Pedidos Aprobados</p>
-            <p className="text-2xl font-sans-elegant text-[#2C2420]">{sellerStats.approvedOrders}</p>
+            <p className="text-xs text-[#7A6B5A] font-sans-elegant uppercase tracking-wide mb-1">
+              Pedidos Aprobados
+            </p>
+            <p className="text-2xl font-sans-elegant text-[#2C2420]">
+              {sellerStats.approvedOrders}
+            </p>
           </div>
 
           <div className="bg-white border border-[#E0D6CC] p-5">
             <div className="flex items-center justify-between mb-2">
               <ShoppingBag size={22} className="text-[#2C2420]" />
-              <span className="text-[10px] text-[#7A6B5A] font-sans-elegant uppercase tracking-wide">Total</span>
+              <span className="text-[10px] text-[#7A6B5A] font-sans-elegant uppercase tracking-wide">
+                Total
+              </span>
             </div>
-            <p className="text-xs text-[#7A6B5A] font-sans-elegant uppercase tracking-wide mb-1">Productos</p>
-            <p className="text-2xl font-sans-elegant text-[#2C2420]">{sellerProducts.length}</p>
+            <p className="text-xs text-[#7A6B5A] font-sans-elegant uppercase tracking-wide mb-1">
+              Productos
+            </p>
+            <p className="text-2xl font-sans-elegant text-[#2C2420]">
+              {sellerProducts.length}
+            </p>
           </div>
         </div>
 
@@ -154,7 +203,9 @@ const SellerDashboard = () => {
           {/* Recent Orders */}
           <div className="bg-white border border-[#E0D6CC]">
             <div className="p-4 border-b border-[#E0D6CC]">
-              <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420]">Pedidos Recientes</h2>
+              <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420]">
+                Pedidos Recientes
+              </h2>
             </div>
             <div className="p-4">
               {isLoading ? (
@@ -168,7 +219,7 @@ const SellerDashboard = () => {
               ) : (
                 recentOrders.map((order) => (
                   <div
-                    key={order.id}
+                    key={String(order.id)}
                     className="border-b border-[#E0D6CC] py-3 last:border-b-0"
                   >
                     <div className="flex justify-between items-start mb-2">
@@ -176,13 +227,17 @@ const SellerDashboard = () => {
                         <p className="font-sans-elegant font-medium text-[#2C2420] text-sm">
                           #{order.order_number}
                         </p>
-                        <p className="text-xs text-[#7A6B5A] font-sans-elegant">{order.user_id}</p>
+                        <p className="text-xs text-[#7A6B5A] font-sans-elegant">
+                          {order.user_id}
+                        </p>
                       </div>
                       <div className="text-right">
                         <p className="font-sans-elegant text-[#2C2420]">
-                          ${Number(order.total).toLocaleString('es-AR')}
+                          ${Number(order.total).toLocaleString("es-AR")}
                         </p>
-                        <p className="text-[10px] text-[#7A6B5A] font-sans-elegant">{formatDate(order.updated_at)}</p>
+                        <p className="text-[10px] text-[#7A6B5A] font-sans-elegant">
+                          {formatDate(order.updated_at)}
+                        </p>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
@@ -191,8 +246,8 @@ const SellerDashboard = () => {
                           order.status === "pending"
                             ? "bg-[#F5F0EB] border border-[#E0D6CC] text-[#7A6B5A]"
                             : order.status === "approved"
-                            ? "bg-[#F5F0EB] border border-[#2C2420] text-[#2C2420]"
-                            : "bg-[#F5F0EB] border border-[#E0D6CC] text-[#7A6B5A]"
+                              ? "bg-[#F5F0EB] border border-[#2C2420] text-[#2C2420]"
+                              : "bg-[#F5F0EB] border border-[#E0D6CC] text-[#7A6B5A]"
                         }`}
                       >
                         {order.status}
@@ -218,7 +273,9 @@ const SellerDashboard = () => {
           {/* Top Products */}
           <div className="bg-white border border-[#E0D6CC]">
             <div className="p-4 border-b border-[#E0D6CC]">
-              <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420]">Más Vendidos</h2>
+              <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420]">
+                Más Vendidos
+              </h2>
             </div>
             <div className="p-4">
               {topProducts.length === 0 ? (
@@ -228,7 +285,7 @@ const SellerDashboard = () => {
               ) : (
                 topProducts.map((product, index) => (
                   <div
-                    key={product.id}
+                    key={String(product.id)}
                     className="border-b border-[#E0D6CC] py-3 last:border-b-0"
                   >
                     <div className="flex items-center gap-3">
@@ -236,14 +293,20 @@ const SellerDashboard = () => {
                         {index + 1}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-sans-elegant text-sm text-[#2C2420] truncate">{product.name}</p>
+                        <p className="font-sans-elegant text-sm text-[#2C2420] truncate">
+                          {product.name}
+                        </p>
                         <p className="text-[10px] text-[#7A6B5A] font-sans-elegant">
-                          {product.sales} {product.sales === 1 ? 'venta' : 'ventas'}
+                          {product.sales}{" "}
+                          {product.sales === 1 ? "venta" : "ventas"}
                         </p>
                       </div>
                       <div className="text-right">
                         <p className="font-sans-elegant text-[#2C2420]">
-                          ${product.revenue.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+                          $
+                          {product.revenue.toLocaleString("es-AR", {
+                            minimumFractionDigits: 2,
+                          })}
                         </p>
                       </div>
                     </div>

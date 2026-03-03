@@ -1,15 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.jsx";
-import { AuthProvider } from "./contexts/AuthContext.jsx";
-import { CartProvider } from "./contexts/CartContext.jsx";
-import { OrderProvider } from "./contexts/OrderContext.jsx";
-import { ProductProvider } from "./contexts/ProductContext.jsx";
-import { UserProvider } from "./contexts/UserContext.jsx";
-import { LocationProvider } from "./contexts/LocationContext.js";
+import App from "./App";
+import { AuthProvider } from "./contexts/AuthContext";
+import { CartProvider } from "./contexts/CartContext";
+import { OrderProvider } from "./contexts/OrderContext";
+import { ProductProvider } from "./contexts/ProductContext";
+import { UserProvider } from "./contexts/UserContext";
+import { LocationProvider } from "./contexts/LocationContext";
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <LocationProvider>
       <AuthProvider>

@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
-import { Menu, X, LogOut, Home, LayoutDashboard } from "lucide-react";
+import { Menu, X, LogOut, Home, LayoutDashboard, ChevronRight, ShoppingBag, Shirt, Truck, Loader, Tags } from "lucide-react";
 import { useProducts } from "../../contexts/ProductContext";
-import { ChevronRight, ShoppingBag, Shirt } from "lucide-react";
-import { Truck } from "lucide-react";
-import { Tags } from "lucide-react";
-import { Loader } from "lucide-react";
 import { normalize } from "../../utils/normalize";
+import type { User } from "../../types/global";
 
-const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }) => {
+interface HeaderProps {
+  isAuthenticated: boolean;
+  user: User | null;
+  userRole: string;
+  onLogout: () => void;
+  isLoading: boolean;
+}
+
+const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: HeaderProps) => {
   const { products } = useProducts();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { getCartItemsCount } = useCart();

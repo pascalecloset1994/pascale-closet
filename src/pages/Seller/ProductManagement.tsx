@@ -157,8 +157,10 @@ const ProductManagement = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredProducts?.map((product) => (
-                  <tr
+                {filteredProducts?.map((product, i) => {
+                  const images = JSON.parse(product.image || "[]");
+                  return (
+                    <tr
                     key={product.id}
                     className="border-b border-[#E0D6CC] hover:bg-[#F5F0EB] transition-colors duration-150"
                   >
@@ -167,7 +169,7 @@ const ProductManagement = () => {
                         <div className="w-12 h-12 bg-[#F5F0EB] border border-[#E0D6CC] flex items-center justify-center flex-shrink-0 overflow-hidden">
                           {product.image ? (
                             <img
-                              src={product.image}
+                              src={images[0]}
                               alt={product.name}
                               className="w-full h-full object-cover"
                             />
@@ -249,7 +251,8 @@ const ProductManagement = () => {
                       </div>
                     </td>
                   </tr>
-                ))}
+                  )
+                })}
               </tbody>
             </table>
           </div>

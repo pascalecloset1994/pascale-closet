@@ -9,27 +9,12 @@ import {
 import { initMercadoPago } from "@mercadopago/sdk-react";
 import { useAuth } from "./AuthContext";
 import { toast } from "../components/common/Toast";
-import type { DiscountContentProps } from "../types/global";
+import type { DiscountContentProps, Product } from "../types/global";
 import { showDialog } from "../components/common/Dialog";
 
-export interface CartItem {
-  id: string | number;
-  name: string;
-  price: number;
-  image?: string;
-  quantity: number;
-  stock?: number;
-  quantityAvailable?: number;
-  inventory?: number;
-  stockQty?: number;
-  qty?: number;
-  available?: number;
-  [key: string]: unknown;
-}
-
 interface CartContextType {
-  cartItems: CartItem[];
-  addToCart: (product: CartItem, quantity?: number) => boolean;
+  cartItems: Product[];
+  addToCart: (product: Product, quantity?: number) => boolean;
   removeFromCart: (productId: string | number) => void;
   updateQuantity: (productId: string | number, quantity: number) => boolean;
   clearCart: () => void;
@@ -42,7 +27,7 @@ interface CartContextType {
   MAX_PAYMENT: number;
   discount: number;
   setDiscount: (val: number | ((prev: number) => number)) => void;
-  getStockFromProduct: (p: CartItem | null) => number | null;
+  getStockFromProduct: (p: Product | null) => number | null;
   isLoading: boolean;
   discountContent: DiscountContentProps | null;
   updateDiscountContent: (form: DiscountContentProps) => Promise<void>;
@@ -52,9 +37,9 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | null>(null);
 
 // helper: detecta el campo de stock posible en un producto
-export const getStockFromProduct = (p: CartItem | null): number | null => {
+export const getStockFromProduct = (p: Product | null): number | null => {
   if (!p) return null;
-  const keys: (keyof CartItem)[] = [
+  const keys: (keyof Product)[] = [
     "stock",
     "quantityAvailable",
     "inventory",
@@ -84,7 +69,7 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<Product[]>([]);
   const { user } = useAuth();
   const [preferenceId, setPreferenceId] = useState<string | null>(null);
   const [loadingPayment, setLoadingPayment] = useState(false);
@@ -131,7 +116,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [cartItems]);
 
   // --- MÉTODOS DE CARRITO ---
-  const addToCart = (product: CartItem, quantity = 1): boolean => {
+  const addToCart = (product: Product, quantity = 1): boolean => {
     setIsLoading(true);
     if (!product || !product.id) {
       toast({ message: "Producto inválido" + product });
@@ -144,7 +129,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
       const existingQty = existingItem ? existingItem.quantity : 0;
 
-      if (typeof stock === "number" && existingQty + quantity > stock) {
+      if (typeof stock === "number" && existingQty! + quantity > stock) {
         toast({ message: "Excede stock disponible" });
         setIsLoading(false);
         return prevItems;
@@ -154,7 +139,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         setIsLoading(false);
         return prevItems.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
+            ? { ...item, quantity: item.quantity! + quantity }
             : item,
         );
       }
@@ -205,10 +190,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const clearCart = () => setCartItems([]);
 
   const getCartTotal = () =>
-    cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    cartItems.reduce((total, item) => total + item.price * item.quantity!, 0);
 
   const getCartItemsCount = () =>
-    cartItems.reduce((count, item) => count + item.quantity, 0);
+    cartItems.reduce((count, item) => count + item.quantity!, 0);
 
   const getDiscountContent = useCallback(async () => {
     try {

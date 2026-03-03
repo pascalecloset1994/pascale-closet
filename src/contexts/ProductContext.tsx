@@ -22,6 +22,7 @@ export interface Product {
   size?: string;
   color?: string;
   category?: string;
+  quantity?: number;
   image?: string;
   status?: string;
   user_id?: string;
@@ -57,7 +58,7 @@ interface ProductContextType {
   loading: boolean;
   error: string | null;
   fetchProducts: () => Promise<void>;
-  getProductById: (id: string | number) => Product | undefined;
+  getProductById: (id: string) => Product | undefined;
   createNewProduct: (newProduct: NewProduct) => Promise<void>;
   updateProduct: (
     productId: string | number,

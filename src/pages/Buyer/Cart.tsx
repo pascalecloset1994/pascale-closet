@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useCart, getStockFromProduct } from "../../contexts/CartContext";
 import { showDialog } from "../../components/common/Dialog";
-import { LockIcon } from "lucide-react";
-import { TruckElectricIcon } from "lucide-react";
-import { Tag } from "lucide-react";
+import { LockIcon, TruckElectricIcon, Tag } from "lucide-react";
+import type { Product } from "../../contexts/ProductContext";
 
 const Cart = () => {
   const {
@@ -78,105 +77,119 @@ const Cart = () => {
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="bg-white border border-[#E0D6CC]">
-              {cartItems.map((item, index) => (
-                <div
-                  key={item.id}
-                  className={`p-6 ${index !== cartItems.length - 1 ? "border-b border-[#E0D6CC]" : ""}`}
-                >
-                  <div className="sm:flex gap-6">
-                    {/* Product Image */}
-                    <div className="w-28 h-28 bg-[#F5F0EB] flex-shrink-0 flex items-center justify-center overflow-hidden">
-                      {item.image ? (
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <span className="text-3xl text-[#C9B8A8]">👗</span>
-                      )}
-                    </div>
+              {cartItems.map((item: Product, index: number) => {
+                const images: string[] = JSON.parse(item.image || "[]");
+                return (
+                  <div
+                    key={item.id}
+                    className={`p-6 ${index !== cartItems.length - 1 ? "border-b border-[#E0D6CC]" : ""}`}
+                  >
+                    <div className="sm:flex gap-6">
+                      {/* Product Image */}
+                      <div className="w-28 h-28 bg-[#F5F0EB] flex-shrink-0 flex items-center justify-center overflow-hidden">
+                        {item.image ? (
+                          <img
+                            src={images[0]}
+                            alt={item.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <span className="text-3xl text-[#C9B8A8]">👗</span>
+                        )}
+                      </div>
 
-                    {/* Product Info */}
-                    <div className="flex-1 mt-4 sm:mt-0">
-                      <Link
-                        to={`/product/${item.id}`}
-                        className="text-[#2C2420] hover:text-[#7A6B5A] font-sans-elegant text-sm uppercase tracking-wide transition-colors duration-300"
-                      >
-                        {item.name}
-                      </Link>
-                      <p className="text-xs text-[#7A6B5A] font-sans-elegant mt-1 tracking-wide uppercase">
-                        {item.condition === "new" ? "Nuevo" : "Pre-loved"}
-                      </p>
+                      {/* Product Info */}
+                      <div className="flex-1 mt-4 sm:mt-0">
+                        <Link
+                          to={`/product/${item.id}`}
+                          className="text-[#2C2420] hover:text-[#7A6B5A] font-sans-elegant text-sm uppercase tracking-wide transition-colors duration-300"
+                        >
+                          {item.name}
+                        </Link>
+                        <p className="text-xs text-[#7A6B5A] font-sans-elegant mt-1 tracking-wide uppercase">
+                          {item.condition === "new" ? "Nuevo" : "Pre-loved"}
+                        </p>
 
-                      <div className="flex items-center gap-6 mt-4">
-                        {/* Quantity Controls */}
-                        <div className="flex items-center border border-[#E0D6CC]">
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity - 1)
-                            }
-                            className="px-4 py-2 hover:bg-[#F5F0EB] text-[#2C2420] transition-colors duration-200"
-                          >
-                            −
-                          </button>
-                          <span className="px-5 py-2 border-x border-[#E0D6CC] font-sans-elegant text-[#2C2420]">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() => {
-                              const stock = getStockFromProduct(item);
-                              if (
-                                typeof stock === "number" &&
-                                item.quantity + 1 > stock
-                              ) {
-                                showDialog({
-                                  content: (
-                                    <div>
-                                      No hay suficiente stock disponible
-                                    </div>
-                                  ),
-                                });
-                                return;
+                        <div className="flex items-center gap-6 mt-4">
+                          {/* Quantity Controls */}
+                          <div className="flex items-center border border-[#E0D6CC]">
+                            <button
+                              onClick={() =>
+                                updateQuantity(
+                                  item.id,
+                                  (item.quantity ?? 1) - 1,
+                                )
                               }
-                              updateQuantity(item.id, item.quantity + 1);
-                            }}
-                            className={`px-4 py-2 hover:bg-[#F5F0EB] text-[#2C2420] transition-colors duration-200 ${
-                              typeof getStockFromProduct(item) === "number" &&
-                              item.quantity >= getStockFromProduct(item)
-                                ? "opacity-40 cursor-not-allowed"
-                                : ""
-                            }`}
-                            aria-disabled={
-                              typeof getStockFromProduct(item) === "number" &&
-                              item.quantity >= getStockFromProduct(item)
-                            }
+                              className="px-4 py-2 hover:bg-[#F5F0EB] text-[#2C2420] transition-colors duration-200"
+                            >
+                              −
+                            </button>
+                            <span className="px-5 py-2 border-x border-[#E0D6CC] font-sans-elegant text-[#2C2420]">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() => {
+                                const stock = getStockFromProduct(item);
+                                if (
+                                  typeof stock === "number" &&
+                                  (item.quantity ?? 0) + 1 > stock
+                                ) {
+                                  showDialog({
+                                    content: (
+                                      <div>
+                                        No hay suficiente stock disponible
+                                      </div>
+                                    ),
+                                  });
+                                  return;
+                                }
+                                updateQuantity(
+                                  item.id,
+                                  (item.quantity ?? 0) + 1,
+                                );
+                              }}
+                              className={`px-4 py-2 hover:bg-[#F5F0EB] text-[#2C2420] transition-colors duration-200 ${
+                                typeof getStockFromProduct(item) === "number" &&
+                                (item.quantity ?? 0) >=
+                                  (getStockFromProduct(item) ?? 0)
+                                  ? "opacity-40 cursor-not-allowed"
+                                  : ""
+                              }`}
+                              aria-disabled={
+                                typeof getStockFromProduct(item) === "number" &&
+                                (item.quantity ?? 0) >=
+                                  (getStockFromProduct(item) ?? 0)
+                              }
+                            >
+                              +
+                            </button>
+                          </div>
+
+                          <button
+                            onClick={() => removeFromCart(item.id)}
+                            className="text-[#7A6B5A] hover:text-[#2C2420] text-xs font-sans-elegant tracking-wide uppercase transition-colors duration-200"
                           >
-                            +
+                            Eliminar
                           </button>
                         </div>
+                      </div>
 
-                        <button
-                          onClick={() => removeFromCart(item.id)}
-                          className="text-[#7A6B5A] hover:text-[#2C2420] text-xs font-sans-elegant tracking-wide uppercase transition-colors duration-200"
-                        >
-                          Eliminar
-                        </button>
+                      {/* Price */}
+                      <div className="text-right mt-4 sm:mt-0">
+                        <p className="text-lg font-sans-elegant text-[#2C2420]">
+                          $
+                          {(
+                            item.price * (item.quantity ?? 1)
+                          ).toLocaleString("es-AR")}
+                        </p>
+                        <p className="text-xs text-[#7A6B5A] font-sans-elegant mt-1">
+                          ${item.price.toLocaleString("es-AR")} c/u
+                        </p>
                       </div>
                     </div>
-
-                    {/* Price */}
-                    <div className="text-right mt-4 sm:mt-0">
-                      <p className="text-lg font-sans-elegant text-[#2C2420]">
-                        ${(item.price * item.quantity).toLocaleString("es-AR")}
-                      </p>
-                      <p className="text-xs text-[#7A6B5A] font-sans-elegant mt-1">
-                        ${item.price.toLocaleString("es-AR")} c/u
-                      </p>
-                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -189,7 +202,9 @@ const Cart = () => {
 
               <div className="space-y-4 mb-8">
                 <div className="flex justify-between text-sm font-sans-elegant">
-                  <span className="text-[#7A6B5A]">Subtotal  ({cartItems.map(i => i.quantity)} unidades)</span>
+                  <span className="text-[#7A6B5A]">
+                    Subtotal ({cartItems.map((i) => i.quantity)} unidades)
+                  </span>
                   <span className="text-[#2C2420]">
                     ${getCartTotal().toLocaleString("es-CL")}
                   </span>
@@ -208,20 +223,23 @@ const Cart = () => {
                   </span>
                 </div>
 
-                {Number(discountContent && discountContent.discount) > 0 && (
-                  <div className="flex justify-between text-sm font-sans-elegant">
-                    <span className="text-[#7A6B5A] flex gap-1 items-center">
-                      <Tag size={14} />
-                      {Number(discountContent && discountContent.discount)}% OFF
-                    </span>
-                    <span className="text-[#2C2420]">
-                      $
-                      {((getCartTotal() * Number(discountContent && discountContent.discount)) / 100).toLocaleString(
-                        "es-CL",
-                      )}
-                    </span>
-                  </div>
-                )}
+                {discountContent?.discount_is_active &&
+                  Number(discountContent?.discount) > 0 && (
+                    <div className="flex justify-between text-sm font-sans-elegant">
+                      <span className="text-[#7A6B5A] flex gap-1 items-center">
+                        <Tag size={14} />
+                        {Number(discountContent?.discount)}% OFF
+                      </span>
+                      <span className="text-[#2C2420]">
+                        $
+                        {(
+                          (getCartTotal() *
+                            Number(discountContent?.discount)) /
+                          100
+                        ).toLocaleString("es-CL")}
+                      </span>
+                    </div>
+                  )}
 
                 {getCartTotal() < MAX_PAYMENT && (
                   <div className="bg-[#F5F0EB] border border-[#E0D6CC] p-2 text-pretty">
@@ -244,7 +262,10 @@ const Cart = () => {
                       $
                       {discount > 0
                         ? Math.floor(
-                            getCartTotal() - (getCartTotal() * Number(discountContent && discountContent.discount)) / 100,
+                            getCartTotal() -
+                              (getCartTotal() *
+                                Number(discountContent?.discount)) /
+                                100,
                           ).toLocaleString("es-CL")
                         : getCartTotal().toLocaleString("es-CL")}
                     </span>

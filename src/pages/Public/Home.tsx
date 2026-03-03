@@ -3,36 +3,47 @@ import { ProductCard } from "../../components/common/ProductCard";
 import { useProducts } from "../../contexts/ProductContext";
 import { Loader } from "../../components/common/Loader";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useState } from "react";
+import type { Swiper as SwiperType } from "swiper";
+import { useState, useEffect } from "react";
 import "swiper/css";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Truck, Package, Shirt } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Truck,
+  Package,
+  Shirt,
+} from "lucide-react";
 import { useUser } from "../../contexts/UserContext";
-import { useEffect } from "react";
 import { useCart } from "../../contexts/CartContext";
 
 export const Home = () => {
   const navigate = useNavigate();
   const { products, loading, error } = useProducts();
-  const [swiperRef, setSwiperRef] = useState(null);
-  const [swiperRef_2, setSwiperRef_2] = useState(null);
+  const [swiperRef, setSwiperRef] = useState<SwiperType | null>(null);
+  const [swiperRef2, setSwiperRef2] = useState<SwiperType | null>(null);
   const { heroData, footerData } = useUser();
   const [showAdd, setShowAdd] = useState(false);
   const { setDiscount, discount, discountContent } = useCart();
 
-  const newHires = Array.isArray(products) ? products
-    .sort(
-      (a, b) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-    )
-    .slice(0, 6) : [];
+  const newHires = Array.isArray(products)
+    ? products
+        .sort(
+          (a, b) =>
+            new Date(b.created_at ?? 0).getTime() -
+            new Date(a.created_at ?? 0).getTime(),
+        )
+        .slice(0, 6)
+    : [];
 
-  const bestSellerProduct = Array.isArray(products) ? products
-    .sort(
-      (a, b) =>
-        new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
-    )
-    .slice(0, 4) : [];
+  const bestSellerProduct = Array.isArray(products)
+    ? products
+        .sort(
+          (a, b) =>
+            new Date(a.created_at ?? 0).getTime() -
+            new Date(b.created_at ?? 0).getTime(),
+        )
+        .slice(0, 4)
+    : [];
 
   useEffect(() => {
     if (!discountContent?.discount_is_active || discount > 0) return;
@@ -42,7 +53,7 @@ export const Home = () => {
     );
 
     worker.postMessage(1000);
-    worker.onmessage = (event) => {
+    worker.onmessage = (event: MessageEvent<number>) => {
       const timer = event.data;
       if (timer === 5) {
         setShowAdd(true);
@@ -73,7 +84,7 @@ export const Home = () => {
       <section className="relative h-[70vh] md:h-[85vh] overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={heroData && heroData.hero_url_image}
+            src={heroData?.hero_url_image}
             alt="Pascale Closet Collection"
             className="w-full h-full object-cover"
           />
@@ -81,13 +92,13 @@ export const Home = () => {
         </div>
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
           <p className="text-white/90 font-sans-elegant text-xs tracking-[0.4em] uppercase mb-4">
-            {(heroData && heroData.hero_collection) || "Colección 2026"}
+            {heroData?.hero_collection || "Colección 2026"}
           </p>
           <h1 className="text-4xl md:text-6xl uppercase lg:text-7xl font-serif-display text-white mb-6 tracking-wide">
-            {(heroData && heroData.hero_title) || "Nueva Temporada"}
+            {heroData?.hero_title || "Nueva Temporada"}
           </h1>
           <p className="text-white/80 font-sans-elegant text-sm md:text-base mb-8 max-w-md">
-            {(heroData && heroData.hero_subtitle) ||
+            {heroData?.hero_subtitle ||
               "Descubrí las últimas tendencias en moda femenina"}
           </p>
           <button
@@ -235,7 +246,7 @@ export const Home = () => {
         </div>
         <div className="relative">
           <Swiper
-            onSwiper={setSwiperRef_2}
+            onSwiper={setSwiperRef2}
             slidesPerView={1}
             spaceBetween={4}
             breakpoints={{
@@ -261,14 +272,14 @@ export const Home = () => {
           {/* Flechas de navegación abajo a la derecha */}
           <div className="flex justify-end gap-2 mt-6">
             <button
-              onClick={() => swiperRef_2?.slidePrev()}
+              onClick={() => swiperRef2?.slidePrev()}
               className="w-10 h-10 border border-[#2C2420] flex items-center justify-center hover:bg-[#2C2420] hover:text-white transition-all duration-200"
               aria-label="Anterior"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
-              onClick={() => swiperRef_2?.slideNext()}
+              onClick={() => swiperRef2?.slideNext()}
               className="w-10 h-10 border border-[#2C2420] flex items-center justify-center hover:bg-[#2C2420] hover:text-white transition-all duration-200"
               aria-label="Siguiente"
             >
@@ -282,7 +293,9 @@ export const Home = () => {
         <picture>
           <img
             src={
-              (footerData && footerData.url_image) ||
+              (footerData as typeof footerData & { url_image?: string })
+                ?.url_image ||
+              footerData?.footer_url_image ||
               "/assets/pascale-mall.jpeg"
             }
             className="h-150 w-full object-cover aspect-square"
@@ -291,15 +304,21 @@ export const Home = () => {
         <div className="absolute top-0 left-0 w-full h-full bg-zinc-950/50" />
         <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-white w-full">
           <h3 className="font-semibold xl:text-6xl text-center text-4xl font-serif-display tracking-wide">
-            {(footerData && footerData.title) || "Mall Costanera Center"}
+            {(footerData as typeof footerData & { title?: string })?.title ||
+              footerData?.footer_title ||
+              "Mall Costanera Center"}
           </h3>
           <div className="text-center mt-6 space-y-1 xl:text-lg text-base">
             <p>
-              {(footerData && footerData.location) ||
+              {(footerData as typeof footerData & { location?: string })
+                ?.location ||
+                footerData?.footer_location ||
                 "Piso PB, Frente a Sally Beauty"}
             </p>
             <p>
-              {(footerData && footerData.schedule) ||
+              {(footerData as typeof footerData & { schedule?: string })
+                ?.schedule ||
+                footerData?.footer_schedule ||
                 "Lunes a Sábados de 10:00 a 21:00"}
             </p>
           </div>
@@ -366,11 +385,13 @@ export const Home = () => {
                     Oferta Exclusiva
                   </p>
                   <h3 className="text-white font-serif-display text-2xl sm:text-3xl tracking-wide uppercase">
-                    <span className="sm:hidden text-[#C4A574]">{discountContent && discountContent.discount}% </span>
+                    <span className="sm:hidden text-[#C4A574]">
+                      {discountContent?.discount}%{" "}
+                    </span>
                     Descuento
                   </h3>
                   <p className="text-white/60 font-sans-elegant text-xs mt-1">
-                    {discountContent && discountContent.discount_description}
+                    {discountContent?.discount_description}
                   </p>
                 </div>
               </div>

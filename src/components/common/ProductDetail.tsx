@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
-import { useProducts } from "../../contexts/ProductContext";
+import { Product, useProducts } from "../../contexts/ProductContext";
 import { ProductCard } from "./ProductCard";
-import { showDialog, closeDialog } from "./Dialog";
+import { showDialog } from "./Dialog";
 import {
   Star,
   Truck,
@@ -13,18 +13,18 @@ import {
   ZoomIn,
   ChevronLeft,
   ChevronRight,
-  X,
-  Check,
-  Copy,
+  X
 } from "lucide-react";
 import { useRef } from "react";
 import { TriangleAlert } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import { toast } from "./Toast";
 import { HeartCrack } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
 import { Tag } from "lucide-react";
+import { colorDetect } from "../../utils/colorDetect";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -32,22 +32,24 @@ const ProductDetail = () => {
   const { addToCart, MAX_PAYMENT, SHIPMENT_COST, discount, discountContent } = useCart();
   const { getProductById, products, loading, isFavorite, toggleFavorite } =
     useProducts();
+  const product = getProductById(id ?? "");
   const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [activeAccordion, setActiveAccordion] = useState("descripcion");
-  const [recentlyViewed, setRecentlyViewed] = useState([]);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [activeAccordion, setActiveAccordion] = useState<string | null>("descripcion");
+  const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
   const [isFav, setIsFav] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
   const showSizesRef = useRef(null);
-  const product = getProductById(id);
-  const [swiperRef, setSwiperRef] = useState(null);
+  const [swiperRef, setSwiperRef] = useState<SwiperType | null>(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const images = JSON.parse(product && product.image || "[]");
 
   // Guardar productos vistos recientemente
   useEffect(() => {
     if (product) {
       const viewed = JSON.parse(localStorage.getItem("recentlyViewed") || "[]");
-      const filtered = viewed.filter((p) => p.id !== product.id);
+      const filtered = viewed.filter((p: Product) => p.id !== product.id);
       const updated = [product, ...filtered].slice(0, 6);
       localStorage.setItem("recentlyViewed", JSON.stringify(updated));
       setRecentlyViewed(filtered.slice(0, 6));
@@ -75,71 +77,9 @@ const ProductDetail = () => {
     }
   }, [product, isFavorite]);
 
-  // Función para abrir imagen en dialog
-  const openImageDialog = () => {
-    const ZoomableImage = ({ src, alt }) => {
-      const [isZoomed, setIsZoomed] = useState(false);
-      const [position, setPosition] = useState({ x: 0, y: 0 });
-
-      const handleImageClick = (e) => {
-        if (!isZoomed) {
-          const { left, top, width, height } = e.target.getBoundingClientRect();
-          const x = ((e.clientX - left) / width) * 100;
-          const y = ((e.clientY - top) / height) * 100;
-          setPosition({ x, y });
-        }
-        setIsZoomed(!isZoomed);
-      };
-
-      const handleMouseMove = (e) => {
-        if (isZoomed) {
-          const { left, top, width, height } = e.target.getBoundingClientRect();
-          const x = ((e.clientX - left) / width) * 100;
-          const y = ((e.clientY - top) / height) * 100;
-          setPosition({ x, y });
-        }
-      };
-
-      return (
-        <div
-          className={`relative overflow-hidden cursor-zoom-in ${isZoomed ? "cursor-zoom-out" : ""}`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <img
-            src={src}
-            alt={alt}
-            onClick={handleImageClick}
-            onMouseMove={handleMouseMove}
-            className={`max-w-[90vw] max-h-[90vh] object-contain transition-transform duration-200 ${isZoomed ? "scale-[2]" : "scale-100"}`}
-            style={
-              isZoomed
-                ? { transformOrigin: `${position.x}% ${position.y}%` }
-                : {}
-            }
-          />
-        </div>
-      );
-    };
-
-    showDialog({
-      title: "",
-      content: (
-        <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/95">
-          <button
-            onClick={closeDialog}
-            className="absolute top-4 right-4 z-[999] w-10 h-10 bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors rounded-full"
-          >
-            <X className="w-6 h-6 text-white" />
-          </button>
-          <ZoomableImage src={product.image} alt={product.name} />
-        </section>
-      ),
-    });
-  };
-
   // Función para manejar favoritos
   const handleToggleFavorite = () => {
-    const result = toggleFavorite(product);
+    const result = toggleFavorite(product!);
     setIsFav(result);
     toast({
       timer: 4,
@@ -165,16 +105,84 @@ const ProductDetail = () => {
   // Función para compartir
   const handleShare = async () => {
     const url = window.location.href;
-    const text = `Mira este producto: ${product.name}`;
+    const text = `Mira este producto: ${product?.name}`;
 
     if (navigator.share) {
-      await navigator.share({ title: product.name, text, url });
+      await navigator.share({ title: product?.name, text, url });
     }
   };
 
   // Rating simulado
   const averageRating = 4.8;
   const reviewCount = 12;
+
+  const stockValue = Number(product?.stock) || 0;
+
+  const handleAddToCart = () => {
+    if (!selectedColor) {
+      showDialog({
+        content: <div>Debes elegir un color para tu prenda!</div>,
+      });
+      return;
+    } else if (!selectedSize) {
+      showDialog({
+        content: <div>Debes elegir un talle para tu prenda!</div>,
+      });
+      return;
+    }
+    addToCart(product!, quantity);
+    toast({
+      timer: 4,
+      tunner: 8,
+      message: (
+        <div className="flex gap-2 items-center">
+          <ShoppingBag />
+          Agregado en tu bolso:
+          <span className="font-semibold">{product!.name}</span> - Talla{" "}
+          {selectedSize}
+          <p>Color: {selectedColor}</p>
+        </div>
+      ),
+    });
+  };
+
+  const handleBuyNow = () => {
+    if (!selectedColor) {
+      showDialog({
+        content: <div>Debes elegir un color para tu prenda!</div>,
+      });
+      return;
+    } else if (!selectedSize) {
+      showDialog({
+        content: <div>Debes elegir un talle para tu prenda!</div>,
+      });
+      return;
+    }
+    addToCart(product!, quantity);
+    navigate("/cart");
+  };
+
+  const handleShowSizes = () => {
+    setShowSizes(!showSizes);
+  };
+
+  const toggleAccordion = (section: string) => {
+    setActiveAccordion(activeAccordion === section ? null : section);
+  };
+
+  const renderStars = (rating: number, size = "sm") => {
+    const sizeClass = size === "sm" ? "w-3 h-3" : "w-4 h-4";
+    return (
+      <div className="flex gap-0.5">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Star
+            key={star}
+            className={`${sizeClass} ${star <= rating ? "fill-[#2C2420] text-[#2C2420]" : "text-[#cec0b3]"}`}
+          />
+        ))}
+      </div>
+    );
+  };
 
   if (loading) {
     return (
@@ -207,86 +215,56 @@ const ProductDetail = () => {
     );
   }
 
-  const stockValue = Number(product.stock) || 0;
-
-  const handleAddToCart = () => {
-    if (!selectedColor) {
-      showDialog({
-        content: <div>Debes elegir un color para tu prenda!</div>,
-      });
-      return;
-    } else if (!selectedSize) {
-      showDialog({
-        content: <div>Debes elegir un talle para tu prenda!</div>,
-      });
-      return;
-    }
-    addToCart(product, quantity);
-    toast({
-      timer: 4,
-      tunner: 8,
-      message: (
-        <div className="flex gap-2 items-center">
-          <ShoppingBag />
-          Agregado en tu bolso:
-          <span className="font-semibold">{product.name}</span> - Talla{" "}
-          {selectedSize}
-          <p>Color: {selectedColor}</p>
-        </div>
-      ),
-    });
-  };
-
-  const handleBuyNow = () => {
-    if (!selectedColor) {
-      showDialog({
-        content: <div>Debes elegir un color para tu prenda!</div>,
-      });
-      return;
-    } else if (!selectedSize) {
-      showDialog({
-        content: <div>Debes elegir un talle para tu prenda!</div>,
-      });
-      return;
-    }
-    addToCart(product, quantity);
-    navigate("/cart");
-  };
-
-  const handleShowSizes = () => {
-    setShowSizes(!showSizes);
-  };
-
-  const toggleAccordion = (section) => {
-    setActiveAccordion(activeAccordion === section ? null : section);
-  };
-
-  const renderStars = (rating, size = "sm") => {
-    const sizeClass = size === "sm" ? "w-3 h-3" : "w-4 h-4";
+  if (openDialog) {
     return (
-      <div className="flex gap-0.5">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <Star
-            key={star}
-            className={`${sizeClass} ${star <= rating ? "fill-[#2C2420] text-[#2C2420]" : "text-[#cec0b3]"}`}
-          />
-        ))}
-      </div>
-    );
-  };
+      <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/95">
+        <button
+          onClick={() => setOpenDialog(false)}
+          className="absolute top-4 right-4 z-[999] w-10 h-10 bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors rounded-full"
+        >
+          <X className="w-6 h-6 text-white" />
+        </button>
+        <Swiper
+          onSwiper={setSwiperRef}
+          slidesPerView={1}
+          spaceBetween={1}
+          className="!pb-4"
+        >
+          {images.map((src: string) => (
+            <SwiperSlide>
+              <img
+                src={src}
+                alt={`alt`}
+                className={`max-w-[90vw] md:max-w-[50vw] max-h-[90vh] mx-auto justify-center object-contain transition-transform duration-200`}
+              />
 
-  const colorDetect = (color) => {
-    if (String(color).toLowerCase() === "negro") return "black";
-    if (String(color).toLowerCase() === "beige") return "#F5F5DC";
-    if (String(color).toLowerCase() === "blanco") return "white";
-    if (String(color).toLowerCase() === "azul") return "#A7C7E7";
-    if (String(color).toLowerCase() === "rojo") return "tomato";
-    if (String(color).toLowerCase() === "marron") return "brown";
-    if (String(color).toLowerCase() === "crema") return "#FFFDD0";
-    return "";
-  };
+            </SwiperSlide>
+          ))}
+          <div className="absolute top-1/2 -translate-y-1/2 right-3 z-999">
+            <button
+              onClick={() => swiperRef?.slideNext()}
+              className="w-10 h-10 flex items-center justify-center text-white hover:bg-accent-foreground/50 transition-all duration-200"
+              aria-label="Siguiente"
+            >
+              <ChevronRight size={52} />
+            </button>
+          </div>
+          <div className="absolute top-1/2 -translate-y-1/2 left-3 z-999">
+            <button
+              onClick={() => swiperRef?.slidePrev()}
+              className="w-10 h-10 flex items-center justify-center text-white hover:bg-accent-foreground/50 transition-all duration-200"
+              aria-label="Anterior"
+            >
+              <ChevronLeft size={52} />
+            </button>
+          </div>
+          <div>
 
-  const images = JSON.parse(product.image);
+          </div>
+        </Swiper>
+      </section>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
@@ -319,13 +297,8 @@ const ProductDetail = () => {
           <div className="space-y-4">
             <div
               className="relative aspect-square bg-[#F5F0EB] overflow-hidden group cursor-zoom-in max-w-md mx-auto lg:mx-0"
-              onClick={openImageDialog}
+              onClick={() => setOpenDialog(!openDialog)}
             >
-              {product.originalPrice && (
-                <span className="absolute top-4 left-4 z-10 bg-[#2C2420] text-white text-[10px] px-3 py-1.5 font-sans-elegant uppercase tracking-wider">
-                  Oferta
-                </span>
-              )}
               {product.image ? (
                 <img
                   src={images[0]}
@@ -388,28 +361,13 @@ const ProductDetail = () => {
                     $
                     {Math.round(
                       Number(product.price) -
-                        (Number(product.price) * Number(discountContent && discountContent.discount)) / 100,
+                      (Number(product.price) * Number(discountContent && discountContent.discount)) / 100,
                     )?.toLocaleString("es-AR")}{" "}
                   </span>
                   <span className="flex items-center text-sm bg-primary/10 p-0.5">
                     <Tag size={16} /> {discountContent && discountContent.discount}% OFF
                   </span>
                 </div>
-              )}
-
-              {product.originalPrice && (
-                <>
-                  <span className="text-lg text-[#7A6B5A] line-through font-sans-elegant">
-                    ${Number(product.originalPrice).toLocaleString("es-AR")}
-                  </span>
-                  <span className="text-xs bg-[#C9B8A8] text-[#2C2420] px-2 py-1 font-sans-elegant uppercase">
-                    -
-                    {Math.round(
-                      (1 - product.price / product.originalPrice) * 100,
-                    )}
-                    %
-                  </span>
-                </>
               )}
             </div>
 
@@ -423,16 +381,15 @@ const ProductDetail = () => {
               </p>
               <div className="flex gap-2">
                 {productColors.map((color) =>
-                  color === "negro y blanco" ? (
+                  color === "negro y blanco" || "blanco y negro" ? (
                     <button
                       key={color}
                       onClick={() => setSelectedColor(color)}
-                      className={`w-8 h-8 rounded-full border-2 transition-all relative overflow-hidden ${
-                        String(selectedColor).toLowerCase() ===
+                      className={`w-8 h-8 rounded-full border-2 transition-all relative overflow-hidden ${String(selectedColor).toLowerCase() ===
                         String(color).toLowerCase()
-                          ? "border-[#2C2420] scale-110"
-                          : "border-[#E0D6CC]"
-                      }`}
+                        ? "border-[#2C2420] scale-110"
+                        : "border-[#E0D6CC]"
+                        }`}
                     >
                       <span className="absolute top-0 left-0 bg-zinc-950 p-1 w-[50%] h-full"></span>
                       <span className="absolute top-0 right-0 bg-zinc-50 p-1 w-[50%] h-full"></span>
@@ -441,12 +398,11 @@ const ProductDetail = () => {
                     <button
                       key={color}
                       onClick={() => setSelectedColor(color)}
-                      className={`w-8 h-8 rounded-full border-2 transition-all ${
-                        String(selectedColor).toLowerCase() ===
+                      className={`w-8 h-8 rounded-full border-2 transition-all ${String(selectedColor).toLowerCase() ===
                         String(color).toLowerCase()
-                          ? "border-[#2C2420] scale-110"
-                          : "border-[#E0D6CC]"
-                      }`}
+                        ? "border-[#2C2420] scale-110"
+                        : "border-[#E0D6CC]"
+                        }`}
                       style={{ backgroundColor: colorDetect(color) }}
                       title={String(color).toUpperCase()}
                     />
@@ -476,11 +432,10 @@ const ProductDetail = () => {
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`w-12 h-12 border text-xs font-sans-elegant uppercase tracking-wider transition-all ${
-                      selectedSize === size
-                        ? "bg-[#2C2420] text-white border-[#2C2420]"
-                        : "border-[#E0D6CC] text-[#2C2420] hover:border-[#2C2420]"
-                    }`}
+                    className={`w-12 h-12 border text-xs font-sans-elegant uppercase tracking-wider transition-all ${selectedSize === size
+                      ? "bg-[#2C2420] text-white border-[#2C2420]"
+                      : "border-[#E0D6CC] text-[#2C2420] hover:border-[#2C2420]"
+                      }`}
                   >
                     {size}
                   </button>
@@ -608,11 +563,10 @@ const ProductDetail = () => {
               <div className="flex gap-3">
                 <button
                   onClick={handleToggleFavorite}
-                  className={`flex-1 py-3 border font-sans-elegant text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 ${
-                    isFav
-                      ? "border-[#C9B8A8] bg-[#FDF8F8] text-[#2C2420]"
-                      : "border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
-                  }`}
+                  className={`flex-1 py-3 border font-sans-elegant text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 ${isFav
+                    ? "border-[#C9B8A8] bg-[#FDF8F8] text-[#2C2420]"
+                    : "border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
+                    }`}
                 >
                   <Heart
                     className={`w-4 h-4 ${isFav ? "fill-[#C9B8A8] text-[#C9B8A8]" : ""}`}
@@ -638,7 +592,7 @@ const ProductDetail = () => {
                     {product.price > 60000
                       ? "Envío gratis"
                       : "Envío desde $" +
-                        Number(MAX_PAYMENT).toLocaleString("es-CL")}
+                      Number(MAX_PAYMENT).toLocaleString("es-CL")}
                   </p>
                   <p className="text-xs text-[#7A6B5A] font-sans-elegant">
                     Entrega estimada: 3-5 días hábiles
@@ -668,31 +622,28 @@ const ProductDetail = () => {
           <div className="flex border-b border-[#E0D6CC]">
             <button
               onClick={() => toggleAccordion("descripcion")}
-              className={`px-6 py-4 text-xs font-sans-elegant uppercase tracking-wider transition-colors border-b-2 -mb-[2px] ${
-                activeAccordion === "descripcion"
-                  ? "border-[#2C2420] text-[#2C2420]"
-                  : "border-transparent text-[#7A6B5A] hover:text-[#2C2420]"
-              }`}
+              className={`px-6 py-4 text-xs font-sans-elegant uppercase tracking-wider transition-colors border-b-2 -mb-[2px] ${activeAccordion === "descripcion"
+                ? "border-[#2C2420] text-[#2C2420]"
+                : "border-transparent text-[#7A6B5A] hover:text-[#2C2420]"
+                }`}
             >
               Descripción
             </button>
             <button
               onClick={() => toggleAccordion("detalles")}
-              className={`px-6 py-4 text-xs font-sans-elegant uppercase tracking-wider transition-colors border-b-2 -mb-[2px] ${
-                activeAccordion === "detalles"
-                  ? "border-[#2C2420] text-[#2C2420]"
-                  : "border-transparent text-[#7A6B5A] hover:text-[#2C2420]"
-              }`}
+              className={`px-6 py-4 text-xs font-sans-elegant uppercase tracking-wider transition-colors border-b-2 -mb-[2px] ${activeAccordion === "detalles"
+                ? "border-[#2C2420] text-[#2C2420]"
+                : "border-transparent text-[#7A6B5A] hover:text-[#2C2420]"
+                }`}
             >
               Detalles
             </button>
             <button
               onClick={() => toggleAccordion("envio")}
-              className={`px-6 py-4 text-xs font-sans-elegant uppercase tracking-wider transition-colors border-b-2 -mb-[2px] ${
-                activeAccordion === "envio"
-                  ? "border-[#2C2420] text-[#2C2420]"
-                  : "border-transparent text-[#7A6B5A] hover:text-[#2C2420]"
-              }`}
+              className={`px-6 py-4 text-xs font-sans-elegant uppercase tracking-wider transition-colors border-b-2 -mb-[2px] ${activeAccordion === "envio"
+                ? "border-[#2C2420] text-[#2C2420]"
+                : "border-transparent text-[#7A6B5A] hover:text-[#2C2420]"
+                }`}
             >
               Envío
             </button>

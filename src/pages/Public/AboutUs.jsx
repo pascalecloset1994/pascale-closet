@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 export const About = () => {
@@ -110,8 +110,8 @@ export const About = () => {
               <p className="text-xs text-[#7A6B5A] font-sans-elegant tracking-wider uppercase">Clientas felices</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-sans-elegant text-[#2C2420] mb-2">50+</p>
-              <p className="text-xs text-[#7A6B5A] font-sans-elegant tracking-wider uppercase">Vendedoras activas</p>
+              <p className="text-4xl font-sans-elegant text-[#2C2420] mb-2">140K+</p>
+              <p className="text-xs text-[#7A6B5A] font-sans-elegant tracking-wider uppercase">Seguidoras Instagram</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-sans-elegant text-[#2C2420] mb-2">100%</p>

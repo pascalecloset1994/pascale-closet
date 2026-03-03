@@ -1,4 +1,3 @@
-// frontend/src/pages/Public/SearchResults.jsx
 import { ProductCard } from "../../components/common/ProductCard";
 import { useProducts } from "../../contexts/ProductContext";
 import { useSearchParams, Link } from "react-router-dom";

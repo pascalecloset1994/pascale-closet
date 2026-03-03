@@ -7,23 +7,23 @@ import { toast } from "../../components/common/Toast";
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { recoveryPassword, isLoading, error } = useAuth();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     if (errors.email) setErrors({});
   };
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: Record<string, string> = {};
     if (!email) newErrors.email = "El email es requerido";
     else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = "Email inválido";
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
@@ -40,8 +40,8 @@ export const ForgotPassword = () => {
       }
 
       setIsSubmitted(true);
-    } catch (error) {
-      setErrors(error);
+    } catch (err: unknown) {
+      setErrors({ email: err instanceof Error ? err.message : "Error desconocido" });
     } 
   };
 

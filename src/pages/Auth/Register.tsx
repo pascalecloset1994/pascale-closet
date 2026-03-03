@@ -13,11 +13,11 @@ export const Register = () => {
     confirmPassword: "",
     role: "buyer",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { register, isLoading, refreshUser, error, user } = useAuth();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -32,7 +32,7 @@ export const Register = () => {
   };
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim()) {
       newErrors.name = "El nombre es requerido";
@@ -65,7 +65,7 @@ export const Register = () => {
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newErrors = validateForm();
@@ -73,10 +73,10 @@ export const Register = () => {
       setErrors(newErrors);
       return;
     }
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...sendData } = formData;
     
-    await register(sendData);
+    await register({ ...sendData, lastname: sendData.lastName });
     await refreshUser();
   };
 
