@@ -56,8 +56,8 @@ export const CreditCards = () => {
           <svg
             role="img"
             viewBox="0 0 24 24"
-            width={35.5}
-            height={22}
+            width={35}
+            height={21.5}
             fill="#0A0080"
             xmlns="http://www.w3.org/2000/svg"
           >
