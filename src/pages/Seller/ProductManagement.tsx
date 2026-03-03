@@ -78,57 +78,55 @@ const ProductManagement = () => {
                   d="M12 4v16m8-8H4"
                 />
               </svg>
-              Nuevo Producto
+              Nuevo <span className="hidden md:flex">Producto</span>
             </button>
           </Link>
         </div>
 
         {/* Filters */}
-        <div className="bg-white border border-[#E0D6CC] p-4 mb-5">
-          <div className="flex gap-2 flex-wrap">
-            <button
-              onClick={() => setFilter("all")}
-              className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${
-                filter === "all" || filter === ""
-                  ? "bg-[#2C2420] text-white"
-                  : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
-              }`}
-            >
-              Todos ({products?.length})
-            </button>
-            <button
-              onClick={() => setFilter("active")}
-              className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${
-                filter === "active"
-                  ? "bg-[#2C2420] text-white"
-                  : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
-              }`}
-            >
-              Activos ({products?.filter((p) => p.status === "Activo").length})
-            </button>
-            <button
-              onClick={() => setFilter("inactive")}
-              className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${
-                filter === "inactive"
-                  ? "bg-[#2C2420] text-white"
-                  : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
-              }`}
-            >
-              Inactivos (
-              {products?.filter((p) => p.status === "Inactivo").length})
-            </button>
-            <button
-              onClick={() => setFilter("out-of-stock")}
-              className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${
-                filter === "out-of-stock"
-                  ? "bg-[#2C2420] text-white"
-                  : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
-              }`}
-            >
-              Sin Stock ({products?.filter((p) => p.stock === 0).length})
-            </button>
+        <section className="overflow-hidden overflow-x-scroll md:overflow-x-auto mb-5">
+          <div className="bg-white border border-[#E0D6CC] p-4 w-128 md:w-full">
+            <div className="flex gap-2 flex-wrap">
+              <button
+                onClick={() => setFilter("all")}
+                className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "all" || filter === ""
+                    ? "bg-[#2C2420] text-white"
+                    : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
+                  }`}
+              >
+                Todos ({products?.length})
+              </button>
+              <button
+                onClick={() => setFilter("active")}
+                className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "active"
+                    ? "bg-[#2C2420] text-white"
+                    : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
+                  }`}
+              >
+                Activos ({products?.filter((p) => p.status === "Activo").length})
+              </button>
+              <button
+                onClick={() => setFilter("inactive")}
+                className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "inactive"
+                    ? "bg-[#2C2420] text-white"
+                    : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
+                  }`}
+              >
+                Inactivos (
+                {products?.filter((p) => p.status === "Inactivo").length})
+              </button>
+              <button
+                onClick={() => setFilter("out-of-stock")}
+                className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "out-of-stock"
+                    ? "bg-[#2C2420] text-white"
+                    : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
+                  }`}
+              >
+                Sin Stock ({products?.filter((p) => p.stock === 0).length})
+              </button>
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* Products Table */}
         <div className="bg-white border border-[#E0D6CC]">
@@ -161,96 +159,94 @@ const ProductManagement = () => {
                   const images = JSON.parse(product.image || "[]");
                   return (
                     <tr
-                    key={product.id}
-                    className="border-b border-[#E0D6CC] hover:bg-[#F5F0EB] transition-colors duration-150"
-                  >
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-[#F5F0EB] border border-[#E0D6CC] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                          {product.image ? (
-                            <img
-                              src={images[0]}
-                              alt={product.name}
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <svg
-                              className="w-5 h-5 text-[#C9B8A8]"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      key={product.id}
+                      className="border-b border-[#E0D6CC] hover:bg-[#F5F0EB] transition-colors duration-150"
+                    >
+                      <td className="p-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-12 h-12 bg-[#F5F0EB] border border-[#E0D6CC] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            {product.image ? (
+                              <img
+                                src={images[0]}
+                                alt={product.name}
+                                className="w-full h-full object-cover"
                               />
-                            </svg>
-                          )}
+                            ) : (
+                              <svg
+                                className="w-5 h-5 text-[#C9B8A8]"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={1.5}
+                                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                />
+                              </svg>
+                            )}
+                          </div>
+                          <div>
+                            <p className="font-sans-elegant font-medium text-sm text-[#2C2420] truncate">
+                              {product.name}
+                            </p>
+                            <p className="text-[10px] text-[#7A6B5A] font-sans-elegant">
+                              ID: {product.id}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-sans-elegant font-medium text-sm text-[#2C2420]">
-                            {product.name}
-                          </p>
-                          <p className="text-[10px] text-[#7A6B5A] font-sans-elegant">
-                            ID: {product.id}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="p-4">
-                      <span className="text-sm font-sans-elegant text-[#7A6B5A] capitalize">
-                        {product.category}
-                      </span>
-                    </td>
-                    <td className="p-4">
-                      <span className="font-sans-elegant font-medium text-[#2C2420]">
-                        ${product.price}
-                      </span>
-                    </td>
-                    <td className="p-4">
-                      <span
-                        className={`font-sans-elegant font-medium ${
-                          product.stock === 0
-                            ? "text-[#2C2420]"
-                            : product.stock && product.stock < 10
-                              ? "text-[#7A6B5A]"
-                              : "text-[#2C2420]"
-                        }`}
-                      >
-                        {product.stock}
-                      </span>
-                    </td>
-                    <td className="p-4">
-                      <span
-                        className={`px-2.5 py-1 text-[10px] font-sans-elegant font-medium tracking-wide ${
-                          product.status === "Activo"
-                            ? "bg-[#F5F0EB] text-[#2C2420] border border-[#2C2420]"
-                            : product.status === "Sin Stock"
-                              ? "bg-[#F5F0EB] text-[#7A6B5A] border border-[#E0D6CC]"
-                              : "bg-[#F5F0EB] text-[#7A6B5A] border border-[#E0D6CC]"
-                        }`}
-                      >
-                        {product.status}
-                      </span>
-                    </td>
-                    <td className="p-4">
-                      <div className="flex gap-2">
-                        <Link to={`/seller/products/edit/${product.id}`}>
-                          <button className="px-3 py-1.5 text-[11px] font-sans-elegant tracking-wide uppercase border border-[#2C2420] text-[#2C2420] hover:bg-[#2C2420] hover:text-white transition-all duration-200">
-                            Editar
-                          </button>
-                        </Link>
-                        <button
-                          onClick={() => handleDelete(product.id)}
-                          className="px-3 py-1.5 text-[11px] font-sans-elegant tracking-wide uppercase border border-[#2C2420] text-[#2C2420] hover:bg-[#2C2420] hover:text-white transition-all duration-200"
+                      </td>
+                      <td className="p-4">
+                        <span className="text-sm font-sans-elegant text-[#7A6B5A] capitalize">
+                          {product.category}
+                        </span>
+                      </td>
+                      <td className="p-4">
+                        <span className="font-sans-elegant font-medium text-[#2C2420]">
+                          ${product.price}
+                        </span>
+                      </td>
+                      <td className="p-4">
+                        <span
+                          className={`font-sans-elegant font-medium ${product.stock === 0
+                              ? "text-[#2C2420]"
+                              : product.stock && product.stock < 10
+                                ? "text-[#7A6B5A]"
+                                : "text-[#2C2420]"
+                            }`}
                         >
-                          Eliminar
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                          {product.stock}
+                        </span>
+                      </td>
+                      <td className="p-4">
+                        <span
+                          className={`px-2.5 py-1 text-[10px] font-sans-elegant font-medium tracking-wide ${product.status === "Activo"
+                              ? "bg-[#F5F0EB] text-[#2C2420] border border-[#2C2420]"
+                              : product.status === "Sin Stock"
+                                ? "bg-[#F5F0EB] text-[#7A6B5A] border border-[#E0D6CC]"
+                                : "bg-[#F5F0EB] text-[#7A6B5A] border border-[#E0D6CC]"
+                            }`}
+                        >
+                          {product.status}
+                        </span>
+                      </td>
+                      <td className="p-4">
+                        <div className="flex gap-2">
+                          <Link to={`/seller/products/edit/${product.id}`}>
+                            <button className="px-3 py-1.5 text-[11px] font-sans-elegant tracking-wide uppercase border border-[#2C2420] text-[#2C2420] hover:bg-[#2C2420] hover:text-white transition-all duration-200">
+                              Editar
+                            </button>
+                          </Link>
+                          <button
+                            onClick={() => handleDelete(product.id)}
+                            className="px-3 py-1.5 text-[11px] font-sans-elegant tracking-wide uppercase border border-[#2C2420] text-[#2C2420] hover:bg-[#2C2420] hover:text-white transition-all duration-200"
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
                   )
                 })}
               </tbody>

@@ -185,7 +185,10 @@ const ProductDetail = () => {
     );
   };
 
-  const cleanRecentlyProduct = () => localStorage.removeItem("recentlyViewed");
+  const cleanRecentlyProduct = () => {
+    localStorage.removeItem("recentlyViewed");
+    setRecentlyViewed([]);
+  };
 
   if (loading) {
     return (
