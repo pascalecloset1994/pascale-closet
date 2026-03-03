@@ -714,7 +714,7 @@ export const UserProfile = () => {
                   </span>
                 </div>
                 <form onSubmit={handleUpdate} className="p-6 sm:p-8">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                  <div className="felx felx-col space-y-2 md:space-y-0 md:grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                     <div>
                       <label className="block text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 font-bold">
                         Nombre

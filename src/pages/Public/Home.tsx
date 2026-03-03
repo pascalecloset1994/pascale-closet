@@ -27,22 +27,22 @@ export const Home = () => {
 
   const newHires = Array.isArray(products)
     ? products
-        .sort(
-          (a, b) =>
-            new Date(b.created_at ?? 0).getTime() -
-            new Date(a.created_at ?? 0).getTime(),
-        )
-        .slice(0, 6)
+      .sort(
+        (a, b) =>
+          new Date(b.created_at ?? 0).getTime() -
+          new Date(a.created_at ?? 0).getTime(),
+      )
+      .slice(0, 6)
     : [];
 
   const bestSellerProduct = Array.isArray(products)
     ? products
-        .sort(
-          (a, b) =>
-            new Date(a.created_at ?? 0).getTime() -
-            new Date(b.created_at ?? 0).getTime(),
-        )
-        .slice(0, 4)
+      .sort(
+        (a, b) =>
+          new Date(a.created_at ?? 0).getTime() -
+          new Date(b.created_at ?? 0).getTime(),
+      )
+      .slice(0, 4)
     : [];
 
   useEffect(() => {
@@ -292,34 +292,21 @@ export const Home = () => {
       <section className="relative">
         <picture>
           <img
-            src={
-              (footerData as typeof footerData & { url_image?: string })
-                ?.url_image ||
-              footerData?.footer_url_image ||
-              "/assets/pascale-mall.jpeg"
-            }
+            src={footerData?.footer_url_image || "/assets/pascale-mall.jpeg"}
             className="h-150 w-full object-cover aspect-square"
           />
         </picture>
         <div className="absolute top-0 left-0 w-full h-full bg-zinc-950/50" />
         <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-white w-full">
           <h3 className="font-semibold xl:text-6xl text-center text-4xl font-serif-display tracking-wide">
-            {(footerData as typeof footerData & { title?: string })?.title ||
-              footerData?.footer_title ||
-              "Mall Costanera Center"}
+            {footerData?.footer_title || "Mall Costanera Center"}
           </h3>
           <div className="text-center mt-6 space-y-1 xl:text-lg text-base">
             <p>
-              {(footerData as typeof footerData & { location?: string })
-                ?.location ||
-                footerData?.footer_location ||
-                "Piso PB, Frente a Sally Beauty"}
+              {footerData?.footer_location || "Piso PB, Frente a Sally Beauty"}
             </p>
             <p>
-              {(footerData as typeof footerData & { schedule?: string })
-                ?.schedule ||
-                footerData?.footer_schedule ||
-                "Lunes a Sábados de 10:00 a 21:00"}
+              {footerData?.footer_schedule || "Lunes a Sábados de 10:00 a 21:00"}
             </p>
           </div>
         </div>
