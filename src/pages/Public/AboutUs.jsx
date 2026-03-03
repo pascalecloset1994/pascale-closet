@@ -1,29 +1,6 @@
-import { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export const About = () => {
-  const location = useLocation();
-  
-  // Scroll to hash on mount or hash change
-  useEffect(() => {
-    const hash = location.hash;
-    if (hash) {
-      setTimeout(() => {
-        const element = document.querySelector(hash);
-        if (element) {
-          const headerOffset = 100;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }, 100);
-    }
-  }, [location.hash]);
-  
+export const About = () => { 
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
       {/* Hero Section */}
