@@ -932,7 +932,7 @@ export const UserProfile = () => {
                     <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-[#2C2420]">
                       Personalizar Portada
                     </h3>
-                    <small className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded text-[10px] md:text-[12px]">
+                    <small className="text-yellow-800 rounded text-[10px] md:text-[12px]">
                       Actualizada el {formatDate(heroData.hero_updated_at, true)}
                     </small>
                   </div>
@@ -959,7 +959,7 @@ export const UserProfile = () => {
                     Personalizar Pié de Página
                   </h3>
                   {footerData?.footer_updated_at && (
-                    <small className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded text-[10px] md:text-[12px]">
+                    <small className="text-yellow-800 rounded text-[10px] md:text-[12px]">
                       Actualizada el {formatDate(footerData.footer_updated_at, true)}
                     </small>
                   )}
@@ -987,7 +987,7 @@ export const UserProfile = () => {
                     Personalizar Tarjeta de Descuento
                   </h3>
                   {discountFormData?.discount_updated_at && (
-                    <small className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded text-[10px] md:text-[12px]">
+                    <small className="text-yellow-800 rounded text-[10px] md:text-[12px]">
                       Actualizada el{" "}
                       {formatDate(discountFormData.discount_updated_at, true)}
                     </small>
