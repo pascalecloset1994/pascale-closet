@@ -339,7 +339,9 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 {isTabOpen && (
                   <div className="grid grid-cols-3 gap-1">
                     {cleanedProducts
-                      ? cleanedProducts.map((product) => (
+                      ? cleanedProducts.map((product) => {
+                        const images = JSON.parse(product.image || "[]");
+                        return (
                           <Link
                             key={product.id}
                             to={`/product/category/${product.category}`}
@@ -349,7 +351,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                             <picture className="relative hover:brightness-125 hover:scale-101">
                               <div className="absolute top-0 left-0 w-full h-full bg-zinc-950/50" />
                               <img
-                                src={`${product.image}`}
+                                src={`${images[0]}`}
                                 width={80}
                                 height={80}
                                 className="aspect-[2/4] object-cover"
@@ -359,7 +361,8 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                               </small>
                             </picture>
                           </Link>
-                        ))
+                        )
+                      })
                       : null}
                   </div>
                 )}

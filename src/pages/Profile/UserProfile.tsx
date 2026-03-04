@@ -401,7 +401,7 @@ export const UserProfile = () => {
     <div className="min-h-screen bg-[#FAF8F5] pb-12 overflow-hidden">
       {/* --- Cover Image Section (Like a Social Profile) --- */}
       <div className="bg-white border-b border-[#E0D6CC]">
-        <div className="relative h-48 md:h-64 w-full bg-[#E8E2DB] overflow-hidden">
+        <div className="relative h-40 md:h-52 w-full bg-[#E8E2DB] overflow-hidden">
           {/* Cover gradient/pattern */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#C9B8A8] via-[#A69580] to-[#8B7355] opacity-20"></div>
           <div
@@ -681,7 +681,8 @@ export const UserProfile = () => {
             </div>
 
             {/* Danger Zone Card */}
-            <div className="bg-white border border-[#E0D6CC] p-6 overflow-hidden relative">
+            {user && user.role === "buyer" && (
+              <div className="bg-white border border-[#E0D6CC] p-6 overflow-hidden relative">
               <div className="absolute top-0 left-0 w-1 h-full bg-red-500/50"></div>
               <h3 className="font-sans-elegant text-sm text-[#2C2420] font-bold mb-4 uppercase tracking-wider flex items-center gap-2">
                 <Trash2 size={16} className="text-red-500" />
@@ -698,6 +699,7 @@ export const UserProfile = () => {
                 Eliminar Cuenta
               </button>
             </div>
+            )}
           </div>
 
           {/* Right Column: Feed / Forms / Favorites */}
