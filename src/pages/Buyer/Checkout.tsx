@@ -444,7 +444,7 @@ export const Checkout = () => {
                   </span>
                 </div>
 
-                {Number(discountContent?.discount) > 0 && (
+                {discountContent?.discount_is_active && Number(discountContent?.discount) > 0 && (
                   <div className="flex justify-between text-sm font-sans-elegant">
                     <span className="text-[#7A6B5A] flex gap-1 items-center">
                       <Tag size={14} />

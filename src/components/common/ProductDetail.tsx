@@ -387,7 +387,7 @@ const ProductDetail = () => {
               </p>
               <div className="flex gap-2">
                 {productColors.map((color) =>
-                  color === "negro y blanco" || "blanco y negro" ? (
+                  color === "negro y blanco" ? (
                     <button
                       key={color}
                       onClick={() => setSelectedColor(color)}
