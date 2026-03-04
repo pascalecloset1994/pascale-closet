@@ -37,7 +37,7 @@ export const showDialog = ({ content, title }: ShowDialogProps) => {
   root.render(
     <div className="relative">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-2 border-b border-[#E0D6CC] bg-white">
+      <div className="flex items-center justify-between px-6 py-1 border-b border-[#E0D6CC] bg-white">
         <h3 className="font-sans-elegant text-sm uppercase tracking-wider text-[#2C2420]">
           {title || "Pascale Closet"}
         </h3>

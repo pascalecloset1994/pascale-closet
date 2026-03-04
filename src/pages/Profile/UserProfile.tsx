@@ -166,10 +166,7 @@ export const UserProfile = () => {
     });
   };
 
-  const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
+  const checkFile = (file: File) => {
     if (!file.type.startsWith("image/")) {
       showDialog({
         title: "Error",
@@ -193,6 +190,12 @@ export const UserProfile = () => {
       });
       return;
     }
+  }
+
+  const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    checkFile(file);
     setAvatarPreview(URL.createObjectURL(file));
     saveRef &&
       saveRef.current?.scrollIntoView({
@@ -205,31 +208,7 @@ export const UserProfile = () => {
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-      showDialog({
-        title: "Error",
-        content: (
-          <p className="text-[#7A6B5A] font-sans-elegant">
-            Por favor selecciona un archivo de imagen válido.
-          </p>
-        ),
-      });
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      showDialog({
-        title: "Error",
-        content: (
-          <p className="text-[#7A6B5A] font-sans-elegant">
-            La imagen no debe superar los 5MB.
-          </p>
-        ),
-      });
-      return;
-    }
-
+    checkFile(file);
     setHeroPreview(URL.createObjectURL(file));
     setHeroFormData((prev) => ({ ...prev, heroUrlImage: file }));
   };
