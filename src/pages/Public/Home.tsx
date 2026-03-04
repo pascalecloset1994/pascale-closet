@@ -133,7 +133,7 @@ export const Home = () => {
               768: { slidesPerView: 3 },
               1024: { slidesPerView: 4 },
             }}
-            className="!pb-4"
+            className="!pb-4 !overflow-visible"
           >
             {newHires && newHires.length > 0 ? (
               newHires.map((product) => (
@@ -254,7 +254,7 @@ export const Home = () => {
               768: { slidesPerView: 3 },
               1024: { slidesPerView: 4 },
             }}
-            className="!pb-4"
+            className="!pb-4 !overflow-visible"
           >
             {bestSellerProduct && bestSellerProduct.length > 0 ? (
               bestSellerProduct.map((product) => (
