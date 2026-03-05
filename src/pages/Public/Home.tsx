@@ -79,7 +79,7 @@ export const Home = () => {
   return (
     <div
       onClick={() => setShowAdd(false)}
-      className="min-h-screen bg-[#FAF8F5]"
+      className="min-h-screen bg-[#FAF8F5] overflow-x-hidden"
     >
       <section className="relative h-[70vh] md:h-[85vh] overflow-hidden">
         <div className="absolute inset-0">

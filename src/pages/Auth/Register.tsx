@@ -12,6 +12,7 @@ export const Register = () => {
     password: "",
     confirmPassword: "",
     role: "buyer",
+    acceptTerms: false
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { register, isLoading, refreshUser, error, user } = useAuth();
