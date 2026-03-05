@@ -221,7 +221,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
       </div>
 
       {/* Categories bar - Elegant */}
-      <nav className="bg-[#FAF8F5] overflow-hidden flex mt-18 md:mt-0 border-b border-border">
+      <nav data-nosnippet className="bg-[#FAF8F5] overflow-hidden flex mt-18 md:mt-0 border-b border-border">
         <div className="max-w-6xl mx-auto flex text-xs font-sans-elegant tracking-[0.15em] uppercase text-[#2C2420] overflow-x-auto whitespace-nowrap">
           {categories.map((category) => {
             return (
@@ -237,7 +237,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
         </div>
       </nav>
 
-      <div className="bg-[#2C2420] text-white text-center py-2 text-xs tracking-wider font-sans-elegant flex items-center justify-center gap-2">
+      <div data-nosnippet className="bg-[#2C2420] text-white text-center py-2 text-xs tracking-wider font-sans-elegant flex items-center justify-center gap-2">
         <span>ENVÍO GRATIS A PARTIR DE $60.000</span>
         <Truck className="inline w-4 h-4 mb-[2px]" />
       </div>
