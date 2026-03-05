@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const Button = ({ 
+interface ButtonProps {
+  children: ReactNode;
+  onClick?: () => void;
+  variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'outline';
+  size?: 'small' | 'medium' | 'large';
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  className?: string;
+}
+
+const Button: React.FC<ButtonProps> = ({ 
   children, 
   onClick, 
   variant = 'primary', 
