@@ -147,7 +147,9 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
 
       const data = await response.json();
 
-      setProducts(data);
+      // Asegurar que siempre es un array
+      const productsList = Array.isArray(data) ? data : (data.products || data.data || []);
+      setProducts(productsList);
       setError(null);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Error desconocido";

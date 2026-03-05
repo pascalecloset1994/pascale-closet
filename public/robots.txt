@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Desallow private routes if any
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://pascalecloset.com/sitemap.xml
