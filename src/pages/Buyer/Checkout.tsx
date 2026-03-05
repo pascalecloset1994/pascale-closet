@@ -7,6 +7,12 @@ import { Loader2, TruckElectricIcon, Tag, ShieldCheckIcon } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useUser } from "../../contexts/UserContext";
 import { CreditCardsBgTransparent } from "../../components/common/CreditCards";
+import { 
+  validateShippingData,
+  validateField,
+  shippingSchema,
+  type ValidationErrors 
+} from "../../utils/checkoutValidation";
 
 interface CheckoutFormData {
   firstName: string;
@@ -23,8 +29,6 @@ interface CheckoutFormData {
   expiryDate: string;
   cvv: string;
 }
-
-type FormErrors = Partial<Record<keyof CheckoutFormData, string>>;
 
 export const Checkout = () => {
   const { user } = useAuth();
@@ -59,7 +63,7 @@ export const Checkout = () => {
     cvv: "",
   });
 
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<ValidationErrors>({});
   const [step, setStep] = useState(1); // 1: Shipping, 2: Payment, 3: Review
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +72,8 @@ export const Checkout = () => {
       ...prev,
       [name]: value,
     }));
+    
+    // Limpiar el error actual al escribir
     if (errors[name as keyof CheckoutFormData]) {
       setErrors((prev) => ({
         ...prev,
@@ -76,26 +82,33 @@ export const Checkout = () => {
     }
   };
 
-  const validateShipping = (): FormErrors => {
-    const newErrors: FormErrors = {};
-    if (!formData.firstName.trim()) newErrors.firstName = "Requerido";
-    if (!formData.lastName.trim()) newErrors.lastName = "Requerido";
-    if (!formData.email.trim()) newErrors.email = "Requerido";
-    if (!formData.phone.trim()) newErrors.phone = "Requerido";
-    if (!formData.address.trim()) newErrors.address = "Requerido";
-    if (!formData.city.trim()) newErrors.city = "Requerido";
-    if (!formData.state.trim()) newErrors.state = "Requerido";
-    if (!formData.zipCode.trim()) newErrors.zipCode = "Requerido";
-    return newErrors;
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // Validar campo individual al perder el foco
+    const fieldError = validateField(name as keyof CheckoutFormData, value, shippingSchema);
+    if (fieldError) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: fieldError,
+      }));
+    }
   };
 
   const handleNextStep = () => {
     if (step === 1) {
-      const newErrors = validateShipping();
-      if (Object.keys(newErrors).length > 0) {
-        setErrors(newErrors);
+      const validationErrors = validateShippingData(formData);
+      console.log('Validation errors:', validationErrors);
+      console.log('Form data:', formData);
+      
+      if (validationErrors) {
+        setErrors(validationErrors);
+        // Scroll al primer error
+        const firstErrorField = Object.keys(validationErrors)[0];
+        const errorElement = document.getElementsByName(firstErrorField)[0];
+        errorElement?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
+      setErrors({});
       setStep(2);
 
       if (!formData.address || !formData.phone || !formData.state) {
@@ -265,7 +278,7 @@ export const Checkout = () => {
                       onChange={handleChange}
                       disabled
                     />
-                    <small className="text-destructive">* Campos oblogatorios</small>
+               
                   </div>
                   <Button
                     variant="primary"

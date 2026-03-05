@@ -38,11 +38,11 @@ const Input = ({
         value={value}
         onChange={onChange}
         required={required}
-        className={`w-full px-4 py-3 border border-[#E0D6CC] bg-white focus:border-[#2C2420] focus:ring-0 focus:outline-none transition-all duration-200 font-sans-elegant text-[#2C2420] placeholder:text-[#7A6B5A] ${error ? "border-[#2C2420]" : ""} ${className}`}
+        className={`w-full px-4 py-3 border border-[#E0D6CC] bg-white focus:border-[#2C2420] focus:ring-0 focus:outline-none transition-all duration-200 font-sans-elegant text-[#2C2420] placeholder:text-[#7A6B5A] ${error ? "border-red-500 focus:border-red-500" : ""} ${className}`}
       />
       {error && (
         <p className="text-red-500 text-xs mt-2 font-sans-elegant">
-          {(error as Error).message}
+          {typeof error === 'string' ? error : error.message}
         </p>
       )}
       {type === "password" && (
