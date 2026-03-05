@@ -13,6 +13,7 @@ import {
   Plus,
   Clock,
 } from "lucide-react";
+import { getStatusLabel } from "../../utils/orderStatus";
 
 interface ProductSale {
   id: string | number;
@@ -78,7 +79,6 @@ const SellerDashboard = () => {
       .slice(0, 5);
   }, [sellerOrders]);
 
-  console.log(sellerStats)
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] py-8">
@@ -247,15 +247,15 @@ const SellerDashboard = () => {
                         className={`text-[10px] px-2 py-1 font-sans-elegant uppercase tracking-wide ${order.status === "pending"
                             ? "bg-[#F5F0EB] border border-[#E0D6CC] text-[#7A6B5A]"
                             : order.status === "approved"
-                              ? "bg-[#F5F0EB] border border-[#2C2420] text-[#2C2420]"
+                              ? "bg-[#eff5eb] border border-[#2C2420] text-[#2C2420]"
                               : "bg-[#F5F0EB] border border-[#E0D6CC] text-[#7A6B5A]"
                           }`}
                       >
-                        {order.status}
+                        {getStatusLabel(order.status)}
                       </span>
-                      <button className="text-xs text-[#2C2420] hover:underline font-sans-elegant">
+                      <Link to={`/seller/orders/${order.id}`} className="text-xs text-[#2C2420] hover:underline font-sans-elegant">
                         Ver detalles
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 ))

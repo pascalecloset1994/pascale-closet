@@ -55,7 +55,7 @@ export const AllProducts = () => {
 
   // Filtrado usando la columna `category` del producto
   const filtered = activeSlug
-    ? products.filter((product) => activeSlug.includes(product.category!))
+    ? Array.isArray(products) && products.filter((product) => activeSlug.includes(product.category!))
     : products;
 
   // Paginación

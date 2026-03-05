@@ -96,15 +96,12 @@ const SellerOrderHistory = () => {
       <div className="max-w-6xl mx-auto px-4">
         <Link
           to="/seller/dashboard"
-          className="flex gap-1 items-center text-base mb-3 hover:underline group"
+          className="inline-flex items-center gap-2 text-[#7A6B5A] hover:text-[#2C2420] font-sans-elegant text-sm mb-8 transition-colors"
         >
-          <ArrowLeft
-            size={20}
-            className="group-hover:-translate-x-0.5 transition-transform"
-          />
-          <span>Volver</span>
+          <ArrowLeft size={16} />
+          <span>Volver al panel</span>
         </Link>
-        <h1 className="text-2xl md:text-3xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-8 text-center">
+        <h1 className="text-2xl md:text-3xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-8">
           Pedidos de Clientes
         </h1>
 

@@ -20,7 +20,7 @@ import { useCart } from "../../contexts/CartContext";
 
 const OrderDetail = () => {
   const { id } = useParams();
-  const { orders, deleteOrderById, refreshOrders } = useOrder();
+  const { orders, deleteOrderById } = useOrder();
   const { getCartTotal, MAX_PAYMENT, SHIPMENT_COST } = useCart();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
@@ -109,7 +109,6 @@ const OrderDetail = () => {
               onClick={async () => {
                 await deleteOrderById(order.id);
                 closeDialog();
-                await refreshOrders();
               }}
               className="px-5 py-2.5 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-wide uppercase hover:bg-[#333333] transition-all duration-200"
             >

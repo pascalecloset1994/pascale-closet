@@ -343,7 +343,7 @@ const ProductForm = () => {
                 value={formData.description}
                 onChange={handleChange}
                 rows={3}
-                className={`w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#2C2420] focus:ring-1 focus:ring-[#2C2420] outline-none transition-all duration-200 text-sm ${errors.description ? "border-[#2C2420]" : ""
+                className={`w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#2C2420] focus:ring-1 focus:ring-[#2C2420] outline-none transition-all duration-200 text-sm field-sizing-content ${errors.description ? "border-[#2C2420]" : ""
                   }`}
               />
               {errors.description && (
