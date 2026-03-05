@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useProducts } from "../../contexts/ProductContext";
 import { closeDialog, showDialog } from "../../components/common/Dialog";
+import Button from "../../components/common/Button";
+import { ArrowLeft } from "lucide-react";
 
 const ProductManagement = () => {
   const {
@@ -54,6 +56,10 @@ const ProductManagement = () => {
     <div className="min-h-screen bg-[#FAF8F5] py-8">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
+         <Link to={"/seller/dashboard"} className="flex gap-1 items-center text-base mb-3 hover:underline group">
+            <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
+            <span>Volver</span>
+          </Link>
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-[#2C2420]">

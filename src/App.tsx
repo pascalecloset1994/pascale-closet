@@ -35,6 +35,8 @@ import OrderDetail from "./pages/Buyer/OrderDetail";
 import SellerDashboard from "./pages/Seller/SellerDashboard";
 import ProductManagement from "./pages/Seller/ProductManagement";
 import ProductForm from "./pages/Seller/ProductForm";
+import SellerOrderHistory from "./pages/Seller/SellerOrderHistory";
+import SellerOrderDetail from "./pages/Seller/SellerOrderDetail";
 
 import "./App.css";
 import { ProtectedRoute } from "./components/ProtectedRoutes";
@@ -146,7 +148,15 @@ function App() {
             path="/seller/orders"
             element={
               <ProtectedRoute allowedRole="seller">
-                <OrderHistory />
+                <SellerOrderHistory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/seller/orders/:id"
+            element={
+              <ProtectedRoute allowedRole="seller">
+                <SellerOrderDetail />
               </ProtectedRoute>
             }
           />

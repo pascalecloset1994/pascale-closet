@@ -82,9 +82,11 @@ export const Register = () => {
   };
 
   if (user !== null && user.role === "seller") {
-    return navigate("/seller/dashboard");
+    navigate("/seller/dashboard");
+    return null;
   } else if (user && user.role === "buyer") {
-    return navigate("/buyer/orders");
+    navigate("/buyer/orders");
+    return null;
   }
 
   return (

@@ -652,7 +652,7 @@ export const UserProfile = () => {
                       <p className="text-xs text-[#7A6B5A] uppercase tracking-wider font-semibold">
                         Dirección
                       </p>
-                      <p className="text-[#2C2420]">{user.address}</p>
+                      <p className="text-[#2C2420]">{user.address || "Sin confirmar"}</p>
                     </div>
                   </div>
                 </div>

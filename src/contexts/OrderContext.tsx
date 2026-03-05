@@ -27,6 +27,18 @@ export interface Order {
   items?: OrderItem[];
   created_at?: string;
   updated_at?: string;
+  payment_id?: string;
+  // Datos del comprador (viene del JOIN con users)
+  buyer_first_name?: string;
+  buyer_last_name?: string;
+  buyer_email?: string;
+  buyer_phone?: string;
+  buyer_address?: string;
+  buyer_city?: string;
+  buyer_country?: string;
+  buyer_postal_code?: string;
+  // Datos snapshot guardados al aprobar
+  buyer_name?: string;
   [key: string]: unknown;
 }
 

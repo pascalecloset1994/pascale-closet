@@ -12,6 +12,18 @@ import { toast } from "../components/common/Toast";
 import type { DiscountContentProps, Product } from "../types/global";
 import { showDialog } from "../components/common/Dialog";
 
+export interface ShippingInfo {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+}
+
 interface CartContextType {
   cartItems: Product[];
   addToCart: (product: Product, quantity?: number) => boolean;
@@ -20,7 +32,7 @@ interface CartContextType {
   clearCart: () => void;
   getCartTotal: () => number;
   getCartItemsCount: () => number;
-  handlePayment: () => Promise<void>;
+  handlePayment: (shipping?: ShippingInfo) => Promise<void>;
   loadingPayment: boolean;
   preferenceId: string | null;
   SHIPMENT_COST: number;
@@ -255,7 +267,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [getDiscountContent]);
 
   // --- PAGO CON MERCADO PAGO ---
-  const handlePayment = async () => {
+  const handlePayment = async (shipping?: ShippingInfo) => {
     setLoadingPayment(true);
     try {
       const response = await fetch(
@@ -267,6 +279,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             user_id: user?.user_id,
             total: getCartTotal(),
             items: cartItems,
+            shipping: shipping || null,
           }),
         },
       );

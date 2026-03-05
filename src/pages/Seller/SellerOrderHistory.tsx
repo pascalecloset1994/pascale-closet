@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useOrder } from "../../contexts/OrderContext";
-import { useAuth } from "../../contexts/AuthContext";
 import { formatDate } from "../../utils/formatDate";
 import {
   Package,
@@ -12,9 +11,8 @@ import {
   ArrowLeft,
 } from "lucide-react";
 
-const OrderHistory = () => {
-  const { orders } = useOrder();
-  const { user } = useAuth();
+const SellerOrderHistory = () => {
+  const { sellerOrders } = useOrder();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -66,12 +64,18 @@ const OrderHistory = () => {
     }
   };
 
-  if (orders.length === 0) {
+  if (sellerOrders.length === 0) {
     return (
       <div className="min-h-screen bg-[#FAF8F5] py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <Link to={"/seller/dashboard"} className="flex gap-1 items-center text-base mb-3 hover:underline group">
-            <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
+          <Link
+            to="/seller/dashboard"
+            className="flex gap-1 items-center text-base mb-3 hover:underline group"
+          >
+            <ArrowLeft
+              size={20}
+              className="group-hover:-translate-x-0.5 transition-transform"
+            />
             <span>Volver</span>
           </Link>
           <div className="bg-white border border-[#E0D6CC] p-16 text-center">
@@ -81,18 +85,6 @@ const OrderHistory = () => {
             <h2 className="text-xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-4">
               Aún no tienes pedidos
             </h2>
-            {user?.role !== "seller" && (
-              <>
-                <p className="text-sm text-[#7A6B5A] font-sans-elegant mb-8">
-                  ¡Explora nuestros productos y realiza tu primera compra!
-                </p>
-                <Link to="/">
-                  <button className="px-8 py-4 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#333333] transition-all duration-300">
-                    Ir a la tienda
-                  </button>
-                </Link>
-              </>
-            )}
           </div>
         </div>
       </div>
@@ -102,19 +94,32 @@ const OrderHistory = () => {
   return (
     <div className="min-h-screen bg-[#FAF8F5] py-12">
       <div className="max-w-6xl mx-auto px-4">
+        <Link
+          to="/seller/dashboard"
+          className="flex gap-1 items-center text-base mb-3 hover:underline group"
+        >
+          <ArrowLeft
+            size={20}
+            className="group-hover:-translate-x-0.5 transition-transform"
+          />
+          <span>Volver</span>
+        </Link>
         <h1 className="text-2xl md:text-3xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-8 text-center">
-          Mis Pedidos
+          Pedidos de Clientes
         </h1>
 
         <div className="space-y-6">
-          {orders
+          {sellerOrders
             .sort(
               (a, b) =>
                 new Date(b.created_at ?? 0).getTime() -
                 new Date(a.created_at ?? 0).getTime(),
             )
             .map((order) => (
-              <div key={String(order.id)} className="bg-white border border-[#E0D6CC]">
+              <div
+                key={String(order.id)}
+                className="bg-white border border-[#E0D6CC]"
+              >
                 {/* Order Header */}
                 <div className="bg-[#F5F0EB] border-b border-[#E0D6CC] p-5">
                   <div className="flex flex-wrap justify-between items-center gap-4">
@@ -184,26 +189,11 @@ const OrderHistory = () => {
                 {/* Order Actions */}
                 <div className="border-t border-[#E0D6CC] p-5 bg-[#F5F0EB]">
                   <div className="flex gap-3">
-                    <Link to={`/buyer/orders/${order.id}`}>
+                    <Link to={`/seller/orders/${order.id}`}>
                       <button className="px-6 py-3 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#333333] transition-all duration-300">
                         Ver Detalles
                       </button>
                     </Link>
-                    {order.status === ("Entregado" as string) && (
-                      <button className="px-6 py-3 border border-[#2C2420] text-[#2C2420] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#2C2420] hover:text-white transition-all duration-300">
-                        Comprar de Nuevo
-                      </button>
-                    )}
-                    {order.status === ("En Tránsito" as string) && (
-                      <button className="px-6 py-3 border border-[#2C2420] text-[#2C2420] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#2C2420] hover:text-white transition-all duration-300">
-                        Rastrear Envío
-                      </button>
-                    )}
-                    {order.status === ("Procesando" as string) && (
-                      <button className="px-6 py-3 border border-[#2C2420] text-[#2C2420] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#2C2420] hover:text-white transition-all duration-300">
-                        Cancelar Pedido
-                      </button>
-                    )}
                   </div>
                 </div>
               </div>
@@ -214,4 +204,4 @@ const OrderHistory = () => {
   );
 };
 
-export default OrderHistory;
+export default SellerOrderHistory;

@@ -145,16 +145,14 @@ export const Checkout = () => {
         <div className="bg-white border border-[#E0D6CC] p-6 mb-8">
           <div className="flex justify-between items-center">
             <div
-              className={`flex-1 text-center ${
-                step >= 1 ? "text-[#2C2420]" : "text-[#C5C5C5]"
-              }`}
+              className={`flex-1 text-center ${step >= 1 ? "text-[#2C2420]" : "text-[#C5C5C5]"
+                }`}
             >
               <div
-                className={`w-10 h-10 mx-auto rounded-full border ${
-                  step >= 1
+                className={`w-10 h-10 mx-auto rounded-full border ${step >= 1
                     ? "bg-[#2C2420] border-[#2C2420] text-white"
                     : "border-[#E0D6CC] text-[#7A6B5A]"
-                } flex items-center justify-center font-sans-elegant text-sm mb-2`}
+                  } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
                 1
               </div>
@@ -163,21 +161,18 @@ export const Checkout = () => {
               </p>
             </div>
             <div
-              className={`flex-1 h-px ${
-                step >= 2 ? "bg-[#2C2420]" : "bg-[#E0D6CC]"
-              }`}
+              className={`flex-1 h-px ${step >= 2 ? "bg-[#2C2420]" : "bg-[#E0D6CC]"
+                }`}
             ></div>
             <div
-              className={`flex-1 text-center ${
-                step >= 2 ? "text-[#2C2420]" : "text-[#C5C5C5]"
-              }`}
+              className={`flex-1 text-center ${step >= 2 ? "text-[#2C2420]" : "text-[#C5C5C5]"
+                }`}
             >
               <div
-                className={`w-10 h-10 mx-auto rounded-full border ${
-                  step >= 2
+                className={`w-10 h-10 mx-auto rounded-full border ${step >= 2
                     ? "bg-[#2C2420] border-[#2C2420] text-white"
                     : "border-[#E0D6CC] text-[#7A6B5A]"
-                } flex items-center justify-center font-sans-elegant text-sm mb-2`}
+                  } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
                 2
               </div>
@@ -186,21 +181,18 @@ export const Checkout = () => {
               </p>
             </div>
             <div
-              className={`flex-1 h-px ${
-                step >= 3 ? "bg-[#2C2420]" : "bg-[#E0D6CC]"
-              }`}
+              className={`flex-1 h-px ${step >= 3 ? "bg-[#2C2420]" : "bg-[#E0D6CC]"
+                }`}
             ></div>
             <div
-              className={`flex-1 text-center ${
-                step >= 3 ? "text-[#2C2420]" : "text-[#C5C5C5]"
-              }`}
+              className={`flex-1 text-center ${step >= 3 ? "text-[#2C2420]" : "text-[#C5C5C5]"
+                }`}
             >
               <div
-                className={`w-10 h-10 mx-auto rounded-full border ${
-                  step >= 3
+                className={`w-10 h-10 mx-auto rounded-full border ${step >= 3
                     ? "bg-[#2C2420] border-[#2C2420] text-white"
                     : "border-[#E0D6CC] text-[#7A6B5A]"
-                } flex items-center justify-center font-sans-elegant text-sm mb-2`}
+                  } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
                 3
               </div>
@@ -319,7 +311,17 @@ export const Checkout = () => {
 
                   <div id="wallet_container" className="my-4">
                     <button
-                      onClick={handlePayment}
+                      onClick={() => handlePayment({
+                        firstName: formData.firstName,
+                        lastName: formData.lastName,
+                        email: formData.email,
+                        phone: formData.phone,
+                        address: formData.address,
+                        city: formData.city,
+                        state: formData.state,
+                        zipCode: formData.zipCode,
+                        country: formData.country,
+                      })}
                       className="w-full py-2 text-black font-semibold font-sans-elegant text-xs tracking-[0.15em] uppercase border outline-border outline-offset-2 hover:bg-[#FFE600] hover:outline transition-all duration-300"
                       disabled={loadingPayment}
                     >
@@ -470,11 +472,11 @@ export const Checkout = () => {
                       $
                       {Number(discountContent?.discount) > 0
                         ? Math.floor(
-                            getCartTotal() -
-                              (getCartTotal() *
-                                Number(discountContent?.discount)) /
-                                100,
-                          ).toLocaleString("es-CL")
+                          getCartTotal() -
+                          (getCartTotal() *
+                            Number(discountContent?.discount)) /
+                          100,
+                        ).toLocaleString("es-CL")
                         : getCartTotal().toLocaleString("es-CL")}
                     </span>
                   </div>

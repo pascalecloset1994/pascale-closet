@@ -8,9 +8,6 @@
 // ─── Auth ───────────────────────────────────────────────
 export type { User } from "../contexts/AuthContext";
 
-// ─── Cart ───────────────────────────────────────────────
-export type { CartItem } from "../contexts/CartContext";
-
 // ─── Orders ─────────────────────────────────────────────
 export type { Order, OrderItem } from "../contexts/OrderContext";
 

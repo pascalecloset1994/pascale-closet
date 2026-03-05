@@ -40,7 +40,7 @@ const SellerDashboard = () => {
           order.items.forEach((item) => {
             const productId = String(
               (item as typeof item & { product_id?: string }).product_id ||
-                item.id,
+              item.id,
             );
             if (!productSales[productId]) {
               productSales[productId] = {
@@ -77,6 +77,8 @@ const SellerDashboard = () => {
       )
       .slice(0, 5);
   }, [sellerOrders]);
+
+  console.log(sellerStats)
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] py-8">
@@ -242,13 +244,12 @@ const SellerDashboard = () => {
                     </div>
                     <div className="flex justify-between items-center">
                       <span
-                        className={`text-[10px] px-2 py-1 font-sans-elegant uppercase tracking-wide ${
-                          order.status === "pending"
+                        className={`text-[10px] px-2 py-1 font-sans-elegant uppercase tracking-wide ${order.status === "pending"
                             ? "bg-[#F5F0EB] border border-[#E0D6CC] text-[#7A6B5A]"
                             : order.status === "approved"
                               ? "bg-[#F5F0EB] border border-[#2C2420] text-[#2C2420]"
                               : "bg-[#F5F0EB] border border-[#E0D6CC] text-[#7A6B5A]"
-                        }`}
+                          }`}
                       >
                         {order.status}
                       </span>
