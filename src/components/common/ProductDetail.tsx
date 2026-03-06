@@ -774,7 +774,7 @@ const ProductDetail = () => {
         <div className="border-t border-[#E0D6CC] bg-[#F5F0EB]">
           <div className="max-w-7xl mx-auto px-4 py-12">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-sans-elegant uppercase tracking-wider text-[#2C2420] text-center mb-8">
+              <h2 className="text-lg md:text-xl font-sans-elegant uppercase tracking-wider text-[#2C2420] text-center mb-8">
                 Vistos recientemente
               </h2>
               <Button variant="outline" onClick={cleanRecentlyProduct}>
