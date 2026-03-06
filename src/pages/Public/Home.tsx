@@ -12,9 +12,11 @@ import {
   Truck,
   Package,
   Shirt,
+  Instagram,
 } from "lucide-react";
 import { useUser } from "../../contexts/UserContext";
 import { useCart } from "../../contexts/CartContext";
+import Button from "../../components/common/Button";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -270,21 +272,27 @@ export const Home = () => {
           </Swiper>
 
           {/* Flechas de navegación abajo a la derecha */}
-          <div className="flex justify-end gap-2 mt-6">
-            <button
-              onClick={() => swiperRef2?.slidePrev()}
-              className="w-10 h-10 border border-[#2C2420] flex items-center justify-center hover:bg-[#2C2420] hover:text-white transition-all duration-200"
-              aria-label="Anterior"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => swiperRef2?.slideNext()}
-              className="w-10 h-10 border border-[#2C2420] flex items-center justify-center hover:bg-[#2C2420] hover:text-white transition-all duration-200"
-              aria-label="Siguiente"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+          <div className="flex justify-between gap-2 mt-6">
+            <Button onClick={() => window.open("https://www.instagram.com/pascalecloset", "_blank")} className="flex gap-1 items-center">
+              <Instagram />
+              sigue @pascalecloset
+            </Button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => swiperRef2?.slidePrev()}
+                className="w-10 h-10 border border-[#2C2420] flex items-center justify-center hover:bg-[#2C2420] hover:text-white transition-all duration-200"
+                aria-label="Anterior"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => swiperRef2?.slideNext()}
+                className="w-10 h-10 border border-[#2C2420] flex items-center justify-center hover:bg-[#2C2420] hover:text-white transition-all duration-200"
+                aria-label="Siguiente"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
