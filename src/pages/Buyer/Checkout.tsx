@@ -82,23 +82,9 @@ export const Checkout = () => {
     }
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    // Validar campo individual al perder el foco
-    const fieldError = validateField(name as keyof CheckoutFormData, value, shippingSchema);
-    if (fieldError) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: fieldError,
-      }));
-    }
-  };
-
   const handleNextStep = () => {
     if (step === 1) {
       const validationErrors = validateShippingData(formData);
-      console.log('Validation errors:', validationErrors);
-      console.log('Form data:', formData);
       
       if (validationErrors) {
         setErrors(validationErrors);
@@ -111,7 +97,7 @@ export const Checkout = () => {
       setErrors({});
       setStep(2);
 
-      if (!formData.address || !formData.phone || !formData.state) {
+      if (formData.address || !formData.phone || formData.state) {
         updatePartialInformation(formData);
       }
     }

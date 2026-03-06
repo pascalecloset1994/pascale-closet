@@ -279,7 +279,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             user_id: user?.user_id,
             total: getCartTotal(),
             items: cartItems,
-            shipping: shipping || null,
+            ...shipping
           }),
         },
       );

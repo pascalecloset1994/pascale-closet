@@ -179,7 +179,7 @@ const SellerOrderDetail = () => {
         </div>
 
         {/* Buyer & Shipping Info */}
-        {(order.buyer_first_name || order.buyer_name || order.buyer_email) && (
+        {(order.buyer_first_name || order.buyer_name || order.buyer_email || order.buyer_address) && (
           <div className="bg-white border border-[#E0D6CC] mb-6">
             <div className="bg-[#F5F0EB] border-b border-[#E0D6CC] p-6">
               <h2 className="font-sans-elegant text-sm uppercase tracking-wider text-[#2C2420]">

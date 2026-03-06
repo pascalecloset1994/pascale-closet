@@ -249,15 +249,19 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
 
       {/* Overlay y menú lateral - Minimalist */}
       {isMenuOpen && (
-        <>
-          <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
-            onClick={() => {
-              setIsMenuOpen(false);
-              setIsTabOpen(false);
-            }}
-          ></div>
-          <aside className="fixed top-0 left-0 w-80 h-dvh overflow-y-auto bg-[#FAF8F5] shadow-xl z-50 p-6 flex flex-col gap-4 animate-slide-left aside-menu">
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+          onClick={() => {
+            setIsMenuOpen(false);
+            setIsTabOpen(false);
+          }}
+        ></div>
+      )}
+      
+      <aside className={`fixed top-0 left-0 w-80 h-dvh overflow-y-auto 
+        bg-[#FAF8F5] shadow-xl z-50 p-6 flex flex-col gap-4 transition-transform duration-500
+        ${isMenuOpen ? "translate-x-0" : "-translate-x-[100%]"}
+        `}>
             <div className="flex justify-between items-center mb-6 pb-4 border-b border-[#E0D6CC]">
               <h2 className="font-sans-elegant text-lg uppercase tracking-wider text-[#2C2420]">
                 Menú
@@ -400,8 +404,6 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
               </div>
             )}
           </aside>
-        </>
-      )}
     </header>
   );
 };
