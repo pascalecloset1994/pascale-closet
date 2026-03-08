@@ -2,16 +2,15 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useProducts } from "../../contexts/ProductContext";
 import { closeDialog, showDialog } from "../../components/common/Dialog";
-import Button from "../../components/common/Button";
 import { ArrowLeft } from "lucide-react";
 
 const ProductManagement = () => {
   const {
     deleteProduct,
-    sellerProducts: products = [],
+    products,
     getProductByUserId,
   } = useProducts();
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState<'all' | 'active' | 'inactive' | 'out-of-stock'>();
 
   const handleDelete = async (productId: string) => {
     showDialog({
@@ -56,10 +55,10 @@ const ProductManagement = () => {
     <div className="min-h-screen bg-[#FAF8F5] py-8">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
-         <Link to={"/seller/dashboard"} className="flex gap-1 items-center text-base mb-3 hover:underline group">
-            <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
-            <span>Volver</span>
-          </Link>
+        <Link to={"/seller/dashboard"} className="flex gap-1 items-center text-base mb-3 hover:underline group">
+          <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
+          <span>Volver</span>
+        </Link>
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-[#2C2420]">
@@ -95,9 +94,9 @@ const ProductManagement = () => {
             <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => setFilter("all")}
-                className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "all" || filter === ""
-                    ? "bg-[#2C2420] text-white"
-                    : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
+                className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "all"
+                  ? "bg-[#2C2420] text-white"
+                  : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
                   }`}
               >
                 Todos ({products?.length})
@@ -105,8 +104,8 @@ const ProductManagement = () => {
               <button
                 onClick={() => setFilter("active")}
                 className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "active"
-                    ? "bg-[#2C2420] text-white"
-                    : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
+                  ? "bg-[#2C2420] text-white"
+                  : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
                   }`}
               >
                 Activos ({products?.filter((p) => p.status === "Activo").length})
@@ -114,8 +113,8 @@ const ProductManagement = () => {
               <button
                 onClick={() => setFilter("inactive")}
                 className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "inactive"
-                    ? "bg-[#2C2420] text-white"
-                    : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
+                  ? "bg-[#2C2420] text-white"
+                  : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
                   }`}
               >
                 Inactivos (
@@ -124,8 +123,8 @@ const ProductManagement = () => {
               <button
                 onClick={() => setFilter("out-of-stock")}
                 className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "out-of-stock"
-                    ? "bg-[#2C2420] text-white"
-                    : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
+                  ? "bg-[#2C2420] text-white"
+                  : "border border-[#E0D6CC] text-[#7A6B5A] hover:border-[#2C2420] hover:text-[#2C2420]"
                   }`}
               >
                 Sin Stock ({products?.filter((p) => p.stock === 0).length})
@@ -216,10 +215,10 @@ const ProductManagement = () => {
                       <td className="p-4">
                         <span
                           className={`font-sans-elegant font-medium ${product.stock === 0
-                              ? "text-[#2C2420]"
-                              : product.stock && product.stock < 10
-                                ? "text-[#7A6B5A]"
-                                : "text-[#2C2420]"
+                            ? "text-[#2C2420]"
+                            : product.stock && product.stock < 10
+                              ? "text-[#7A6B5A]"
+                              : "text-[#2C2420]"
                             }`}
                         >
                           {product.stock}
@@ -228,10 +227,10 @@ const ProductManagement = () => {
                       <td className="p-4">
                         <span
                           className={`px-2.5 py-1 text-[10px] font-sans-elegant font-medium tracking-wide ${product.status === "Activo"
-                              ? "bg-[#F5F0EB] text-[#2C2420] border border-[#2C2420]"
-                              : product.status === "Sin Stock"
-                                ? "bg-[#F5F0EB] text-[#7A6B5A] border border-[#E0D6CC]"
-                                : "bg-[#F5F0EB] text-[#7A6B5A] border border-[#E0D6CC]"
+                            ? "bg-[#F5F0EB] text-[#2C2420] border border-[#2C2420]"
+                            : product.status === "Sin Stock"
+                              ? "bg-[#F5F0EB] text-[#7A6B5A] border border-[#E0D6CC]"
+                              : "bg-[#F5F0EB] text-[#7A6B5A] border border-[#E0D6CC]"
                             }`}
                         >
                           {product.status}
