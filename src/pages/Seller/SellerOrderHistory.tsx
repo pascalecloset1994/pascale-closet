@@ -93,7 +93,7 @@ const SellerOrderHistory = () => {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] py-12">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4">
         <Link
           to="/seller/dashboard"
           className="inline-flex items-center gap-2 text-[#7A6B5A] hover:text-[#2C2420] font-sans-elegant text-sm mb-8 transition-colors"
