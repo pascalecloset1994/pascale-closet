@@ -258,7 +258,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
         ></div>
       )}
       
-      <aside className={`fixed top-0 left-0 w-80 h-dvh overflow-y-auto 
+      <aside className={`fixed top-0 left-0 md:w-80 w-full h-dvh overflow-y-auto 
         bg-[#FAF8F5] shadow-xl z-50 p-6 flex flex-col gap-4 transition-transform duration-500
         ${isMenuOpen ? "translate-x-0" : "-translate-x-[100%]"}
         `}>

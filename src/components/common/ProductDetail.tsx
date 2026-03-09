@@ -512,7 +512,10 @@ const ProductDetail = () => {
                 <button
                   title="Cerrar"
                   className="absolute top-4 right-4 z-[999] bg-white/10 hover:bg-black/20 flex items-center justify-center transition-colors ring-4 ring-foreground/10"
-                  onClick={() => setShowSizes(false)}
+                  onClick={() => {
+                    setShowSizes(false);
+                    document.body.style.overflow = "auto";
+                  }}
                 >
                   <X className="text-[#E0D6CC]" />
                 </button>
