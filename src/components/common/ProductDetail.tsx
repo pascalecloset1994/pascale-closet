@@ -797,7 +797,7 @@ const ProductDetail = () => {
 
       {/* Vistos recientemente */}
       {recentlyViewed.length > 0 && (
-        <div className="border-t border-[#E0D6CC] bg-[#F5F0EB]">
+        <div className="border-t border-[#E0D6CC] bg-[#F5F0EB] overflow-x-hidden">
           <div className="max-w-7xl mx-auto px-4 py-12">
             <div className="flex justify-between items-center">
               <h2 className="text-lg md:text-xl font-sans-elegant uppercase tracking-wider text-[#2C2420] text-center mb-8">
@@ -817,7 +817,7 @@ const ProductDetail = () => {
                   768: { slidesPerView: 3 },
                   1024: { slidesPerView: 4 },
                 }}
-                className="!pb-4"
+                className="!pb-4 !overflow-visible"
               >
                 {recentlyViewed && recentlyViewed.length > 0 ? (
                   recentlyViewed.map((product) => (

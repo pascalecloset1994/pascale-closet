@@ -53,11 +53,14 @@ const ProductManagement = () => {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] py-8">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <Link to={"/seller/dashboard"} className="flex gap-1 items-center text-base mb-3 hover:underline group">
-          <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
-          <span>Volver</span>
+       <Link
+          to="/seller/dashboard"
+          className="inline-flex items-center gap-2 text-[#7A6B5A] hover:text-[#2C2420] font-sans-elegant text-sm mb-8 transition-colors"
+        >
+          <ArrowLeft size={16} />
+          <span>Volver al panel</span>
         </Link>
         <div className="flex justify-between items-center mb-6">
           <div>
@@ -193,9 +196,9 @@ const ProductManagement = () => {
                             )}
                           </div>
                           <div>
-                            <p className="font-sans-elegant font-medium text-sm text-[#2C2420] truncate">
+                            <Link to={`/product/${product.id}`} className="font-sans-elegant font-medium text-sm text-[#2C2420] truncate">
                               {product.name}
-                            </p>
+                            </Link>
                             <p className="text-[10px] text-[#7A6B5A] font-sans-elegant">
                               ID: {product.id}
                             </p>

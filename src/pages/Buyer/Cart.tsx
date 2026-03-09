@@ -215,7 +215,7 @@ const Cart = () => {
                     {getCartTotal() < MAX_PAYMENT ? (
                       `$${SHIPMENT_COST.toLocaleString("es-CL")}`
                     ) : (
-                      <small className="flex gap-1.5 items-center px-2 py-0.5 rounded-full border border-green-400/25 bg-green-400/20 w-fit">
+                      <small className="flex gap-1.5 items-center px-2 py-0.5 border border-green-400/25 bg-green-400/20 w-fit">
                         <TruckElectricIcon size={14} />
                         Envío gratis
                       </small>
