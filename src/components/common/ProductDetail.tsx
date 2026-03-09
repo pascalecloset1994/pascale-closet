@@ -803,12 +803,14 @@ const ProductDetail = () => {
         <div className="border-t border-[#E0D6CC] bg-[#F5F0EB] overflow-x-hidden">
           <div className="max-w-7xl mx-auto px-4 py-12">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg md:text-xl font-sans-elegant uppercase tracking-wider text-[#2C2420] text-center mb-8">
+              <h2 className="text-lg md:text-xl font-sans-elegant uppercase tracking-wider text-[#2C2420] text-left mb-8">
                 Vistos recientemente
               </h2>
-              <Button variant="outline" onClick={cleanRecentlyProduct}>
-                Borrar Productos Vistos
-              </Button>
+              <small onClick={cleanRecentlyProduct}
+               className="inline-flex items-center cursor-default gap-2 text-[#7A6B5A] bg-background px-2 py-1 border border-border hover:text-[#2C2420] font-sans-elegant text-xs md:text-base truncate mb-8 transition-colors"
+              >
+                Borrar Vistos
+              </small>
             </div>
             <div className="relative">
               <Swiper
