@@ -171,7 +171,7 @@ const ProductDetail = () => {
       setShowSizes(true);
       document.body.style.overflow = "hidden";
     }
-    
+
   };
 
   const toggleAccordion = (section: string) => {
@@ -263,24 +263,28 @@ const ProductDetail = () => {
 
             </SwiperSlide>
           ))}
-          <div className="absolute top-1/2 -translate-y-1/2 right-3 z-999">
-            <button
-              onClick={() => swiperRef?.slideNext()}
-              className="w-10 h-10 flex items-center justify-center text-white hover:bg-accent-foreground/50 transition-all duration-200"
-              aria-label="Siguiente"
-            >
-              <ChevronRight size={52} />
-            </button>
-          </div>
-          <div className="absolute top-1/2 -translate-y-1/2 left-3 z-999">
-            <button
-              onClick={() => swiperRef?.slidePrev()}
-              className="w-10 h-10 flex items-center justify-center text-white hover:bg-accent-foreground/50 transition-all duration-200"
-              aria-label="Anterior"
-            >
-              <ChevronLeft size={52} />
-            </button>
-          </div>
+          {images.length > 1 && (
+            <div className="absolute top-1/2 -translate-y-1/2 md:right-3 -right-2 z-999">
+              <button
+                onClick={() => swiperRef?.slideNext()}
+                className="w-10 h-10 flex items-center justify-center text-white hover:bg-accent-foreground/50 transition-all duration-200"
+                aria-label="Siguiente"
+              >
+                <ChevronRight className="w-28 h-28" />
+              </button>
+            </div>
+          )}
+          {images.length > 1 && (
+            <div className="absolute top-1/2 -translate-y-1/2 md:left-3 -left-2 z-999">
+              <button
+                onClick={() => swiperRef?.slidePrev()}
+                className="w-10 h-10 flex items-center justify-center text-white hover:bg-accent-foreground/50 transition-all duration-200"
+                aria-label="Anterior"
+              >
+                <ChevronLeft className="w-28 h-28" />
+              </button>
+            </div>
+          )}
           <div>
 
           </div>
@@ -338,19 +342,21 @@ const ProductDetail = () => {
                 <ZoomIn className="w-5 h-5 text-[#2C2420]" />
               </div>
               {/* Thumbnails */}
-              <div className="absolute bottom-4 left-4 flex gap-2">
-                <button className="w-12 h-12 bg-white border-2 border-[#2C2420] overflow-hidden">
-                  {product.image && images.length > 2 ? (
-                    <img
-                      src={images[1]}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-[#F5F0EB]"></div>
-                  )}
-                </button>
-              </div>
+              {images.length > 1 && (
+                <div className="absolute bottom-4 left-4 flex gap-2">
+                  <button className="w-12 h-12 bg-white border-2 border-[#2C2420] overflow-hidden">
+                    {product.image ? (
+                      <img
+                        src={images[1]}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-[#F5F0EB]"></div>
+                    )}
+                  </button>
+                </div>
+              )}
               {images.length > 2 && (
                 <div className="absolute bottom-4 left-18 flex gap-2">
                   <button className="w-12 h-12 bg-white border-2 border-[#2C2420] overflow-hidden">
@@ -491,69 +497,67 @@ const ProductDetail = () => {
               />
             )}
 
-            {showSizes && (
-                <div
-                  ref={showSizesRef}
-                  className={`fixed right-0 top-0 z-50 h-dvh md:w-[400px] bg-white/95 backdrop-blur-sm border-l border-[#E0D6CC] shadow-lg
-                   transition-transform duration-600 
-                   ${showSizes ? "translate-x-0" : "-translate-x-[100%]"}
+            <div
+              ref={showSizesRef}
+              className={`fixed right-0 top-0 z-50 h-dvh md:w-[400px] bg-white/95 backdrop-blur-sm border-l border-[#E0D6CC] shadow-lg
+                   transition-transform duration-500 
+                   ${showSizes ? "-translate-x-0" : "translate-x-[100%]"}
                    `}
+            >
+              <div className="p-6 flex flex-col gap-4 h-full overflow-y-auto">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Guía de talles
+                </h3>
+
+                <button
+                  title="Cerrar"
+                  className="absolute top-4 right-4 z-[999] bg-white/10 hover:bg-black/20 flex items-center justify-center transition-colors ring-4 ring-foreground/10"
+                  onClick={() => setShowSizes(false)}
                 >
-                  <div className="p-6 flex flex-col gap-4 h-full overflow-y-auto">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      Guía de talles
-                    </h3>
+                  <X className="text-[#E0D6CC]" />
+                </button>
 
-                    <button
-                      title="Cerrar"
-                      className="absolute top-4 right-4 z-[999] bg-white/10 hover:bg-black/20 flex items-center justify-center transition-colors ring-4 ring-foreground/10"
-                      onClick={() => setShowSizes(false)}
-                    >
-                      <X className="text-[#E0D6CC]" />
-                    </button>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  En la conversión más común de talles numéricos a letras
+                  (ropa) se usa así:
+                </p>
 
-                    <p className="text-sm text-gray-700 leading-relaxed">
-                      En la conversión más común de talles numéricos a letras
-                      (ropa) se usa así:
-                    </p>
+                <ul className="text-sm text-gray-800 space-y-1 pl-4 list-disc">
+                  <li>
+                    <strong>36</strong> → S (Small / Chico)
+                  </li>
+                  <li>
+                    <strong>38</strong> → M (Medium / Mediano)
+                  </li>
+                  <li>
+                    <strong>40</strong> → L (Large / Grande)
+                  </li>
+                  <li>
+                    <strong>42</strong> → XL (Extra Large)
+                  </li>
+                </ul>
 
-                    <ul className="text-sm text-gray-800 space-y-1 pl-4 list-disc">
-                      <li>
-                        <strong>36</strong> → S (Small / Chico)
-                      </li>
-                      <li>
-                        <strong>38</strong> → M (Medium / Mediano)
-                      </li>
-                      <li>
-                        <strong>40</strong> → L (Large / Grande)
-                      </li>
-                      <li>
-                        <strong>42</strong> → XL (Extra Large)
-                      </li>
-                    </ul>
+                <picture className="aspect-video">
+                  <img
+                    src="/assets/guia-talles.png"
+                    width="100%"
+                    height="100%"
+                  />
+                </picture>
 
-                    <picture className="aspect-video">
-                      <img
-                        src="/assets/guia-talles.png"
-                        width="100%"
-                        height="100%"
-                      />
-                    </picture>
-
-                    <div className="mt-2 rounded-md border border-[#E0D6CC] bg-white p-4 text-sm text-gray-700">
-                      <span className="flex items-center gap-1 font-semibold text-gray-900">
-                        <TriangleAlert size={20} className="text-[#E0D6CC]" />{" "}
-                        Aclaración importante
-                      </span>
-                      <p className="mt-2 leading-relaxed">
-                        Esto es una referencia estándar, pero puede variar según
-                        la marca, el país y el tipo de prenda (remeras,
-                        pantalones, vestidos, etc.)
-                      </p>
-                    </div>
-                  </div>
+                <div className="mt-2 rounded-md border border-[#E0D6CC] bg-white p-4 text-sm text-gray-700">
+                  <span className="flex items-center gap-1 font-semibold text-gray-900">
+                    <TriangleAlert size={20} className="text-[#E0D6CC]" />{" "}
+                    Aclaración importante
+                  </span>
+                  <p className="mt-2 leading-relaxed">
+                    Esto es una referencia estándar, pero puede variar según
+                    la marca, el país y el tipo de prenda (remeras,
+                    pantalones, vestidos, etc.)
+                  </p>
                 </div>
-            )}
+              </div>
+            </div>
 
             {/* Cantidad */}
             <div className="mb-6">
