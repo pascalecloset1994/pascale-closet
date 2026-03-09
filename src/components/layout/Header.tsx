@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
-import { Menu, X, LogOut, Home, LayoutDashboard, ChevronRight, ShoppingBag, Shirt, Truck, Loader, Tags } from "lucide-react";
+import { Menu, X, LogOut, Home, LayoutDashboard, ChevronRight, ShoppingBag, Shirt, Truck, Loader, Tags, Instagram, Facebook } from "lucide-react";
 import { useProducts } from "../../contexts/ProductContext";
 import { normalize } from "../../utils/normalize";
 import type { User } from "../../types/global";
+import { TikTokIcon } from "./Footer";
 
 interface HeaderProps {
   isAuthenticated: boolean;
@@ -391,22 +392,42 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             </button>
           </div>
         ) : (
-          <div className="flex flex-col gap-4 font-sans-elegant">
-            <Link
-              to="/login"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-[#2C2420] hover:underline"
-            >
-              Ingresar
-            </Link>
-            <Link
-              to="/register"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-[#2C2420] font-medium hover:underline"
-            >
-              Registrarse
-            </Link>
-          </div>
+          <>
+            <div className="flex flex-col gap-4 font-sans-elegant">
+              <Link
+                to="/login"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-[#2C2420] hover:underline"
+              >
+                Ingresar
+              </Link>
+              <Link
+                to="/register"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-[#2C2420] font-medium hover:underline"
+              >
+                Registrarse
+              </Link>
+            </div>
+            <div className="absolute bottom-0 left-0 w-full h-16 border-t border-border">
+              <div className="flex justify-between px-4 my-5">
+                <h3 className="font-sans-elegant text-xs uppercase tracking-wider">
+                  Síguenos por
+                </h3>
+                <div className="flex gap-6">
+                  <a href="https://instagram.com/pascalecloset" target="_blank" rel="noopener noreferrer" className="transition-colors duration-200">
+                    <Instagram className="w-5 h-5" />
+                  </a>
+                  <a href="https://facebook.com/pascalecloset" target="_blank" rel="noopener noreferrer" className="transition-colors duration-200">
+                    <Facebook className="w-5 h-5" />
+                  </a>
+                  <a href="https://tiktok.com/@pascalecloset" target="_blank" rel="noopener noreferrer" className="transition-colors duration-200">
+                    <TikTokIcon className="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </>
         )}
       </aside>
     </header>
