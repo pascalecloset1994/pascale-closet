@@ -353,7 +353,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                         return (
                           <Link
                             key={product.id}
-                            to={`/product/category/${product.category}`}
+                            to={`/products/category/${product.category}`}
                             onClick={() => setIsMenuOpen(false)}
                             className="flex items-center text-[#2C2420] hover:text-[#7A6B5A] transition-colors duration-200"
                           >

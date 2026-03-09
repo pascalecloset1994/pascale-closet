@@ -521,7 +521,7 @@ const ProductForm = () => {
                   Explorar archivos
                 </span>
                 <p className="text-[10px] text-[#7A6B5A] font-sans-elegant mt-3">
-                  Máximo 3 imágenes · JPG, PNG · 10MB cada una
+                  Máximo 3 imágenes · JPG, PNG · 15MB cada una
                 </p>
               </div>
 
