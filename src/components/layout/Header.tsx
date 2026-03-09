@@ -304,10 +304,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             </Link>
             <Link
               to="/"
-              onClick={() => {
-                setIsMenuOpen(false);
-                setIsTabOpen(false);
-              }}
+              onClick={handleCloseMenu}
               className="flex items-center gap-3 text-[#2C2420] hover:text-[#7A6B5A] transition-colors duration-200"
             >
               <Home size={18} /> Inicio
@@ -315,10 +312,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             {userRole === "seller" && (
               <Link
                 to="/seller/dashboard"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  setIsTabOpen(false);
-                }}
+                onClick={handleCloseMenu}
                 className="flex items-center gap-3 text-[#2C2420] hover:text-[#7A6B5A] transition-colors duration-200"
               >
                 <LayoutDashboard size={18} /> Panel Vendedor
@@ -327,7 +321,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             {userRole === "buyer" && (
               <Link
                 to="/buyer/orders"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={handleCloseMenu}
                 className="flex items-center gap-3 text-[#2C2420] hover:text-[#7A6B5A] transition-colors duration-200"
               >
                 <ShoppingBag size={18} /> Mis Compras
