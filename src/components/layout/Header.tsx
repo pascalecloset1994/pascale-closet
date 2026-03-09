@@ -67,6 +67,12 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
     (cat) => normalize(cat.slug) === normalize(location.pathname.split("/")[3]),
   );
 
+  const handleCloseMenu = () => {
+    setIsMenuOpen(false);
+    setIsTabOpen(false);
+    document.body.style.overflow = "auto";
+  }
+
   return (
     <header className="w-full z-50 bg-[#FAF8F5] relative">
       <div className="bg-[#FAF8F5] text-[#2C2420] text-xs hidden sm:block border-b border-[#E0D6CC]">
@@ -255,11 +261,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
       {isMenuOpen && (
         <div
           className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
-          onClick={() => {
-            setIsMenuOpen(false);
-            setIsTabOpen(false);
-            document.body.style.overflow = "auto";
-          }}
+          onClick={handleCloseMenu}
         ></div>
       )}
 
@@ -272,11 +274,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             Menú
           </h2>
           <button
-            onClick={() => {
-              setIsMenuOpen(false);
-              setIsTabOpen(false);
-              document.body.style.overflow = "auto";
-            }}
+            onClick={handleCloseMenu}
           >
             <X
               size={22}
@@ -290,10 +288,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             <Link
               to="/user/profile"
               className="flex items-center gap-3 text-[#2C2420]"
-              onClick={() => {
-                setIsMenuOpen(false);
-                setIsTabOpen(false);
-              }}
+              onClick={handleCloseMenu}
             >
               <img
                 src={(user && user.avatar) ?? "/assets/user.png"}
@@ -360,7 +355,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                       <Link
                         key={product.id}
                         to={`/products/category/${product.category}`}
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={handleCloseMenu}
                         className="flex items-center text-[#2C2420] hover:text-[#7A6B5A] transition-colors duration-200"
                       >
                         <picture className="relative hover:brightness-125 hover:scale-101">
@@ -382,11 +377,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
               </div>
             )}
             <button
-              onClick={() => {
-                onLogout();
-                setIsMenuOpen(false);
-                document.body.style.overflow = "auto";
-              }}
+              onClick={handleCloseMenu}
               className="flex items-center gap-3 text-[#DC3545] hover:underline mt-4 pt-4 border-t border-[#E0D6CC]"
             >
               <LogOut size={18} /> Salir
@@ -397,20 +388,14 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             <div className="flex flex-col gap-4 font-sans-elegant">
               <Link
                 to="/login"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  document.body.style.overflow = "auto";
-                }}
+                onClick={handleCloseMenu}
                 className="text-[#2C2420] hover:underline"
               >
                 Ingresar
               </Link>
               <Link
                 to="/register"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  document.body.style.overflow = "auto";
-                }}
+                onClick={handleCloseMenu}
                 className="text-[#2C2420] font-medium hover:underline"
               >
                 Registrarse
