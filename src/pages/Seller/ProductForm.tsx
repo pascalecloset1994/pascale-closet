@@ -33,8 +33,7 @@ const ProductForm = () => {
     products,
     createNewProduct,
     updateProduct,
-    loading: isLoading,
-    fetchProducts
+    loading: isLoading
   } = useProducts();
   const isEditing = Boolean(id);
 
@@ -288,7 +287,6 @@ const ProductForm = () => {
       await updateProduct(id, formData);
     } else {
       await createNewProduct(formData);
-      await fetchProducts();
     }
 
     navigate("/seller/products");
