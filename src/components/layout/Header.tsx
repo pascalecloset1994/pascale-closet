@@ -410,7 +410,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
               </Link>
             </div>
             <div className="absolute bottom-0 left-0 w-full h-16 border-t border-border">
-              <div className="flex justify-between px-4 my-5">
+              <div className="flex justify-between px-4 my-6">
                 <h3 className="font-sans-elegant text-xs uppercase tracking-wider">
                   Síguenos por
                 </h3>
