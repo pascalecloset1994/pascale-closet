@@ -240,7 +240,11 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
       const message = err instanceof Error ? err.message : "Error desconocido";
       setError(message);
       showDialog({ content: <div>Error: {message}</div> });
-      console.error("Error al crear producto:", err);
+      await fetch(`${import.meta.env.BASE_URL}/api/loger`, {
+        method: "POST",
+        headers: { "COntent-Type": "application/json" },
+        body: JSON.stringify({ log: message })
+      })
     } finally {
       setLoading(false);
     }
@@ -320,6 +324,11 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
       const message = err instanceof Error ? err.message : "Error desconocido";
       setError(message);
       showDialog({ content: <div>Error: {message}</div> });
+      await fetch(`${import.meta.env.BASE_URL}/api/loger`, {
+        method: "POST",
+        headers: { "COntent-Type": "application/json" },
+        body: JSON.stringify({ log: message })
+      })
     } finally {
       setLoading(false);
     }
