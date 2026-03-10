@@ -6,6 +6,8 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
+// ImagePreview ya no se usa en el contexto — las imágenes se suben a
+// Vercel Blob en el formulario y aquí solo llegan las URLs resultantes.
 import { showDialog } from "../components/common/Dialog";
 import { useAuth } from "./AuthContext";
 import { toast } from "../components/common/Toast";
@@ -37,7 +39,7 @@ export interface ImagePreview {
   preview: string;
 }
 
-interface NewProduct {
+export interface NewProduct {
   name: string;
   price: number | string;
   stock: number | string;
@@ -49,7 +51,8 @@ interface NewProduct {
   color: string;
   category: string;
   user_id: string;
-  images: ImagePreview[] | null;
+  /** URLs ya subidas a Vercel Blob. Los archivos nunca pasan por esta función. */
+  imageUrls: string[];
 }
 
 interface ProductContextType {
@@ -194,31 +197,26 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   const createNewProduct = async (newProduct: NewProduct) => {
     setLoading(true);
     try {
-      const formData = new FormData();
-      formData.append("name", newProduct.name);
-      formData.append("price", String(newProduct.price));
-      formData.append("stock", String(newProduct.stock));
-      formData.append("condition", newProduct.condition);
-      formData.append("description", newProduct.description);
-      formData.append("brand", newProduct.brand);
-      formData.append("temp", newProduct.temp);
-      formData.append("size", newProduct.size);
-      formData.append("color", newProduct.color);
-      formData.append("category", newProduct.category);
-      formData.append("user_id", newProduct.user_id);
-
-      if (newProduct.images && newProduct.images.length > 0) {
-        for (const img of newProduct.images) {
-          formData.append("images", img.file);
-        }
-      }
-
       const response = await fetch(
         `${import.meta.env.VITE_BACK_API_URL}/product`,
         {
           method: "POST",
           credentials: "include",
-          body: formData,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: newProduct.name,
+            price: newProduct.price,
+            stock: newProduct.stock,
+            condition: newProduct.condition,
+            description: newProduct.description,
+            brand: newProduct.brand,
+            temp: newProduct.temp,
+            size: newProduct.size,
+            color: newProduct.color,
+            category: newProduct.category,
+            user_id: newProduct.user_id,
+            imageUrls: newProduct.imageUrls,
+          }),
         },
       );
       const result = await response.json();
@@ -256,50 +254,25 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   ) => {
     setLoading(true);
     try {
-      const formData = new FormData();
-      formData.append("name", updatedProduct.name);
-      formData.append("price", String(updatedProduct.price));
-      formData.append("stock", String(updatedProduct.stock));
-      formData.append("condition", updatedProduct.condition);
-      formData.append("description", updatedProduct.description);
-      formData.append("brand", updatedProduct.brand);
-      formData.append("temp", updatedProduct.temp);
-      formData.append("size", updatedProduct.size);
-      formData.append("color", updatedProduct.color);
-      formData.append("category", updatedProduct.category);
-
-      // Separar las imagenes existentes y subir si hay ya archivos
-      const existingUrls: string[] = [];
-      const newFiles: File[] = [];
-
-      if (updatedProduct.images && updatedProduct.images.length > 0) {
-        for (const img of updatedProduct.images) {
-          if (img.file.size > 0) {
-            // Una imagen real nueva
-            newFiles.push(img.file);
-          } else if (img.preview && img.preview.startsWith("http")) {
-            // Esta es una imagen que ya existe en el server
-            existingUrls.push(img.preview);
-          }
-        }
-      }
-
-      // Unicamente actualizar si hay imágenes nuevas
-      for (const file of newFiles) {
-        formData.append("images", file);
-      }
-
-      // Enviar las URL al backend 
-      if (existingUrls.length > 0) {
-        formData.append("existing_images", JSON.stringify(existingUrls));
-      }
-
       const response = await fetch(
         `${import.meta.env.VITE_BACK_API_URL}/product/${productId}`,
         {
           method: "PUT",
           credentials: "include",
-          body: formData,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: updatedProduct.name,
+            price: updatedProduct.price,
+            stock: updatedProduct.stock,
+            condition: updatedProduct.condition,
+            description: updatedProduct.description,
+            brand: updatedProduct.brand,
+            temp: updatedProduct.temp,
+            size: updatedProduct.size,
+            color: updatedProduct.color,
+            category: updatedProduct.category,
+            imageUrls: updatedProduct.imageUrls,
+          }),
         },
       );
       const result = await response.json();

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, type ChangeEvent, type DragEvent, type FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { upload } from "@vercel/blob/client";
 import Input from "../../components/common/Input";
 import { useProducts, type ImagePreview } from "../../contexts/ProductContext";
 import { Loader } from "../../components/common/Loader";
@@ -307,10 +308,55 @@ const ProductForm = () => {
       return;
     }
 
+    // Subir imágenes nuevas a Vercel Blob y recopilar todas las URLs
+    const imageUrls: string[] = [];
+
+    for (const img of previewImages) {
+      if (img.preview.startsWith("http")) {
+        // Imagen que ya estaba en el servidor — conservar la URL
+        imageUrls.push(img.preview);
+      } else {
+        // Archivo nuevo — subir directamente a Vercel Blob (sin pasar por serverless)
+        try {
+          const blob = await upload(img.file.name, img.file, {
+            access: "public",
+            handleUploadUrl: "/api/blob-upload",
+          });
+          imageUrls.push(blob.url);
+        } catch {
+          showDialog({
+            content: (
+              <div className="p-5">
+                <p className="font-sans-elegant text-[#2C2420]">
+                  Error al subir la imagen "{img.file.name}". Intenta de nuevo.
+                </p>
+              </div>
+            ),
+          });
+          return;
+        }
+      }
+    }
+
+    const payload = {
+      name: formData.name,
+      price: formData.price,
+      stock: formData.stock,
+      condition: formData.condition,
+      description: formData.description,
+      brand: formData.brand,
+      temp: formData.temp,
+      size: formData.size,
+      color: formData.color,
+      category: formData.category,
+      user_id: formData.user_id,
+      imageUrls,
+    };
+
     if (isEditing && id) {
-      await updateProduct(id, formData);
+      await updateProduct(id, payload);
     } else {
-      await createNewProduct(formData);
+      await createNewProduct(payload);
     }
 
     navigate("/seller/products");
