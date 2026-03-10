@@ -5,6 +5,7 @@ import { useProducts, type ImagePreview } from "../../contexts/ProductContext";
 import { Loader } from "../../components/common/Loader";
 import { showDialog } from "../../components/common/Dialog";
 import { useAuth } from "../../contexts/AuthContext";
+import imageCompression from "browser-image-compression"
 
 interface ProductFormData {
   name: string;
@@ -181,16 +182,39 @@ const ProductForm = () => {
         continue;
       }
 
-      validFiles.push({
-        file,
-        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        preview: URL.createObjectURL(file),
-      });
+      try {
+        const options = {
+          maxSizeMB: 1, // Límite de 1MB para evitar el error 413
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+        };
+        
+        const compressedFile = await imageCompression(file, options);
+
+        validFiles.push({
+          file: compressedFile,
+          id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          preview: URL.createObjectURL(compressedFile),
+        });
+      } catch (error) {
+        console.error("Error al comprimir la imagen:", error);
+        showDialog({
+          content: (
+            <div className="p-5">
+              <p className="font-sans-elegant text-[#2C2420]">
+                Hubo un error al procesar la imagen "{file.name}".
+              </p>
+            </div>
+          ),
+        });
+      }
     }
 
     if (validFiles.length > 0) {
       setPreviewImages((prev) => {
+        
         const accumulated = [...prev, ...validFiles];
+        
         setFormData((prevForm) => ({ ...prevForm, images: accumulated }));
         return accumulated;
       });
