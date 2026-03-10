@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, type ChangeEvent, type DragEvent, type FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { upload } from "@vercel/blob/client";
 import Input from "../../components/common/Input";
 import { useProducts, type ImagePreview } from "../../contexts/ProductContext";
 import { Loader } from "../../components/common/Loader";
@@ -316,19 +315,30 @@ const ProductForm = () => {
         // Imagen que ya estaba en el servidor — conservar la URL
         imageUrls.push(img.preview);
       } else {
-        // Archivo nuevo — subir directamente a Vercel Blob (sin pasar por serverless)
+        // Archivo nuevo — subir a Vercel Blob via nuestra API (1 imagen por request)
         try {
-          const blob = await upload(img.file.name, img.file, {
-            access: "public",
-            handleUploadUrl: "/api/blob-upload",
+          const res = await fetch("/api/blob-upload", {
+            method: "POST",
+            headers: {
+              "Content-Type": img.file.type || "image/jpeg",
+              "x-filename": encodeURIComponent(img.file.name),
+            },
+            body: img.file,
           });
-          imageUrls.push(blob.url);
-        } catch {
+
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.error || "Error al subir imagen");
+          }
+
+          const { url } = await res.json();
+          imageUrls.push(url);
+        } catch (error) {
           showDialog({
             content: (
               <div className="p-5">
                 <p className="font-sans-elegant text-[#2C2420]">
-                  Error al subir la imagen "{img.file.name}". Intenta de nuevo.
+                  Error al subir la imagen "{img.file.name}": {(error as Error).message}
                 </p>
               </div>
             ),

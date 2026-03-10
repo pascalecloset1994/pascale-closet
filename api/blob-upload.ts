@@ -1,41 +1,45 @@
-import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { put } from "@vercel/blob";
 
-// Node.js runtime (default) — handleUpload requiere crypto, stream, etc.
+export const config = {
+  api: {
+    bodyParser: false, // Necesario para recibir el archivo raw
+  },
+};
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+function getRawBody(req: any): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const chunks: any[] = [];
+    req.on("data", (chunk: any) => chunks.push(chunk));
+    req.on("end", () => {
+      resolve(new Blob(chunks));
+    });
+    req.on("error", reject);
+  });
+}
+
+export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const body = req.body as HandleUploadBody;
-
   try {
-    const jsonResponse = await handleUpload({
-      body,
-      request: req,
-      onBeforeGenerateToken: async () => {
-        return {
-          allowedContentTypes: [
-            "image/jpeg",
-            "image/jpg",
-            "image/png",
-            "image/webp",
-            "image/gif",
-            "image/avif",
-            "image/heic",
-            "image/heif",
-          ],
-          maximumSizeInBytes: 10 * 1024 * 1024, // 10MB por archivo
-        };
-      },
-      onUploadCompleted: async ({ blob }) => {
-        console.log("Blob upload completado:", blob.url);
-      },
+    const filename = req.headers["x-filename"] as string;
+    const contentType = req.headers["content-type"] as string;
+
+    if (!filename) {
+      return res.status(400).json({ error: "Falta el header x-filename" });
+    }
+
+    const body = await getRawBody(req);
+
+    const blob = await put(`products/${Date.now()}-${decodeURIComponent(filename)}`, body, {
+      access: "public",
+      contentType: contentType || "image/jpeg",
     });
 
-    return res.status(200).json(jsonResponse);
+    return res.status(200).json({ url: blob.url });
   } catch (error) {
-    return res.status(400).json({ error: (error as Error).message });
+    console.error("Error en blob-upload:", error);
+    return res.status(500).json({ error: (error as Error).message });
   }
 }
