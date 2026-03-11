@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { useOrder } from "../../contexts/OrderContext";
 import { formatDate } from "../../utils/formatDate";
 import {
@@ -17,15 +17,15 @@ const SellerOrderHistory = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "approved":
-        return "bg-[#F0FFF0] border-[#2C2420] text-[#2C2420]";
+        return "bg-green-50 border-foreground text-foreground";
       case "En Tránsito":
-        return "bg-[#F5F0EB] border-[#2C2420] text-[#2C2420]";
+        return "bg-secondary border-foreground text-foreground";
       case "pending":
-        return "bg-[#FFF9E6] border-[#2C2420] text-[#2C2420]";
+        return "bg-yellow-50 border-foreground text-foreground";
       case "Cancelado":
-        return "bg-[#FFF0F0] border-[#2C2420] text-[#2C2420]";
+        return "bg-red-50 border-foreground text-foreground";
       default:
-        return "bg-[#F5F0EB] border-[#E0D6CC] text-[#7A6B5A]";
+        return "bg-secondary border-border text-muted-foreground";
     }
   };
 
@@ -66,7 +66,7 @@ const SellerOrderHistory = () => {
 
   if (sellerOrders.length === 0) {
     return (
-      <div className="min-h-screen bg-[#FAF8F5] py-16">
+      <div className="min-h-screen bg-background py-16">
         <div className="max-w-4xl mx-auto px-4">
           <Link
             to="/seller/dashboard"
@@ -78,11 +78,11 @@ const SellerOrderHistory = () => {
             />
             <span>Volver</span>
           </Link>
-          <div className="bg-white border border-[#E0D6CC] p-16 text-center">
+          <div className="bg-card border border-border p-16 text-center">
             <div className="mb-6 flex justify-center">
-              <Package size={64} className="text-[#7A6B5A]" />
+              <Package size={64} className="text-muted-foreground" />
             </div>
-            <h2 className="text-xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-4">
+            <h2 className="text-xl font-sans-elegant uppercase tracking-wider text-foreground mb-4">
               Aún no tienes pedidos
             </h2>
           </div>
@@ -92,16 +92,16 @@ const SellerOrderHistory = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] py-12">
+    <div className="min-h-screen bg-background py-12">
       <div className="max-w-7xl mx-auto px-4">
         <Link
           to="/seller/dashboard"
-          className="inline-flex items-center gap-2 text-[#7A6B5A] hover:text-[#2C2420] font-sans-elegant text-sm mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground font-sans-elegant text-sm mb-8 transition-colors"
         >
           <ArrowLeft size={16} />
           <span>Volver al panel</span>
         </Link>
-        <h1 className="text-2xl md:text-3xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-8">
+        <h1 className="text-2xl md:text-3xl font-sans-elegant uppercase tracking-wider text-foreground mb-8">
           Pedidos de Clientes
         </h1>
 
@@ -115,33 +115,33 @@ const SellerOrderHistory = () => {
             .map((order) => (
               <div
                 key={String(order.id)}
-                className="bg-white border border-[#E0D6CC]"
+                className="bg-card border border-border"
               >
                 {/* Order Header */}
-                <div className="bg-[#F5F0EB] border-b border-[#E0D6CC] p-5">
+                <div className="bg-secondary border-b border-border p-5">
                   <div className="flex flex-wrap justify-between items-center gap-4">
                     <div className="flex gap-8 text-sm font-sans-elegant">
                       <div>
-                        <p className="text-[#7A6B5A] text-xs uppercase tracking-wide">
+                        <p className="text-muted-foreground text-xs uppercase tracking-wide">
                           Pedido
                         </p>
-                        <p className="text-[#2C2420] mt-1">
+                        <p className="text-foreground mt-1">
                           #{order.order_number}
                         </p>
                       </div>
                       <div>
-                        <p className="text-[#7A6B5A] text-xs uppercase tracking-wide">
+                        <p className="text-muted-foreground text-xs uppercase tracking-wide">
                           Fecha
                         </p>
-                        <p className="text-[#2C2420] mt-1">
+                        <p className="text-foreground mt-1">
                           {formatDate(order.created_at as string, true)}
                         </p>
                       </div>
                       <div>
-                        <p className="text-[#7A6B5A] text-xs uppercase tracking-wide">
+                        <p className="text-muted-foreground text-xs uppercase tracking-wide">
                           Total
                         </p>
-                        <p className="text-[#2C2420] mt-1">${order.total}</p>
+                        <p className="text-foreground mt-1">${order.total}</p>
                       </div>
                     </div>
                     <div
@@ -157,26 +157,26 @@ const SellerOrderHistory = () => {
                   {order.items?.map((item, index) => (
                     <div
                       key={index}
-                      className="flex justify-between items-center py-4 border-b border-[#E0D6CC] last:border-b-0"
+                      className="flex justify-between items-center py-4 border-b border-border last:border-b-0"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 bg-[#F5F0EB] border border-[#E0D6CC] flex items-center justify-center">
-                          <ShoppingBag size={24} className="text-[#7A6B5A]" />
+                        <div className="w-16 h-16 bg-secondary border border-border flex items-center justify-center">
+                          <ShoppingBag size={24} className="text-muted-foreground" />
                         </div>
                         <div>
-                          <p className="font-sans-elegant text-sm text-[#2C2420] uppercase tracking-wide">
+                          <p className="font-sans-elegant text-sm text-foreground uppercase tracking-wide">
                             {(
                               item as typeof item & {
                                 product_name?: string;
                               }
                             ).product_name ?? item.name}
                           </p>
-                          <p className="text-xs text-[#7A6B5A] font-sans-elegant mt-1">
+                          <p className="text-xs text-muted-foreground font-sans-elegant mt-1">
                             Cantidad: {item.quantity}
                           </p>
                         </div>
                       </div>
-                      <p className="font-sans-elegant text-[#2C2420]">
+                      <p className="font-sans-elegant text-foreground">
                         ${item.price}
                       </p>
                     </div>
@@ -184,10 +184,10 @@ const SellerOrderHistory = () => {
                 </div>
 
                 {/* Order Actions */}
-                <div className="border-t border-[#E0D6CC] p-5 bg-[#F5F0EB]">
+                <div className="border-t border-border p-5 bg-secondary">
                   <div className="flex gap-3">
                     <Link to={`/seller/orders/${order.id}`}>
-                      <button className="px-6 py-3 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#333333] transition-all duration-300">
+                      <button className="px-6 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300">
                         Ver Detalles
                       </button>
                     </Link>

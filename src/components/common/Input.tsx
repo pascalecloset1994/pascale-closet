@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Eye, EyeClosed } from "lucide-react";
 import { useState } from "react";
@@ -27,7 +27,7 @@ const Input = ({
   return (
     <div className="mb-5 relative">
       {label && (
-        <label className="block text-xs font-sans-elegant font-medium mb-2 text-[#2C2420] tracking-wide uppercase">
+        <label className="block text-xs font-sans-elegant font-medium mb-2 text-foreground tracking-wide uppercase">
           {label} {required && <span className="text-destructive">*</span>}
         </label>
       )}
@@ -38,7 +38,7 @@ const Input = ({
         value={value}
         onChange={onChange}
         required={required}
-        className={`w-full px-4 py-3 border border-[#E0D6CC] bg-white focus:border-[#2C2420] focus:ring-0 focus:outline-none transition-all duration-200 font-sans-elegant text-[#2C2420] placeholder:text-[#7A6B5A] ${error ? "border-red-500 focus:border-red-500" : ""} ${className}`}
+        className={`w-full px-4 py-3 border border-border bg-card focus:border-foreground focus:ring-0 focus:outline-none transition-all duration-200 font-sans-elegant text-foreground placeholder:text-muted-foreground ${error ? "border-red-500 focus:border-red-500" : ""} ${className}`}
       />
       {error && (
         <p className="text-red-500 text-xs mt-2 font-sans-elegant">

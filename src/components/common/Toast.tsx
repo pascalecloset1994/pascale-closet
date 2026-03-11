@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+﻿import { ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 
 export interface ToastProps {
@@ -33,12 +33,12 @@ export const toast = ({ message, timer = 6, tunner = 20 }: ToastProps) => {
   const interval = setInterval(
     () => {
       root.render(
-        <div className="w-fit py-4 bg-[#2C2420] text-white overflow-hidden toast">
+        <div className="w-fit py-4 bg-foreground text-white overflow-hidden toast">
           <article className="flex px-4 gap-2 items-center relative">
             {message}
             <div
               style={{ width: `${Math.floor((counter * 1000) / tunner)}px` }}
-              className="h-1 bg-[#8B7355] absolute -bottom-4 left-0"
+              className="h-1 bg-primary absolute -bottom-4 left-0"
             />
           </article>
         </div>,

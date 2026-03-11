@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type ChangeEvent, type DragEvent, type FormEvent } from "react";
+﻿import { useState, useEffect, useRef, type ChangeEvent, type DragEvent, type FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Input from "../../components/common/Input";
 import { useProducts, type ImagePreview } from "../../contexts/ProductContext";
@@ -143,7 +143,7 @@ const ProductForm = () => {
         showDialog({
           content: (
             <div className="p-5">
-              <p className="font-sans-elegant text-[#2C2420]">
+              <p className="font-sans-elegant text-foreground">
                 Solo puedes subir un máximo de {maxFiles} imágenes.
               </p>
             </div>
@@ -160,7 +160,7 @@ const ProductForm = () => {
         showDialog({
           content: (
             <div className="p-5">
-              <p className="font-sans-elegant text-[#2C2420]">
+              <p className="font-sans-elegant text-foreground">
                 "{file.name}" no es un archivo de imagen válido.
               </p>
             </div>
@@ -173,7 +173,7 @@ const ProductForm = () => {
         showDialog({
           content: (
             <div className="p-5">
-              <p className="font-sans-elegant text-[#2C2420]">
+              <p className="font-sans-elegant text-foreground">
                 "{file.name}" supera el límite de 15MB.
               </p>
             </div>
@@ -201,7 +201,7 @@ const ProductForm = () => {
         showDialog({
           content: (
             <div className="p-5">
-              <p className="font-sans-elegant text-[#2C2420]">
+              <p className="font-sans-elegant text-foreground">
                 Hubo un error al procesar la imagen "{file.name}".
               </p>
             </div>
@@ -337,7 +337,7 @@ const ProductForm = () => {
           showDialog({
             content: (
               <div className="p-5">
-                <p className="font-sans-elegant text-[#2C2420]">
+                <p className="font-sans-elegant text-foreground">
                   Error al subir la imagen "{img.file.name}": {(error as Error).message}
                 </p>
               </div>
@@ -375,17 +375,17 @@ const ProductForm = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] py-8">
+    <div className="min-h-screen bg-background py-8">
       <div className="max-w-3xl mx-auto px-4">
         {/* Header */}
         <div className="mb-6">
-          <p className="text-[#7A6B5A] font-sans-elegant text-xs tracking-[0.3em] uppercase mb-1">
+          <p className="text-muted-foreground font-sans-elegant text-xs tracking-[0.3em] uppercase mb-1">
             {isEditing ? "Editar" : "Nueva prenda"}
           </p>
-          <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-[#2C2420]">
+          <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-foreground">
             {isEditing ? "Editar Producto" : "Publicar Producto"}
           </h1>
-          <p className="text-[#7A6B5A] font-sans-elegant text-sm mt-1">
+          <p className="text-muted-foreground font-sans-elegant text-sm mt-1">
             {isEditing
               ? "Actualiza la información del producto"
               : "Añade una nueva prenda a tu colección"}
@@ -393,8 +393,8 @@ const ProductForm = () => {
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="bg-white border border-[#E0D6CC] p-5 mb-4">
-            <h2 className="text-xs font-sans-elegant font-medium text-[#2C2420] mb-4 uppercase tracking-wider">
+          <div className="bg-card border border-border p-5 mb-4">
+            <h2 className="text-xs font-sans-elegant font-medium text-foreground mb-4 uppercase tracking-wider">
               Información Básica
             </h2>
 
@@ -409,8 +409,8 @@ const ProductForm = () => {
             />
 
             <div className="mb-4">
-              <label className="block text-xs font-sans-elegant font-medium mb-2 text-[#2C2420] uppercase tracking-wide">
-                Descripción <span className="text-[#2C2420]">*</span>
+              <label className="block text-xs font-sans-elegant font-medium mb-2 text-foreground uppercase tracking-wide">
+                Descripción <span className="text-foreground">*</span>
               </label>
               <textarea
                 name="description"
@@ -418,11 +418,11 @@ const ProductForm = () => {
                 value={formData.description}
                 onChange={handleChange}
                 rows={3}
-                className={`w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#2C2420] focus:ring-1 focus:ring-[#2C2420] outline-none transition-all duration-200 text-sm field-sizing-content ${errors.description ? "border-[#2C2420]" : ""
+                className={`w-full px-4 py-3 border border-border bg-card font-sans-elegant text-foreground focus:border-foreground focus:ring-1 focus:ring-foreground outline-none transition-all duration-200 text-sm field-sizing-content ${errors.description ? "border-foreground" : ""
                   }`}
               />
               {errors.description && (
-                <p className="text-[#2C2420] text-xs mt-1 font-sans-elegant">
+                <p className="text-foreground text-xs mt-1 font-sans-elegant">
                   {errors.description}
                 </p>
               )}
@@ -430,14 +430,14 @@ const ProductForm = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-3">
-                <label className="block text-xs font-sans-elegant font-medium mb-2 text-[#2C2420] uppercase tracking-wide">
-                  Categoría <span className="text-[#2C2420]">*</span>
+                <label className="block text-xs font-sans-elegant font-medium mb-2 text-foreground uppercase tracking-wide">
+                  Categoría <span className="text-foreground">*</span>
                 </label>
                 <select
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#2C2420] focus:ring-1 focus:ring-[#2C2420] outline-none transition-all duration-200 text-sm"
+                  className="w-full px-4 py-3 border border-border bg-card font-sans-elegant text-foreground focus:border-foreground focus:ring-1 focus:ring-foreground outline-none transition-all duration-200 text-sm"
                 >
                   {categories.map((cat) => (
                     <option key={cat.value} value={cat.value}>
@@ -448,14 +448,14 @@ const ProductForm = () => {
               </div>
 
               <div className="mb-3">
-                <label className="block text-xs font-sans-elegant font-medium mb-2 text-[#2C2420] uppercase tracking-wide">
-                  Condición <span className="text-[#2C2420]">*</span>
+                <label className="block text-xs font-sans-elegant font-medium mb-2 text-foreground uppercase tracking-wide">
+                  Condición <span className="text-foreground">*</span>
                 </label>
                 <select
                   name="condition"
                   value={formData.condition}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#2C2420] focus:ring-1 focus:ring-[#2C2420] outline-none transition-all duration-200 text-sm"
+                  className="w-full px-4 py-3 border border-border bg-card font-sans-elegant text-foreground focus:border-foreground focus:ring-1 focus:ring-foreground outline-none transition-all duration-200 text-sm"
                 >
                   {conditions.map((cond) => (
                     <option key={cond.value} value={cond.value}>
@@ -467,8 +467,8 @@ const ProductForm = () => {
             </div>
           </div>
 
-          <div className="bg-white border border-[#E0D6CC] p-5 mb-4">
-            <h2 className="text-xs font-sans-elegant font-medium text-[#2C2420] mb-4 uppercase tracking-wider">
+          <div className="bg-card border border-border p-5 mb-4">
+            <h2 className="text-xs font-sans-elegant font-medium text-foreground mb-4 uppercase tracking-wider">
               Precio e Inventario
             </h2>
 
@@ -496,8 +496,8 @@ const ProductForm = () => {
             </div>
           </div>
 
-          <div className="bg-white border border-[#E0D6CC] p-5 mb-4">
-            <h2 className="text-xs font-sans-elegant font-medium text-[#2C2420] mb-4 uppercase tracking-wider">
+          <div className="bg-card border border-border p-5 mb-4">
+            <h2 className="text-xs font-sans-elegant font-medium text-foreground mb-4 uppercase tracking-wider">
               Detalles
             </h2>
 
@@ -542,8 +542,8 @@ const ProductForm = () => {
           </div>
 
           {/* Image Upload Section */}
-          <div className="bg-white border border-[#E0D6CC] p-5 mb-4">
-            <h2 className="text-xs font-sans-elegant font-medium text-[#2C2420] mb-4 uppercase tracking-wider">
+          <div className="bg-card border border-border p-5 mb-4">
+            <h2 className="text-xs font-sans-elegant font-medium text-foreground mb-4 uppercase tracking-wider">
               Imágenes
             </h2>
 
@@ -555,14 +555,14 @@ const ProductForm = () => {
               onDrop={handleDrop}
               onClick={handleDropZoneClick}
               className={`relative border-2 border-dashed p-8 text-center cursor-pointer transition-all duration-300 ${isDragging
-                  ? "border-[#2C2420] bg-[#F5F0EB] scale-[1.02]"
-                  : "border-[#E0D6CC] bg-[#F5F0EB] hover:border-[#2C2420]"
+                  ? "border-foreground bg-secondary scale-[1.02]"
+                  : "border-border bg-secondary hover:border-foreground"
                 }`}
             >
               {isDragging && (
-                <div className="absolute inset-0 flex items-center justify-center bg-[#F5F0EB]">
+                <div className="absolute inset-0 flex items-center justify-center bg-secondary">
                   <div className="text-center">
-                    <p className="text-[#2C2420] font-sans-elegant font-medium">
+                    <p className="text-foreground font-sans-elegant font-medium">
                       Suelta las imágenes aquí
                     </p>
                   </div>
@@ -574,9 +574,9 @@ const ProductForm = () => {
                   isDragging ? "opacity-0" : "opacity-100 transition-opacity"
                 }
               >
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#F5F0EB] border border-[#E0D6CC] flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary border border-border flex items-center justify-center">
                   <svg
-                    className="w-8 h-8 text-[#2C2420]"
+                    className="w-8 h-8 text-foreground"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -589,16 +589,16 @@ const ProductForm = () => {
                     />
                   </svg>
                 </div>
-                <p className="text-[#2C2420] font-sans-elegant text-sm mb-1">
+                <p className="text-foreground font-sans-elegant text-sm mb-1">
                   Arrastra y suelta tus imágenes aquí
                 </p>
-                <p className="text-[#7A6B5A] font-sans-elegant text-xs mb-3">
+                <p className="text-muted-foreground font-sans-elegant text-xs mb-3">
                   o haz clic para seleccionar
                 </p>
-                <span className="inline-block px-4 py-2 border border-[#2C2420] text-[#2C2420] font-sans-elegant text-xs tracking-wide uppercase hover:bg-[#2C2420] hover:text-white transition-all duration-200">
+                <span className="inline-block px-4 py-2 border border-foreground text-foreground font-sans-elegant text-xs tracking-wide uppercase hover:bg-foreground hover:text-background transition-all duration-200">
                   Explorar archivos
                 </span>
-                <p className="text-[10px] text-[#7A6B5A] font-sans-elegant mt-3">
+                <p className="text-[10px] text-muted-foreground font-sans-elegant mt-3">
                   Máximo 3 imágenes · JPG, PNG · 15MB cada una
                 </p>
               </div>
@@ -617,7 +617,7 @@ const ProductForm = () => {
             {previewImages.length > 0 && (
               <div className="mt-4">
                 <div className="flex items-center justify-between mb-3">
-                  <p className="text-xs text-[#7A6B5A] font-sans-elegant">
+                  <p className="text-xs text-muted-foreground font-sans-elegant">
                     {previewImages.length} de 3 imágenes
                   </p>
                   <button
@@ -631,7 +631,7 @@ const ProductForm = () => {
                       setPreviewImages([]);
                       setFormData((prev) => ({ ...prev, images: null }));
                     }}
-                    className="text-xs text-[#2C2420] font-sans-elegant hover:underline"
+                    className="text-xs text-foreground font-sans-elegant hover:underline"
                   >
                     Eliminar todas
                   </button>
@@ -642,10 +642,10 @@ const ProductForm = () => {
                       <img
                         src={img.preview}
                         alt={`Preview ${index + 1}`}
-                        className="w-full h-full object-cover border border-[#E0D6CC]"
+                        className="w-full h-full object-cover border border-border"
                       />
                       {index === 0 && (
-                        <span className="absolute top-1 left-1 bg-[#2C2420] text-white text-[10px] px-1.5 py-0.5 font-sans-elegant">
+                        <span className="absolute top-1 left-1 bg-foreground text-white text-[10px] px-1.5 py-0.5 font-sans-elegant">
                           Principal
                         </span>
                       )}
@@ -655,7 +655,7 @@ const ProductForm = () => {
                           e.stopPropagation();
                           removeImage(img.id);
                         }}
-                        className="absolute top-1 right-1 w-6 h-6 bg-[#2C2420]/80 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-[#2C2420]"
+                        className="absolute top-1 right-1 w-6 h-6 bg-foreground/80 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-foreground"
                       >
                         <svg
                           className="w-3 h-3"
@@ -678,11 +678,11 @@ const ProductForm = () => {
                   {previewImages.length < 3 && (
                     <div
                       onClick={handleDropZoneClick}
-                      className="aspect-square border-2 border-dashed border-[#E0D6CC] flex items-center justify-center cursor-pointer hover:border-[#2C2420] hover:bg-[#F5F0EB] transition-all duration-200"
+                      className="aspect-square border-2 border-dashed border-border flex items-center justify-center cursor-pointer hover:border-foreground hover:bg-secondary transition-all duration-200"
                     >
                       <div className="text-center">
                         <svg
-                          className="w-6 h-6 mx-auto text-[#7A6B5A]"
+                          className="w-6 h-6 mx-auto text-muted-foreground"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -694,7 +694,7 @@ const ProductForm = () => {
                             d="M12 4v16m8-8H4"
                           />
                         </svg>
-                        <span className="text-[10px] text-[#7A6B5A] font-sans-elegant mt-1 block">
+                        <span className="text-[10px] text-muted-foreground font-sans-elegant mt-1 block">
                           Añadir
                         </span>
                       </div>
@@ -709,13 +709,13 @@ const ProductForm = () => {
             <button
               type="button"
               onClick={() => navigate("/seller/products")}
-              className="flex-1 py-3 border border-[#2C2420] text-[#2C2420] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#2C2420] hover:text-white transition-all duration-200"
+              className="flex-1 py-3 border border-foreground text-foreground font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-all duration-200"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="flex-1 py-3 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#333333] transition-all duration-200"
+              className="flex-1 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200"
             >
               {isEditing ? "Actualizar" : "Publicar"} {loading ? "..." : ""}
             </button>

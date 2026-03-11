@@ -1,4 +1,4 @@
-import { Image, ImageUp, MapPin, Clock, Type } from "lucide-react";
+﻿import { Image, ImageUp, MapPin, Clock, Type } from "lucide-react";
 import { useRef } from "react";
 
 interface FooterFormProps {
@@ -25,19 +25,19 @@ export const FooterForm = ({
 
   return (
     <div>
-      <div className="md:border-t border-[#E0D6CC] md:p-8">
+      <div className="md:border-t border-border md:p-8">
         <form
           onSubmit={handleSubmit}
-          className="bg-white md:border border-[#E0D6CC] md:p-6 p-4"
+          className="bg-card md:border border-border md:p-6 p-4"
         >
-          <h3 className="text-xs font-sans-elegant font-medium text-[#2C2420] mb-6 uppercase tracking-wider flex items-center gap-2">
-            <Image size={16} className="text-[#7A6B5A]" />
+          <h3 className="text-xs font-sans-elegant font-medium text-foreground mb-6 uppercase tracking-wider flex items-center gap-2">
+            <Image size={16} className="text-muted-foreground" />
             Sección Footer del Sitio
           </h3>
 
           <div className="grid grid-cols-1 gap-5">
             <div>
-              <label className="text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 flex items-center gap-1.5">
+              <label className="text-xs font-sans-elegant text-muted-foreground uppercase tracking-wide mb-2 flex items-center gap-1.5">
                 <Type size={14} />
                 Título
               </label>
@@ -47,12 +47,12 @@ export const FooterForm = ({
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Ej: Visítanos en nuestra tienda"
-                className="w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#2C2420] focus:outline-none transition-all duration-200"
+                className="w-full px-4 py-3 border border-border bg-card font-sans-elegant text-foreground focus:border-foreground focus:outline-none transition-all duration-200"
               />
             </div>
 
             <div>
-              <label className="text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 flex items-center gap-1.5">
+              <label className="text-xs font-sans-elegant text-muted-foreground uppercase tracking-wide mb-2 flex items-center gap-1.5">
                 <MapPin size={14} />
                 Ubicación
               </label>
@@ -62,12 +62,12 @@ export const FooterForm = ({
                 value={formData.location}
                 onChange={handleChange}
                 placeholder="Ej: Santiago, Chile"
-                className="w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#2C2420] focus:outline-none transition-all duration-200"
+                className="w-full px-4 py-3 border border-border bg-card font-sans-elegant text-foreground focus:border-foreground focus:outline-none transition-all duration-200"
               />
             </div>
 
             <div>
-              <label className="text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 flex items-center gap-1.5">
+              <label className="text-xs font-sans-elegant text-muted-foreground uppercase tracking-wide mb-2 flex items-center gap-1.5">
                 <Clock size={14} />
                 Horario
               </label>
@@ -77,12 +77,12 @@ export const FooterForm = ({
                 value={formData.schedule}
                 onChange={handleChange}
                 placeholder="Ej: Lunes a Viernes de 9:00 a 18:00"
-                className="w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#2C2420] focus:outline-none transition-all duration-200"
+                className="w-full px-4 py-3 border border-border bg-card font-sans-elegant text-foreground focus:border-foreground focus:outline-none transition-all duration-200"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2">
+              <label className="block text-xs font-sans-elegant text-muted-foreground uppercase tracking-wide mb-2">
                 Vista Previa del Footer
               </label>
               <section className="relative h-[50vh] md:h-[60vh] overflow-hidden">
@@ -94,7 +94,7 @@ export const FooterForm = ({
                       className="w-full h-full object-cover rounded"
                     />
                   ) : (
-                    <div className="w-full h-full bg-[#2C2420] rounded" />
+                    <div className="w-full h-full bg-foreground rounded" />
                   )}
                   <div className="absolute inset-0 bg-black/50"></div>
                 </div>
@@ -123,7 +123,7 @@ export const FooterForm = ({
             <small>SUBIR ARCHIVO</small>
             <span
               onClick={() => inputRef.current!.click()}
-              className="flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-3 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#333333] transition-all duration-200 cursor-pointer"
+              className="flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200 cursor-pointer"
             >
               <ImageUp size={20} />
               Cargar Imagen Footer
@@ -137,7 +137,7 @@ export const FooterForm = ({
             />
             <button
               type="submit"
-              className="w-full sm:w-auto px-6 py-3 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#333333] transition-all duration-200"
+              className="w-full sm:w-auto px-6 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200"
             >
               Modificar Footer
             </button>

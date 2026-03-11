@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Store,
@@ -689,7 +689,7 @@ const SellerInfo = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/register"
-                className="inline-flex items-center justify-center gap-2 bg-white text-foreground px-8 py-4 font-sans-elegant text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300 group"
+                className="inline-flex items-center justify-center gap-2 bg-card text-foreground px-8 py-4 font-sans-elegant text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300 group"
               >
                 <span>Crear Cuenta de Vendedora</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+﻿import { type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import { X } from "lucide-react";
 
@@ -37,21 +37,21 @@ export const showDialog = ({ content, title }: ShowDialogProps) => {
   root.render(
     <div className="relative">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-1 border-b border-[#E0D6CC] bg-white">
-        <h3 className="font-sans-elegant text-sm uppercase tracking-wider text-[#2C2420]">
+      <div className="flex items-center justify-between px-6 py-1 border-b border-border bg-card">
+        <h3 className="font-sans-elegant text-sm uppercase tracking-wider text-foreground">
           {title || "Pascale Closet"}
         </h3>
         <button
           onClick={closeDialogWithAnimation}
-          className="w-8 h-8 flex items-center justify-center hover:bg-[#F5F0EB] transition-colors duration-200"
+          className="w-8 h-8 flex items-center justify-center hover:bg-secondary transition-colors duration-200"
           title="Cerrar"
         >
-          <X size={18} className="text-[#7A6B5A] hover:text-[#2C2420]" />
+          <X size={18} className="text-muted-foreground hover:text-foreground" />
         </button>
       </div>
 
       {/* Content */}
-      <div className="px-6 py-6 font-sans-elegant text-[#2C2420]">
+      <div className="px-6 py-6 font-sans-elegant text-foreground">
         {content}
       </div>
     </div>,

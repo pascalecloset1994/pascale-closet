@@ -1,4 +1,4 @@
-import {
+﻿import {
   useState,
   useRef,
   useEffect,
@@ -143,9 +143,9 @@ export const UserProfile = () => {
       title: "¡Listo!",
       content: (
         <div className="text-center py-2">
-          <div className="w-12 h-12 bg-[#F5F0EB]  flex items-center justify-center mx-auto mb-4">
+          <div className="w-12 h-12 bg-secondary  flex items-center justify-center mx-auto mb-4">
             <svg
-              className="w-6 h-6 text-[#2C2420]"
+              className="w-6 h-6 text-foreground"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -158,7 +158,7 @@ export const UserProfile = () => {
               />
             </svg>
           </div>
-          <p className="text-[#7A6B5A] font-sans-elegant">
+          <p className="text-muted-foreground font-sans-elegant">
             Tu perfil ha sido actualizado correctamente.
           </p>
         </div>
@@ -171,7 +171,7 @@ export const UserProfile = () => {
       showDialog({
         title: "Error",
         content: (
-          <p className="text-[#7A6B5A] font-sans-elegant">
+          <p className="text-muted-foreground font-sans-elegant">
             Por favor selecciona un archivo de imagen válido.
           </p>
         ),
@@ -183,7 +183,7 @@ export const UserProfile = () => {
       showDialog({
         title: "Error",
         content: (
-          <p className="text-[#7A6B5A] font-sans-elegant">
+          <p className="text-muted-foreground font-sans-elegant">
             La imagen no debe superar los 5MB.
           </p>
         ),
@@ -218,20 +218,20 @@ export const UserProfile = () => {
       title: "Eliminar cuenta",
       content: (
         <div className="text-center">
-          <div className="w-16 h-16 bg-[#F5F0EB]  flex items-center justify-center mx-auto mb-4">
-            <Trash2 className="w-8 h-8 text-[#2C2420]" />
+          <div className="w-16 h-16 bg-secondary  flex items-center justify-center mx-auto mb-4">
+            <Trash2 className="w-8 h-8 text-foreground" />
           </div>
-          <p className="text-[#2C2420] font-sans-elegant font-medium mb-2">
+          <p className="text-foreground font-sans-elegant font-medium mb-2">
             ¿Estás segura de eliminar tu cuenta?
           </p>
-          <p className="text-sm text-[#7A6B5A] font-sans-elegant mb-6">
+          <p className="text-sm text-muted-foreground font-sans-elegant mb-6">
             Esta acción no se puede deshacer. Se eliminarán todos tus datos
             permanentemente.
           </p>
           <div className="flex gap-3 justify-center">
             <button
               onClick={closeDialog}
-              className="px-5 py-2.5 border border-[#E0D6CC] text-[#7A6B5A] font-sans-elegant text-xs tracking-wide uppercase hover:bg-[#F5F0EB] transition-all duration-200"
+              className="px-5 py-2.5 border border-border text-muted-foreground font-sans-elegant text-xs tracking-wide uppercase hover:bg-secondary transition-all duration-200"
             >
               Cancelar
             </button>
@@ -241,7 +241,7 @@ export const UserProfile = () => {
                 await refreshUser();
                 closeDialog();
               }}
-              className="px-5 py-2.5 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-wide uppercase hover:bg-[#333333] transition-all duration-200"
+              className="px-5 py-2.5 bg-foreground text-white font-sans-elegant text-xs tracking-wide uppercase hover:opacity-80 transition-all duration-200"
             >
               Eliminar cuenta
             </button>
@@ -298,7 +298,7 @@ export const UserProfile = () => {
       showDialog({
         title: "Error",
         content: (
-          <p className="text-[#7A6B5A] font-sans-elegant">
+          <p className="text-muted-foreground font-sans-elegant">
             Por favor selecciona un archivo de imagen válido.
           </p>
         ),
@@ -310,7 +310,7 @@ export const UserProfile = () => {
       showDialog({
         title: "Error",
         content: (
-          <p className="text-[#7A6B5A] font-sans-elegant">
+          <p className="text-muted-foreground font-sans-elegant">
             La imagen no debe superar los 5MB.
           </p>
         ),
@@ -377,12 +377,12 @@ export const UserProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] pb-12 overflow-hidden">
+    <div className="min-h-screen bg-background pb-12 overflow-hidden">
       {/* --- Cover Image Section (Like a Social Profile) --- */}
-      <div className="bg-white border-b border-[#E0D6CC]">
-        <div className="relative h-40 md:h-52 w-full bg-[#E8E2DB] overflow-hidden">
+      <div className="bg-card border-b border-border">
+        <div className="relative h-40 md:h-52 w-full bg-muted overflow-hidden">
           {/* Cover gradient/pattern */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#C9B8A8] via-[#A69580] to-[#8B7355] opacity-20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-accent via-muted-foreground to-primary opacity-20"></div>
           <div
             className="absolute inset-0 opacity-10"
             style={{
@@ -397,7 +397,7 @@ export const UserProfile = () => {
           <div className="relative -mt-16 sm:-mt-24 pb-6 flex flex-col md:flex-row items-center md:items-end gap-6">
             {/* Avatar Circle */}
             <div className="relative group shrink-0 z-10">
-              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-[6px] border-white shadow-lg overflow-hidden bg-[#F5F0EB]">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-[6px] border-white shadow-lg overflow-hidden bg-secondary">
                 <img
                   src={avatarPreview || user.avatar || defaultAvatar}
                   alt={`Avatar de ${user.name}`}
@@ -422,7 +422,7 @@ export const UserProfile = () => {
                   </button>
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="absolute bottom-2 right-2 p-2 bg-[#2C2420] text-white rounded-full shadow-lg border-2 border-white hover:bg-[#4a3e36] transition"
+                    className="absolute bottom-2 right-2 p-2 bg-foreground text-white rounded-full shadow-lg border-2 border-white hover:opacity-80 transition"
                   >
                     <Camera size={16} />
                   </button>
@@ -432,15 +432,15 @@ export const UserProfile = () => {
 
             {/* Basic Info & Stats */}
             <div className="flex-1 text-center md:text-left mb-2 md:mb-6 min-w-0">
-              <h1 className="text-2xl sm:text-3xl font-sans-display text-[#2C2420] font-bold tracking-wide break-words">
+              <h1 className="text-2xl sm:text-3xl font-sans-display text-foreground font-bold tracking-wide break-words">
                 {user.name} {user.lastname}
               </h1>
-              <p className="text-[#7A6B5A] font-sans-elegant text-sm mt-1">
+              <p className="text-muted-foreground font-sans-elegant text-sm mt-1">
                 {user.email}
               </p>
 
               <div className="flex flex-wrap gap-3 mt-3 justify-center md:justify-start">
-                <span className="inline-flex items-center px-3 py-1 bg-[#F5F0EB] border border-[#E0D6CC] text-[#5C4D3C] text-xs font-sans-elegant uppercase tracking-wider ">
+                <span className="inline-flex items-center px-3 py-1 bg-secondary border border-border text-secondary-foreground text-xs font-sans-elegant uppercase tracking-wider ">
                   {user.role === "seller" ? (
                     <div className="flex items-center gap-1">
                       <VerifiedIcon size={20} />
@@ -451,7 +451,7 @@ export const UserProfile = () => {
                   )}
                 </span>
                 {user.role === "seller" && (
-                  <span className="inline-flex items-center px-3 py-1 bg-[#8B7355]/10 text-[#8B7355] text-xs font-bold uppercase tracking-wider ">
+                  <span className="inline-flex items-center px-3 py-1 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider ">
                     Owner
                   </span>
                 )}
@@ -463,8 +463,8 @@ export const UserProfile = () => {
               <button
                 onClick={handleEdit}
                 className={`flex items-center gap-2 px-3 py-1.5 text-xs font-sans-elegant tracking-[0.1em] uppercase transition-all duration-300 ${isEditing
-                    ? "bg-[#2C2420] text-white ring-2 ring-[#2C2420] ring-offset-2"
-                    : "bg-white border border-[#E0D6CC] text-[#2C2420] hover:bg-[#FAF8F5] hover:border-[#8B7355]"
+                    ? "bg-foreground text-white ring-2 ring-foreground ring-offset-2"
+                    : "bg-card border border-border text-foreground hover:bg-background hover:border-primary"
                   }`}
               >
                 <Edit3 size={14} />
@@ -475,24 +475,24 @@ export const UserProfile = () => {
 
           {/* Navigation Tabs */}
           <section className="overflow-x-scroll md:overflow-x-auto">
-            <div className="flex border-t border-[#E0D6CC] w-180 xl:w-full pt-1 xl:justify-between">
+            <div className="flex border-t border-border w-180 xl:w-full pt-1 xl:justify-between">
               <div>
                 <button
                   onClick={() => setIsSelectedItem("usuario")}
-                  className={`${isSelectedItem === "usuario" ? "border-t-2 bg-[#F5F0EB]" : ""} w-32 py-4 px-1 text-xs font-sans-elegant uppercase tracking-wider text-[#2C2420] border-[#8B7355] -mt-1.5 transition hover:border-[#E0D6CC]`}
+                  className={`${isSelectedItem === "usuario" ? "border-t-2 bg-secondary" : ""} w-32 py-4 px-1 text-xs font-sans-elegant uppercase tracking-wider text-foreground border-primary -mt-1.5 transition hover:border-border`}
                 >
                   Usuario
                 </button>
                 <button
                   onClick={() => setIsSelectedItem("información")}
-                  className={`${isSelectedItem === "información" ? "border-t-2 bg-[#F5F0EB]" : ""} w-32 py-4 px-1 text-xs font-sans-elegant uppercase tracking-wider text-[#2C2420] border-[#8B7355] -mt-1.5 transition hover:border-[#E0D6CC]`}
+                  className={`${isSelectedItem === "información" ? "border-t-2 bg-secondary" : ""} w-32 py-4 px-1 text-xs font-sans-elegant uppercase tracking-wider text-foreground border-primary -mt-1.5 transition hover:border-border`}
                 >
                   Información
                 </button>
                 {user.role === "buyer" && (
                   <a
                     href="#favorites"
-                    className="py-4 px-1 w-32 text-xs font-sans-elegant font-medium uppercase tracking-wider text-[#7A6B5A] hover:text-[#2C2420] transition border-t-2 border-transparent hover:border-[#E0D6CC] -mt-1.5"
+                    className="py-4 px-1 w-32 text-xs font-sans-elegant font-medium uppercase tracking-wider text-muted-foreground hover:text-foreground transition border-t-2 border-transparent hover:border-border -mt-1.5"
                   >
                     Favoritos ({favorites?.length || 0})
                   </a>
@@ -506,7 +506,7 @@ export const UserProfile = () => {
                       setSelectedEdition("hero");
                       goTo("hero");
                     }}
-                    className={`${selectedEdition === "hero" ? "border-t-2 border-[#8B7355] bg-[#F5F0EB]" : ""} py-4 px-1 w-32 text-xs font-sans-elegant uppercase tracking-wider text-[#7A6B5A] hover:text-[#2C2420] transition hover:border-[#E0D6CC] -mt-1.5`}
+                    className={`${selectedEdition === "hero" ? "border-t-2 border-primary bg-secondary" : ""} py-4 px-1 w-32 text-xs font-sans-elegant uppercase tracking-wider text-muted-foreground hover:text-foreground transition hover:border-border -mt-1.5`}
                   >
                     Portada
                   </button>
@@ -516,7 +516,7 @@ export const UserProfile = () => {
                       setSelectedEdition("footer");
                       goTo("footer");
                     }}
-                    className={`${selectedEdition === "footer" ? "border-t-2 border-[#8B7355] bg-[#F5F0EB]" : ""} py-4 px-1 w-32 text-xs font-sans-elegant uppercase tracking-wider text-[#7A6B5A] hover:text-[#2C2420] transition hover:border-[#E0D6CC] -mt-1.5`}
+                    className={`${selectedEdition === "footer" ? "border-t-2 border-primary bg-secondary" : ""} py-4 px-1 w-32 text-xs font-sans-elegant uppercase tracking-wider text-muted-foreground hover:text-foreground transition hover:border-border -mt-1.5`}
                   >
                     Pié de Página
                   </button>
@@ -526,7 +526,7 @@ export const UserProfile = () => {
                       setSelectedEdition("discount");
                       goTo("discount");
                     }}
-                    className={`${selectedEdition === "discount" ? "border-t-2 border-[#8B7355] bg-[#F5F0EB]" : ""} py-4 px-1 w-32 text-xs font-sans-elegant uppercase tracking-wider text-[#7A6B5A] hover:text-[#2C2420] transition hover:border-[#E0D6CC] -mt-1.5`}
+                    className={`${selectedEdition === "discount" ? "border-t-2 border-primary bg-secondary" : ""} py-4 px-1 w-32 text-xs font-sans-elegant uppercase tracking-wider text-muted-foreground hover:text-foreground transition hover:border-border -mt-1.5`}
                   >
                     Descuento
                   </button>
@@ -543,62 +543,62 @@ export const UserProfile = () => {
           {/* Left Column: Intro / Details */}
           <div className="lg:col-span-4 space-y-6">
             {/* About Card */}
-            <div className="bg-white border border-[#E0D6CC] p-6">
-              <h3 className="font-sans-elegant text-lg text-[#2C2420] font-bold mb-4">
+            <div className="bg-card border border-border p-6">
+              <h3 className="font-sans-elegant text-lg text-foreground font-bold mb-4">
                 {isSelectedItem === "usuario" ? "Sobre Mí" : "Ubicación"}
               </h3>
 
               {isSelectedItem === "usuario" && (
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 p-2 bg-[#FAF8F5] rounded-full text-[#8B7355]">
+                    <div className="mt-1 p-2 bg-background rounded-full text-primary">
                       <User size={16} />
                     </div>
                     <div>
-                      <p className="text-xs text-[#7A6B5A] uppercase tracking-wider font-semibold">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
                         Nombre Completo
                       </p>
-                      <p className="text-[#2C2420]">
+                      <p className="text-foreground">
                         {user.name} {user.lastname}
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 p-2 bg-[#FAF8F5] rounded-full text-[#8B7355]">
+                    <div className="mt-1 p-2 bg-background rounded-full text-primary">
                       <Mail size={16} />
                     </div>
                     <div>
-                      <p className="text-xs text-[#7A6B5A] uppercase tracking-wider font-semibold">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
                         Correo Electrónico
                       </p>
-                      <p className="text-[#2C2420] break-all">{user.email}</p>
+                      <p className="text-foreground break-all">{user.email}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 p-2 bg-[#FAF8F5] rounded-full text-[#8B7355]">
+                    <div className="mt-1 p-2 bg-background rounded-full text-primary">
                       <Heart size={16} />
                     </div>
                     <div>
-                      <p className="text-xs text-[#7A6B5A] uppercase tracking-wider font-semibold">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
                         Miembro desde
                       </p>
-                      <p className="text-[#2C2420]">
+                      <p className="text-foreground">
                         {formatDate(user.created_at as string)}
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 p-2 bg-[#FAF8F5] rounded-full text-[#8B7355]">
+                    <div className="mt-1 p-2 bg-background rounded-full text-primary">
                       <History size={16} />
                     </div>
                     <div>
-                      <p className="text-xs text-[#7A6B5A] uppercase tracking-wider font-semibold">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
                         Actualizado el
                       </p>
-                      <p className="text-[#2C2420]">
+                      <p className="text-foreground">
                         {formatDate(user.updated_at as string, true)}
                       </p>
                     </div>
@@ -609,50 +609,50 @@ export const UserProfile = () => {
               {isSelectedItem === "información" && (
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 p-2 bg-[#FAF8F5] rounded-full text-[#8B7355]">
+                    <div className="mt-1 p-2 bg-background rounded-full text-primary">
                       <Map size={16} />
                     </div>
                     <div>
-                      <p className="text-xs text-[#7A6B5A] uppercase tracking-wider font-semibold">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
                         País
                       </p>
-                      <p className="text-[#2C2420]">{user.country}</p>
+                      <p className="text-foreground">{user.country}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 p-2 bg-[#FAF8F5] rounded-full text-[#8B7355]">
+                    <div className="mt-1 p-2 bg-background rounded-full text-primary">
                       <MapPin size={16} />
                     </div>
                     <div>
-                      <p className="text-xs text-[#7A6B5A] uppercase tracking-wider font-semibold">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
                         Ciudad
                       </p>
-                      <p className="text-[#2C2420] break-all">{user.city}</p>
+                      <p className="text-foreground break-all">{user.city}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 p-2 bg-[#FAF8F5] rounded-full text-[#8B7355]">
+                    <div className="mt-1 p-2 bg-background rounded-full text-primary">
                       <Signpost size={16} />
                     </div>
                     <div>
-                      <p className="text-xs text-[#7A6B5A] uppercase tracking-wider font-semibold">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
                         Código Postal
                       </p>
-                      <p className="text-[#2C2420]">{user.postal_code}</p>
+                      <p className="text-foreground">{user.postal_code}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 p-2 bg-[#FAF8F5] rounded-full text-[#8B7355]">
+                    <div className="mt-1 p-2 bg-background rounded-full text-primary">
                       <MapPinHouse size={16} />
                     </div>
                     <div>
-                      <p className="text-xs text-[#7A6B5A] uppercase tracking-wider font-semibold">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
                         Dirección
                       </p>
-                      <p className="text-[#2C2420]">{user.address || "Sin confirmar"}</p>
+                      <p className="text-foreground">{user.address || "Sin confirmar"}</p>
                     </div>
                   </div>
                 </div>
@@ -661,13 +661,13 @@ export const UserProfile = () => {
 
             {/* Danger Zone Card */}
             {user && user.role === "buyer" && (
-              <div className="bg-white border border-[#E0D6CC] p-6 overflow-hidden relative">
+              <div className="bg-card border border-border p-6 overflow-hidden relative">
               <div className="absolute top-0 left-0 w-1 h-full bg-red-500/50"></div>
-              <h3 className="font-sans-elegant text-sm text-[#2C2420] font-bold mb-4 uppercase tracking-wider flex items-center gap-2">
+              <h3 className="font-sans-elegant text-sm text-foreground font-bold mb-4 uppercase tracking-wider flex items-center gap-2">
                 <Trash2 size={16} className="text-red-500" />
                 Zona de Peligro
               </h3>
-              <p className="text-xs text-[#7A6B5A] mb-4 leading-relaxed">
+              <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
                 Si eliminas tu cuenta perderás todos tus datos y favoritos
                 permanentemente.
               </p>
@@ -685,9 +685,9 @@ export const UserProfile = () => {
           <div className="lg:col-span-8" ref={saveRef}>
             {/* Edit Profile Form (Only visible when Editing) */}
             {isEditing && (
-              <div className="bg-white border border-[#E0D6CC] mb-6 overflow-hidden animate-fade-in-down">
-                <div className="p-4 border-b border-[#E0D6CC] bg-[#FAF8F5] flex justify-between items-center">
-                  <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-[#2C2420]">
+              <div className="bg-card border border-border mb-6 overflow-hidden animate-fade-in-down">
+                <div className="p-4 border-b border-border bg-background flex justify-between items-center">
+                  <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-foreground">
                     Editando Usuario
                   </h3>
                   <span className="text-[10px] bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full font-bold uppercase">
@@ -697,7 +697,7 @@ export const UserProfile = () => {
                 <form onSubmit={handleUpdate} className="p-6 sm:p-8">
                   <div className="felx felx-col space-y-2 md:space-y-0 md:grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                     <div>
-                      <label className="block text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 font-bold">
+                      <label className="block text-xs font-sans-elegant text-muted-foreground uppercase tracking-wide mb-2 font-bold">
                         Nombre
                       </label>
                       <input
@@ -705,11 +705,11 @@ export const UserProfile = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E0D6CC] text-[#2C2420] focus:ring-1 focus:ring-[#8B7355] focus:border-[#8B7355] outline-none transition-all"
+                        className="w-full px-4 py-3 bg-background border border-border text-foreground focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 font-bold">
+                      <label className="block text-xs font-sans-elegant text-muted-foreground uppercase tracking-wide mb-2 font-bold">
                         Apellido
                       </label>
                       <input
@@ -717,11 +717,11 @@ export const UserProfile = () => {
                         name="lastname"
                         value={formData.lastname}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E0D6CC] text-[#2C2420] focus:ring-1 focus:ring-[#8B7355] focus:border-[#8B7355] outline-none transition-all"
+                        className="w-full px-4 py-3 bg-background border border-border text-foreground focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all"
                       />
                     </div>
                     <div className="sm:col-span-2">
-                      <label className="block text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 font-bold">
+                      <label className="block text-xs font-sans-elegant text-muted-foreground uppercase tracking-wide mb-2 font-bold">
                         Email
                       </label>
                       <input
@@ -729,12 +729,12 @@ export const UserProfile = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E0D6CC] text-[#2C2420] focus:ring-1 focus:ring-[#8B7355] focus:border-[#8B7355] outline-none transition-all"
+                        className="w-full px-4 py-3 bg-background border border-border text-foreground focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 font-bold">
+                      <label className="block text-xs font-sans-elegant text-muted-foreground uppercase tracking-wide mb-2 font-bold">
                         Ciudad
                       </label>
                       <input
@@ -742,11 +742,11 @@ export const UserProfile = () => {
                         name="city"
                         value={formData.city}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E0D6CC] text-[#2C2420] focus:ring-1 focus:ring-[#8B7355] focus:border-[#8B7355] outline-none transition-all"
+                        className="w-full px-4 py-3 bg-background border border-border text-foreground focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 font-bold">
+                      <label className="block text-xs font-sans-elegant text-muted-foreground uppercase tracking-wide mb-2 font-bold">
                         Código Postal
                       </label>
                       <input
@@ -754,11 +754,11 @@ export const UserProfile = () => {
                         name="postalCode"
                         value={formData.postalCode}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E0D6CC] text-[#2C2420] focus:ring-1 focus:ring-[#8B7355] focus:border-[#8B7355] outline-none transition-all"
+                        className="w-full px-4 py-3 bg-background border border-border text-foreground focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all"
                       />
                     </div>
                     <div className="col-span-2">
-                      <label className="block text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 font-bold">
+                      <label className="block text-xs font-sans-elegant text-muted-foreground uppercase tracking-wide mb-2 font-bold">
                         Dirección
                       </label>
                       <input
@@ -766,15 +766,15 @@ export const UserProfile = () => {
                         name="address"
                         value={formData.address}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E0D6CC] text-[#2C2420] focus:ring-1 focus:ring-[#8B7355] focus:border-[#8B7355] outline-none transition-all"
+                        className="w-full px-4 py-3 bg-background border border-border text-foreground focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all"
                       />
                     </div>
                   </div>
 
-                  <div className="flex gap-4 pt-4 border-t border-[#E0D6CC]">
+                  <div className="flex gap-4 pt-4 border-t border-border">
                     <button
                       type="submit"
-                      className="px-6 py-2.5 bg-[#2C2420] text-white font-sans-elegant text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg hover:bg-[#403630] transition-all transform active:scale-95"
+                      className="px-6 py-2.5 bg-foreground text-white font-sans-elegant text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg hover:bg-[#403630] transition-all transform active:scale-95"
                     >
                       Guardar Cambios
                     </button>
@@ -796,7 +796,7 @@ export const UserProfile = () => {
                           phone: user.phone || "",
                         });
                       }}
-                      className="px-6 py-2.5 bg-white border border-[#E0D6CC] text-[#7A6B5A] font-sans-elegant text-xs font-bold uppercase tracking-wider hover:bg-[#FAF8F5] transition-colors"
+                      className="px-6 py-2.5 bg-card border border-border text-muted-foreground font-sans-elegant text-xs font-bold uppercase tracking-wider hover:bg-background transition-colors"
                     >
                       Cancelar
                     </button>
@@ -808,12 +808,12 @@ export const UserProfile = () => {
             {/* Favorites Feed  */}
             {user.role === "buyer" && (
               <div
-                className="bg-white border border-[#E0D6CC] overflow-hidden"
+                className="bg-card border border-border overflow-hidden"
                 id="favorites"
               >
-                <div className="p-4 border-b border-[#E0D6CC] flex justify-between items-center bg-white sticky top-0 z-10">
-                  <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-[#2C2420] flex items-center gap-2">
-                    <Heart className="text-[#8B7355] fill-current" size={16} />
+                <div className="p-4 border-b border-border flex justify-between items-center bg-card sticky top-0 z-10">
+                  <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                    <Heart className="text-primary fill-current" size={16} />
                     Mis Favoritos
                   </h3>
                   <div className="flex gap-2">
@@ -821,14 +821,14 @@ export const UserProfile = () => {
                       <>
                         <button
                           onClick={clearFavoriteItems}
-                          className="p-2 text-[#7A6B5A] hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                          className="p-2 text-muted-foreground hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
                           title="Borrar todos"
                         >
                           <Trash2 size={16} />
                         </button>
                         <button
                           onClick={handleAddToCart}
-                          className="flex items-center gap-1 px-3 py-1.5 bg-[#2C2420] text-white text-[10px] font-bold uppercase tracking-wider hover:bg-[#403630]"
+                          className="flex items-center gap-1 px-3 py-1.5 bg-foreground text-white text-[10px] font-bold uppercase tracking-wider hover:bg-[#403630]"
                         >
                           <ShoppingCart size={12} /> Añadir Todo
                         </button>
@@ -843,9 +843,9 @@ export const UserProfile = () => {
                       {favorites.map((fav) => (
                         <div
                           key={fav.id}
-                          className="group relative flex items-center gap-4 p-3 border border-[#E0D6CC] hover:shadow-md hover:border-[#8B7355] transition-all bg-[#FAF8F5]"
+                          className="group relative flex items-center gap-4 p-3 border border-border hover:shadow-md hover:border-primary transition-all bg-background"
                         >
-                          <div className="w-16 h-16 shrink-0 rounded overflow-hidden bg-white border border-[#E0D6CC]">
+                          <div className="w-16 h-16 shrink-0 rounded overflow-hidden bg-card border border-border">
                             <img
                               src={fav.image}
                               alt={fav.name}
@@ -853,16 +853,16 @@ export const UserProfile = () => {
                             />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-sans-elegant text-sm font-bold text-[#2C2420] truncate">
+                            <h4 className="font-sans-elegant text-sm font-bold text-foreground truncate">
                               {fav.name}
                             </h4>
-                            <p className="text-xs text-[#7A6B5A] mt-0.5">
+                            <p className="text-xs text-muted-foreground mt-0.5">
                               $ {fav.price}
                             </p>
                           </div>
                           <button
                             onClick={() => removeFromFavorites(fav.id)}
-                            className="absolute top-2 right-2 text-[#E0D6CC] hover:text-red-500 transition-colors"
+                            className="absolute top-2 right-2 text-border hover:text-red-500 transition-colors"
                           >
                             <X size={16} />
                           </button>
@@ -876,7 +876,7 @@ export const UserProfile = () => {
                                 ),
                               });
                             }}
-                            className="absolute bottom-2 right-2 p-1.5 bg-white text-[#2C2420] border border-[#E0D6CC]  hover:bg-[#2C2420] hover:text-white transition-all shadow-sm"
+                            className="absolute bottom-2 right-2 p-1.5 bg-card text-foreground border border-border  hover:bg-foreground hover:text-background transition-all shadow-sm"
                           >
                             <ShoppingCart size={14} />
                           </button>
@@ -884,15 +884,15 @@ export const UserProfile = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-12 bg-[#FAF8F5] rounded-lg border border-dashed border-[#E0D6CC]">
+                    <div className="text-center py-12 bg-background rounded-lg border border-dashed border-border">
                       <Heart
                         size={32}
-                        className="mx-auto text-[#E0D6CC] mb-3"
+                        className="mx-auto text-border mb-3"
                       />
-                      <p className="text-sm text-[#7A6B5A]">
+                      <p className="text-sm text-muted-foreground">
                         No tienes favoritos guardados aún.
                       </p>
-                      <p className="text-xs text-[#A69580] mt-1">
+                      <p className="text-xs text-muted-foreground mt-1">
                         Explora la tienda para añadir prendas.
                       </p>
                     </div>
@@ -906,11 +906,11 @@ export const UserProfile = () => {
               selectedEdition === "hero" &&
               heroData && (
                 <div
-                  className="bg-white border border-[#E0D6CC] overflow-hidden"
+                  className="bg-card border border-border overflow-hidden"
                   id="hero"
                 >
-                  <div className="p-2 px-4 border-b border-[#E0D6CC] bg-white flex justify-between items-center">
-                    <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-[#2C2420]">
+                  <div className="p-2 px-4 border-b border-border bg-card flex justify-between items-center">
+                    <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-foreground">
                       Personalizar Portada
                     </h3>
                     <small className="text-yellow-800 rounded text-[10px] md:text-[12px]">
@@ -932,11 +932,11 @@ export const UserProfile = () => {
             {/* Seller Footer Form */}
             {user.role === "seller" && selectedEdition === "footer" && (
               <div
-                className="bg-white border border-[#E0D6CC] overflow-hidden"
+                className="bg-card border border-border overflow-hidden"
                 id="footer"
               >
-                <div className="p-2 px-4 border-b border-[#E0D6CC] bg-white flex justify-between items-center">
-                  <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-[#2C2420]">
+                <div className="p-2 px-4 border-b border-border bg-card flex justify-between items-center">
+                  <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-foreground">
                     Personalizar Pié de Página
                   </h3>
                   {footerData?.footer_updated_at && (
@@ -960,11 +960,11 @@ export const UserProfile = () => {
             {/* Seller Discount Options */}
             {user.role === "seller" && selectedEdition === "discount" && (
               <div
-                className="bg-white border border-[#E0D6CC] overflow-hidden"
+                className="bg-card border border-border overflow-hidden"
                 id="discount"
               >
-                <div className="p-2 px-4 border-b border-[#E0D6CC] bg-white flex justify-between items-center">
-                  <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-[#2C2420]">
+                <div className="p-2 px-4 border-b border-border bg-card flex justify-between items-center">
+                  <h3 className="font-sans-elegant text-sm font-bold uppercase tracking-wider text-foreground">
                     Personalizar Tarjeta de Descuento
                   </h3>
                   {discountFormData?.discount_updated_at && (

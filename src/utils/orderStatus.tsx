@@ -1,18 +1,18 @@
-import { CheckCircle, AlertCircle, Package, Truck, Clock } from "lucide-react"
+﻿import { CheckCircle, AlertCircle, Package, Truck, Clock } from "lucide-react"
 
 export const getStatusColor = (status: string) => {
     switch (status) {
       case "approved":
-        return "bg-[#F0FFF0] border-[#2C2420] text-[#2C2420]";
+        return "bg-green-50 border-foreground text-foreground";
       case "pending":
-        return "bg-[#FFF9E6] border-[#2C2420] text-[#2C2420]";
+        return "bg-yellow-50 border-foreground text-foreground";
       case "cancelled":
       case "Cancelado":
-        return "bg-[#FFF0F0] border-[#2C2420] text-[#2C2420]";
+        return "bg-red-50 border-foreground text-foreground";
       case "En Tránsito":
-        return "bg-[#F5F0EB] border-[#2C2420] text-[#2C2420]";
+        return "bg-secondary border-foreground text-foreground";
       default:
-        return "bg-[#F5F0EB] border-[#E0D6CC] text-[#7A6B5A]";
+        return "bg-secondary border-border text-muted-foreground";
     }
   };
 

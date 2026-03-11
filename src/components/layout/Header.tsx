@@ -173,7 +173,11 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 >
                   Registrarse
                 </Link>
-                <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+                <button
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="ml-2 hover:opacity-80"
+                  title={`${theme === "dark" ? "Cambiar a tema claro" : "Cambiar a tema oscuro"}`}
+                >
                   {theme === "dark" ? (
                     <Sun size={15} />
                   ) : (
@@ -418,9 +422,9 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
               <span>Apariencia</span>
               <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="w-[58px] border dark:border-zinc-800 border-zinc-300 rounded-2xl flex items-center bg-[#eee] dark:bg-[#111111]"
-                >
+              >
                 <span className="p-1 rounded-full bg-background border border-zinc-300 dark:border-zinc-800 text-muted-foreground m-0.5 transition-transform duration-300 shadow-2xs"
-                style={{ transform: `${theme === "dark" ? "translateX(0)" : "translateX(100%)"}` }}
+                  style={{ transform: `${theme === "dark" ? "translateX(0)" : "translateX(100%)"}` }}
                 >
                   {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
                 </span>

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+﻿import { Link, useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components/common/ProductCard";
 import { useProducts } from "../../contexts/ProductContext";
 import { Loader } from "../../components/common/Loader";
@@ -360,7 +360,7 @@ export const Home = () => {
           <div className="bg-[var(--brand-dark)] border-t border-primary/30 shadow-[0_-4px_30px_rgba(0,0,0,0.3)]">
             <button
               onClick={() => setShowAdd(false)}
-              className="absolute top-3 right-4 text-white/50 hover:text-white transition-colors text-xl leading-none"
+              className="absolute top-3 right-4 text-white/50 hover:text-background transition-colors text-xl leading-none"
               aria-label="Cerrar"
             >
               ✕

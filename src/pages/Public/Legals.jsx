@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 export function LegalPage() {
@@ -528,13 +528,13 @@ export function LegalPage() {
                         <div className="flex gap-4 flex-wrap justify-center">
                             <Link 
                                 to="/help" 
-                                className="px-6 py-3 bg-white text-[var(--brand-dark)] font-sans-elegant text-xs tracking-wider uppercase hover:bg-secondary transition-all duration-200"
+                                className="px-6 py-3 bg-card text-[var(--brand-dark)] font-sans-elegant text-xs tracking-wider uppercase hover:bg-secondary transition-all duration-200"
                             >
                                 Centro de Ayuda
                             </Link>
                             <a 
                                 href="mailto:legal@pascalecloset.com" 
-                                className="px-6 py-3 border border-white text-white font-sans-elegant text-xs tracking-wider uppercase hover:bg-white hover:text-[var(--brand-dark)] transition-all duration-200"
+                                className="px-6 py-3 border border-white text-white font-sans-elegant text-xs tracking-wider uppercase hover:bg-card hover:text-[var(--brand-dark)] transition-all duration-200"
                             >
                                 Contactar
                             </a>

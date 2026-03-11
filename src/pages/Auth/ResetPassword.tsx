@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, ArrowLeft, Lock, CheckCircle } from "lucide-react";
 import Input from "../../components/common/Input";
@@ -63,19 +63,19 @@ export const ResetPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] py-16">
+    <div className="min-h-screen bg-background py-16">
       <div className="max-w-md mx-auto px-4">
-        <div className="bg-white border border-[#E0D6CC] p-10">
+        <div className="bg-card border border-border p-10">
           {!isSubmitted ? (
             <>
               <div className="text-center mb-10">
-                <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-[#7A6B5A] mb-3">
+                <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-muted-foreground mb-3">
                   Restablecer Acceso
                 </p>
-                <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-3">
+                <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-foreground mb-3">
                   Nueva Contraseña
                 </h1>
-                <p className="text-sm text-[#7A6B5A] font-sans-elegant">
+                <p className="text-sm text-muted-foreground font-sans-elegant">
                   Ingresa y confirma tu nueva contraseña para restablecer el
                   acceso a tu cuenta.
                 </p>
@@ -116,7 +116,7 @@ export const ResetPassword = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-4 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#333333] transition-all duration-300 mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-4 bg-foreground text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300 mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <span className="flex gap-2 items-center justify-center">
@@ -131,7 +131,7 @@ export const ResetPassword = () => {
                 <div className="text-center">
                   <Link
                     to="/login"
-                    className="inline-flex items-center gap-2 text-sm text-[#7A6B5A] hover:text-[#2C2420] font-sans-elegant transition-colors"
+                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground font-sans-elegant transition-colors"
                   >
                     <ArrowLeft size={16} />
                     Volver a Iniciar Sesión
@@ -141,23 +141,23 @@ export const ResetPassword = () => {
             </>
           ) : (
             <div className="text-center py-6">
-              <div className="w-16 h-16 bg-[#F5F0EB] flex items-center justify-center mx-auto mb-6">
-                <Lock size={28} className="text-[#8B7355]" />
+              <div className="w-16 h-16 bg-secondary flex items-center justify-center mx-auto mb-6">
+                <Lock size={28} className="text-primary" />
               </div>
-              <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-[#7A6B5A] mb-3">
+              <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-muted-foreground mb-3">
                 Contraseña Actualizada
               </p>
-              <h2 className="text-xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-4">
+              <h2 className="text-xl font-sans-elegant uppercase tracking-wider text-foreground mb-4">
                 ¡Todo listo!
               </h2>
-              <p className="text-sm text-[#7A6B5A] font-sans-elegant mb-8">
+              <p className="text-sm text-muted-foreground font-sans-elegant mb-8">
                 Tu contraseña ha sido restablecida correctamente. Ya puedes
                 iniciar sesión con tu nueva contraseña.
               </p>
 
               <Link
                 to="/login"
-                className="inline-block w-full py-4 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#333333] transition-all duration-300"
+                className="inline-block w-full py-4 bg-foreground text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300"
               >
                 Iniciar Sesión
               </Link>

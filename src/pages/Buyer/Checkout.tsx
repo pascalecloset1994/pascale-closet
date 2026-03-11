@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import Input from "../../components/common/Input";
@@ -109,23 +109,23 @@ export const Checkout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] py-12">
+    <div className="min-h-screen bg-background py-12">
       <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-2xl md:text-3xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-8 text-center">
+        <h1 className="text-2xl md:text-3xl font-sans-elegant uppercase tracking-wider text-foreground mb-8 text-center">
           Finalizar Compra
         </h1>
 
         {/* Progress Steps */}
-        <div className="bg-white border border-[#E0D6CC] p-6 mb-8">
+        <div className="bg-card border border-border p-6 mb-8">
           <div className="flex justify-between items-center">
             <div
-              className={`flex-1 text-center ${step >= 1 ? "text-[#2C2420]" : "text-[#C5C5C5]"
+              className={`flex-1 text-center ${step >= 1 ? "text-foreground" : "text-[#C5C5C5]"
                 }`}
             >
               <div
                 className={`w-10 h-10 mx-auto rounded-full border ${step >= 1
-                  ? "bg-[#2C2420] border-[#2C2420] text-white"
-                  : "border-[#E0D6CC] text-[#7A6B5A]"
+                  ? "bg-foreground border-foreground text-white"
+                  : "border-border text-muted-foreground"
                   } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
                 1
@@ -135,17 +135,17 @@ export const Checkout = () => {
               </p>
             </div>
             <div
-              className={`flex-1 h-px ${step >= 2 ? "bg-[#2C2420]" : "bg-[#E0D6CC]"
+              className={`flex-1 h-px ${step >= 2 ? "bg-foreground" : "bg-muted"
                 }`}
             ></div>
             <div
-              className={`flex-1 text-center ${step >= 2 ? "text-[#2C2420]" : "text-[#C5C5C5]"
+              className={`flex-1 text-center ${step >= 2 ? "text-foreground" : "text-[#C5C5C5]"
                 }`}
             >
               <div
                 className={`w-10 h-10 mx-auto rounded-full border ${step >= 2
-                  ? "bg-[#2C2420] border-[#2C2420] text-white"
-                  : "border-[#E0D6CC] text-[#7A6B5A]"
+                  ? "bg-foreground border-foreground text-white"
+                  : "border-border text-muted-foreground"
                   } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
                 2
@@ -155,17 +155,17 @@ export const Checkout = () => {
               </p>
             </div>
             <div
-              className={`flex-1 h-px ${step >= 3 ? "bg-[#2C2420]" : "bg-[#E0D6CC]"
+              className={`flex-1 h-px ${step >= 3 ? "bg-foreground" : "bg-muted"
                 }`}
             ></div>
             <div
-              className={`flex-1 text-center ${step >= 3 ? "text-[#2C2420]" : "text-[#C5C5C5]"
+              className={`flex-1 text-center ${step >= 3 ? "text-foreground" : "text-[#C5C5C5]"
                 }`}
             >
               <div
                 className={`w-10 h-10 mx-auto rounded-full border ${step >= 3
-                  ? "bg-[#2C2420] border-[#2C2420] text-white"
-                  : "border-[#E0D6CC] text-[#7A6B5A]"
+                  ? "bg-foreground border-foreground text-white"
+                  : "border-border text-muted-foreground"
                   } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
                 3
@@ -180,11 +180,11 @@ export const Checkout = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form Section */}
           <div className="lg:col-span-2">
-            <div className="bg-white border border-[#E0D6CC] p-8">
+            <div className="bg-card border border-border p-8">
               {/* Step 1: Shipping */}
               {step === 1 && (
                 <div>
-                  <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-6 pb-4 border-b border-[#E0D6CC]">
+                  <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-foreground mb-6 pb-4 border-b border-border">
                     Información de Envío
                   </h2>
                   <div className="grid grid-cols-2 gap-4">
@@ -280,27 +280,27 @@ export const Checkout = () => {
               {/* Step 2: Review */}
               {step === 2 && (
                 <div>
-                  <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-6 pb-4 border-b border-[#E0D6CC]">
+                  <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-foreground mb-6 pb-4 border-b border-border">
                     Revisar Pedido
                   </h2>
                   <div className="space-y-4">
-                    <div className="border border-[#E0D6CC] p-5">
-                      <h3 className="font-sans-elegant text-xs uppercase tracking-wide text-[#2C2420] mb-3">
+                    <div className="border border-border p-5">
+                      <h3 className="font-sans-elegant text-xs uppercase tracking-wide text-foreground mb-3">
                         Datos del Comprador
                       </h3>
-                      <p className="text-sm text-[#7A6B5A] font-sans-elegant leading-relaxed whitespace-pre-wrap">
-                        <strong className="text-[#2C2420]">Nombre:</strong> {formData.firstName} {formData.lastName}
+                      <p className="text-sm text-muted-foreground font-sans-elegant leading-relaxed whitespace-pre-wrap">
+                        <strong className="text-foreground">Nombre:</strong> {formData.firstName} {formData.lastName}
                         <br />
-                        <strong className="text-[#2C2420]">Email:</strong> {formData.email}
+                        <strong className="text-foreground">Email:</strong> {formData.email}
                         <br />
-                        <strong className="text-[#2C2420]">Teléfono:</strong> {formData.phone}
+                        <strong className="text-foreground">Teléfono:</strong> {formData.phone}
                       </p>
                     </div>
-                    <div className="border border-[#E0D6CC] p-5">
-                      <h3 className="font-sans-elegant text-xs uppercase tracking-wide text-[#2C2420] mb-3">
+                    <div className="border border-border p-5">
+                      <h3 className="font-sans-elegant text-xs uppercase tracking-wide text-foreground mb-3">
                         Dirección de Envío
                       </h3>
-                      <p className="text-sm text-[#7A6B5A] font-sans-elegant leading-relaxed whitespace-pre-wrap">
+                      <p className="text-sm text-muted-foreground font-sans-elegant leading-relaxed whitespace-pre-wrap">
                         {formData.address}
                         <br />
                         {formData.city}, {formData.state} {formData.zipCode}
@@ -312,13 +312,13 @@ export const Checkout = () => {
                   <div className="flex gap-4 mt-8">
                     <button
                       onClick={() => setStep(1)}
-                      className="flex-1 py-4 border border-[#2C2420] text-[#2C2420] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#2C2420] hover:text-white transition-all duration-300"
+                      className="flex-1 py-4 border border-foreground text-foreground font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-all duration-300"
                     >
                       Volver
                     </button>
                     <button
                       onClick={() => setStep(3)}
-                      className="flex-1 py-4 bg-[#2C2420] text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#333333] transition-all duration-300"
+                      className="flex-1 py-4 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300"
                     >
                       Ir a Pagar
                     </button>
@@ -329,7 +329,7 @@ export const Checkout = () => {
               {/* Step 3: Payment */}
               {step === 3 && (
                 <div>
-                  <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-6 pb-4 border-b border-[#E0D6CC]">
+                  <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-foreground mb-6 pb-4 border-b border-border">
                     Método de Pago
                   </h2>
 
@@ -349,7 +349,7 @@ export const Checkout = () => {
                       className="w-full group relative overflow-x-hidden py-2 text-black font-semibold font-sans-elegant text-xs tracking-[0.15em] uppercase border hover:ring-4 hover:ring-primary/20 transition-all duration-300"
                       disabled={loadingPayment}
                     >
-                      <div className="absolute top-0 left-0 bg-[#2C2420]/50 blur-3xl w-full h-full -translate-x-[120%] group-hover:translate-x-[120%] transition-transform duration-800"></div>
+                      <div className="absolute top-0 left-0 bg-foreground/50 blur-3xl w-full h-full -translate-x-[120%] group-hover:translate-x-[120%] transition-transform duration-800"></div>
 
                       <div className="z-999">
                         {loadingPayment ? (
@@ -374,7 +374,7 @@ export const Checkout = () => {
                   <div className="flex gap-4 mt-6">
                     <button
                       onClick={() => setStep(2)}
-                      className="flex-1 py-4 border border-[#2C2420] text-[#2C2420] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#2C2420] hover:text-white transition-all duration-300"
+                      className="flex-1 py-4 border border-foreground text-foreground font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-all duration-300"
                     >
                       Volver
                     </button>
@@ -386,8 +386,8 @@ export const Checkout = () => {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white border border-[#E0D6CC] p-8 sticky top-4">
-              <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-6 pb-4 border-b border-[#E0D6CC]">
+            <div className="bg-card border border-border p-8 sticky top-4">
+              <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-foreground mb-6 pb-4 border-b border-border">
                 Resumen
               </h2>
               <div className="space-y-3 mb-6">
@@ -396,26 +396,26 @@ export const Checkout = () => {
                     key={item.id}
                     className="flex justify-between text-sm font-sans-elegant"
                   >
-                    <span className="text-[#7A6B5A]">
+                    <span className="text-muted-foreground">
                       {item.name} x{item.quantity}
                     </span>
-                    <span className="text-[#2C2420]">
+                    <span className="text-foreground">
                       ${(item.price * (item.quantity ?? 1)).toFixed(2)}
                     </span>
                   </div>
                 ))}
               </div>
-              <div className="border-t border-[#E0D6CC] pt-4 space-y-3">
+              <div className="border-t border-border pt-4 space-y-3">
                 <div className="flex justify-between text-sm font-sans-elegant">
-                  <span className="text-[#7A6B5A]">Subtotal:</span>
-                  <span className="text-[#2C2420]">
+                  <span className="text-muted-foreground">Subtotal:</span>
+                  <span className="text-foreground">
                     ${getCartTotal().toFixed(2)}
                   </span>
                 </div>
 
                 <div className="flex justify-between text-sm font-sans-elegant">
-                  <span className="text-[#7A6B5A]">Envío:</span>
-                  <span className="text-[#2C2420]">
+                  <span className="text-muted-foreground">Envío:</span>
+                  <span className="text-foreground">
                     {getCartTotal() < MAX_PAYMENT ? (
                       `$${SHIPMENT_COST.toLocaleString("es-CL")}`
                     ) : (
@@ -429,11 +429,11 @@ export const Checkout = () => {
 
                 {discountContent?.discount_is_active && Number(discountContent?.discount) > 0 && (
                   <div className="flex justify-between text-sm font-sans-elegant">
-                    <span className="text-[#7A6B5A] flex gap-1 items-center">
+                    <span className="text-muted-foreground flex gap-1 items-center">
                       <Tag size={14} />
                       {Number(discountContent?.discount)}% OFF
                     </span>
-                    <span className="text-[#2C2420]">
+                    <span className="text-foreground">
                       $
                       {(
                         (getCartTotal() *
@@ -444,12 +444,12 @@ export const Checkout = () => {
                   </div>
                 )}
 
-                <div className="border-t border-[#E0D6CC] pt-4">
+                <div className="border-t border-border pt-4">
                   <div className="flex justify-between">
-                    <span className="font-sans-elegant text-sm uppercase tracking-wide text-[#2C2420]">
+                    <span className="font-sans-elegant text-sm uppercase tracking-wide text-foreground">
                       Total:
                     </span>
-                    <span className="font-sans-elegant text-xl text-[#2C2420]">
+                    <span className="font-sans-elegant text-xl text-foreground">
                       $
                       {discountContent?.discount_is_active && Number(discountContent?.discount) > 0
                         ? Math.floor(
