@@ -231,7 +231,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             <ShoppingBag size={22} />
             <span
               style={{ display: getCartItemsCount() <= 0 ? "none" : "flex" }}
-              className="px-1.5 pt-0.5 absolute -top-2 -right-2 text-xs font-medium bg-foreground text-foreground rounded-full"
+              className="px-1.5 pt-0.5 absolute -top-2 -right-2 text-xs font-medium bg-accent-foreground text-accent rounded-full"
             >
               {getCartItemsCount()}
             </span>
