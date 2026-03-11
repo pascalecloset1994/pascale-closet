@@ -148,17 +148,16 @@ const Cart = () => {
                                   (item.quantity ?? 0) + 1,
                                 );
                               }}
-                              className={`px-4 py-2 hover:bg-secondary text-foreground transition-colors duration-200 ${
-                                typeof getStockFromProduct(item) === "number" &&
+                              className={`px-4 py-2 hover:bg-secondary text-foreground transition-colors duration-200 ${typeof getStockFromProduct(item) === "number" &&
                                 (item.quantity ?? 0) >=
-                                  (getStockFromProduct(item) ?? 0)
-                                  ? "opacity-40 cursor-not-allowed"
-                                  : ""
-                              }`}
+                                (getStockFromProduct(item) ?? 0)
+                                ? "opacity-40 cursor-not-allowed"
+                                : ""
+                                }`}
                               aria-disabled={
                                 typeof getStockFromProduct(item) === "number" &&
                                 (item.quantity ?? 0) >=
-                                  (getStockFromProduct(item) ?? 0)
+                                (getStockFromProduct(item) ?? 0)
                               }
                             >
                               +
@@ -203,7 +202,7 @@ const Cart = () => {
               <div className="space-y-4 mb-8">
                 <div className="flex justify-between text-sm font-sans-elegant">
                   <span className="text-muted-foreground">
-                    Subtotal ({cartItems.map((i) => i.quantity)} unidades)
+                    Subtotal ({cartItems.length} unidades)
                   </span>
                   <span className="text-foreground">
                     ${getCartTotal().toLocaleString("es-CL")}
@@ -231,8 +230,7 @@ const Cart = () => {
                         {Number(discountContent?.discount)}% OFF
                       </span>
                       <span className="text-foreground">
-                        $
-                        {(
+                        ${(
                           (getCartTotal() *
                             Number(discountContent?.discount)) /
                           100
@@ -262,12 +260,16 @@ const Cart = () => {
                       $
                       {discount > 0
                         ? Math.floor(
-                            getCartTotal() -
-                              (getCartTotal() *
-                                Number(discountContent?.discount)) /
-                                100,
-                          ).toLocaleString("es-CL")
-                        : getCartTotal().toLocaleString("es-CL")}
+                          getCartTotal() -
+                          (getCartTotal() *
+                            Number(discountContent?.discount)) /
+                          100,
+                        ).toLocaleString("es-CL")
+                        : getCartTotal() >= MAX_PAYMENT ? (
+                          getCartTotal().toLocaleString("es-CL")
+                        ) : (
+                          Math.floor(getCartTotal() + SHIPMENT_COST).toLocaleString("es-CL")
+                        )}
                     </span>
                   </div>
                 </div>

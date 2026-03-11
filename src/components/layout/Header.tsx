@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
-import { Menu, X, LogOut, Home, LayoutDashboard, ChevronRight, ShoppingBag, Shirt, Truck, Loader, Tags, Instagram, Facebook, Sun, Moon } from "lucide-react";
+import { Menu, X, LogOut, Home, LayoutDashboard, ChevronRight, ShoppingBag, Shirt, Truck, Loader, Tags, Instagram, Facebook, Sun, Moon, Text } from "lucide-react";
 import { useProducts } from "../../contexts/ProductContext";
 import { normalize } from "../../utils/normalize";
 import type { User } from "../../types/global";
@@ -212,7 +212,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             setIsMenuOpen(true)
           }}
         >
-          <Menu size={22} className="text-foreground" />
+          <Text size={22} className="text-foreground" />
         </button>
 
         {/* Logo */}
@@ -231,7 +231,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             <ShoppingBag size={22} />
             <span
               style={{ display: getCartItemsCount() <= 0 ? "none" : "flex" }}
-              className="px-1.5 pt-0.5 absolute -top-2 -right-2 text-xs font-medium bg-zinc-950 text-white rounded-full"
+              className="px-1.5 pt-0.5 absolute -top-2 -right-2 text-xs font-medium bg-foreground text-foreground rounded-full"
             >
               {getCartItemsCount()}
             </span>
@@ -253,7 +253,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
           <ShoppingBag size={20} className="text-foreground" />
           <span
             style={{ display: getCartItemsCount() <= 0 ? "none" : "flex" }}
-            className="px-1.5 pt-0.5 absolute top-0 right-0 text-xs font-medium bg-[var(--brand-dark)] text-white rounded-full"
+            className="px-1.5 pt-0.5 absolute top-0 right-0 text-xs font-medium bg-accent-foreground text-accent rounded-full"
           >
             {getCartItemsCount()}
           </span>
@@ -410,6 +410,13 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
           <>
             <div className="flex flex-col gap-4 font-sans-elegant">
               <Link
+                to="/"
+                onClick={handleCloseMenu}
+                className="text-foreground hover:underline"
+              >
+                Inicio
+              </Link>
+              <Link
                 to="/login"
                 onClick={handleCloseMenu}
                 className="text-foreground hover:underline"
@@ -422,6 +429,20 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 className="text-foreground font-medium hover:underline"
               >
                 Registrarse
+              </Link>
+              <Link
+                to="/about"
+                onClick={handleCloseMenu}
+                className="hover:text-muted-foreground transition-colors duration-200"
+              >
+                Acerca de
+              </Link>
+              <Link
+                to="/help#bottom"
+                onClick={handleCloseMenu}
+                className="hover:text-muted-foreground transition-colors duration-200"
+              >
+                Contacto
               </Link>
             </div>
             <ThemeSwitch />
