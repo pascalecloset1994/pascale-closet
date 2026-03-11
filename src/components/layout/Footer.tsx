@@ -116,8 +116,6 @@ export const Footer = () => {
           <p className="text-xs text-white/50 font-sans-elegant">
             © 2026 Pascale Closet. Todos los derechos reservados.
           </p>
-
-          <CreditCards />
         </div>
       </div>
     </footer>

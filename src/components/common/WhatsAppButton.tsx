@@ -24,12 +24,12 @@ export const WhatsAppIcon = ({ size = 24, className = "" }) => {
 export const WhatsAppButton = () => {
   return (
     <div
-      className="fixed bottom-4 right-4 p-3 rounded-full border-border bg-accent-foreground z-20 hover:scale-110 transition-transform"
+      className="fixed bottom-2 right-2 md:bottom-4 md:right-4 p-3 rounded-full border-border bg-accent-foreground z-20 hover:scale-110 transition-transform"
       onClick={() => sendWhatsApp("+56962507739")}
     >
       <WhatsAppIcon
         size={24}
-        className="text-pascale-500 hover:text-pascale-700 transition-colors text-pink-300"
+        className="text-pascale-500 hover:text-pascale-700 transition-colors text-pink-400"
       />
     </div>
   );
