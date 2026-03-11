@@ -17,13 +17,13 @@ const SellerOrderHistory = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "approved":
-        return "bg-green-50 border-foreground text-foreground";
+        return "bg-green-100 dark:bg-green-300 border-foreground text-foreground dark:text-green-600";
       case "En Tránsito":
         return "bg-secondary border-foreground text-foreground";
       case "pending":
-        return "bg-yellow-50 border-foreground text-foreground";
-      case "Cancelado":
-        return "bg-red-50 border-foreground text-foreground";
+        return "bg-yellow-100 dark:bg-yellow-200 border-foreground text-foreground dark:text-yellow-600";
+      case "cancelled":
+        return "bg-red-100 dark:bg-red-200 border-foreground text-foreground dark:text-red-600";
       default:
         return "bg-secondary border-border text-muted-foreground";
     }
