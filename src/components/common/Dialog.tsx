@@ -51,7 +51,7 @@ export const showDialog = ({ content, title }: ShowDialogProps) => {
       </div>
 
       {/* Content */}
-      <div className="px-6 py-6 font-sans-elegant text-foreground">
+      <div className="px-6 py-6 font-sans-elegant text-black">
         {content}
       </div>
     </div>,
