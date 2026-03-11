@@ -8,21 +8,24 @@ import { OrderProvider } from "./contexts/OrderContext";
 import { ProductProvider } from "./contexts/ProductContext";
 import { UserProvider } from "./contexts/UserContext";
 import { LocationProvider } from "./contexts/LocationContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <LocationProvider>
-      <AuthProvider>
-        <UserProvider>
-          <CartProvider>
-            <ProductProvider>
-              <OrderProvider>
-                <App />
-              </OrderProvider>
-            </ProductProvider>
-          </CartProvider>
-        </UserProvider>
-      </AuthProvider>
-    </LocationProvider>
+    <ThemeProvider>
+      <LocationProvider>
+        <AuthProvider>
+          <UserProvider>
+            <CartProvider>
+              <ProductProvider>
+                <OrderProvider>
+                  <App />
+                </OrderProvider>
+              </ProductProvider>
+            </CartProvider>
+          </UserProvider>
+        </AuthProvider>
+      </LocationProvider>
+    </ThemeProvider>
   </StrictMode>,
 );

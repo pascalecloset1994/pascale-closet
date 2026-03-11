@@ -56,10 +56,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const images: string[] = JSON.parse(product.image ?? "[]");
 
   return (
-    <div className="group bg-white h-full flex flex-col">
+    <div className="group bg-card h-full flex flex-col">
       <Link to={`/product/${product.id}`} className="block relative">
         {/* Imagen del producto */}
-        <div className="relative w-full aspect-[3/4] bg-[#F5F0EB] overflow-hidden">
+          <div className="relative w-full aspect-[3/4] bg-secondary overflow-hidden">
           {product.image ? (
             <img
               src={images[0]}
@@ -67,7 +67,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-[#E0D6CC] text-4xl">
+            <div className="w-full h-full flex items-center justify-center text-muted text-4xl">
               👗
             </div>
           )}
@@ -104,8 +104,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                     disabled={isSoldOut || cannotAddMore || !isAvailable}
                     className={`px-4 py-4 text-[12px] font-sans-elegant uppercase tracking-wider transition-all duration-200 ${
                       isSoldOut || cannotAddMore
-                        ? "border-[#E0D6CC] text-[#CCC] cursor-not-allowed bg-white"
-                        : "border-[#E0D6CC] text-[#2C2420] hover:bg-[#2C2420] hover:text-white hover:border-[#2C2420] bg-white"
+                        ? "border-border text-muted-foreground cursor-not-allowed bg-card"
+                        : "border-border text-foreground hover:bg-foreground hover:text-background hover:border-foreground bg-card"
                     }
                   ${isAvailable ? "font-semibold" : " line-through text-gray-400 cursor-not-allowed"}
                   `}
@@ -120,13 +120,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </Link>
 
       {/* Info del producto */}
-      <div className="pt-3 space-y-3 text-center bg-[#FAF8F5]">
-        <h3 className="font-sans-elegant font-bold text-[14px] uppercase tracking-wider text-[#2C2420] line-clamp-1 leading-tight">
+      <div className="pt-3 space-y-3 text-center bg-background">
+        <h3 className="font-sans-elegant font-bold text-[14px] uppercase tracking-wider text-foreground line-clamp-1 leading-tight">
           {product.name}
         </h3>
         <div className="flex items-center justify-center gap-2">
           {(product as Product & { originalPrice?: number }).originalPrice && (
-            <span className="text-[11px] text-[#999] line-through font-sans-elegant">
+            <span className="text-[11px] text-muted-foreground line-through font-sans-elegant">
               $
               {(
                 product as Product & { originalPrice?: number }
@@ -138,7 +138,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               ${product.price.toLocaleString("es-CL")}
             </span>
           )}
-          <span className="flex gap-2 text-[12px] font-sans-elegant text-white bg-[#2C2420] font-light p-1">
+          <span className="flex gap-2 text-[12px] font-sans-elegant text-background bg-foreground font-light p-1">
             {discount > 0 && <span>-10%</span>}$
             {discount > 0
               ? Math.abs(

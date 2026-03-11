@@ -20,7 +20,7 @@ export const TikTokIcon = ({ className }: TikTokIconProps) => (
 
 export const Footer = () => {
   return (
-    <footer className="bg-[#2C2420] text-white z-30">
+    <footer className="bg-[var(--brand-dark)] text-white z-30">
      
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">

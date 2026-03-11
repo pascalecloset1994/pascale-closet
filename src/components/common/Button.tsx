@@ -22,11 +22,11 @@ const Button: React.FC<ButtonProps> = ({
   const baseStyles = 'font-sans-elegant cursor-pointer transition-all duration-300 tracking-wider uppercase';
   
   const variantStyles = {
-    primary: 'bg-[#2C2420] text-white border border-[#2C2420] hover:bg-[#333333] active:bg-black',
-    secondary: 'bg-[#F5F0EB] text-[#2C2420] border border-[#E0D6CC] hover:bg-[#E0D6CC] active:bg-[#D5D5D5]',
-    success: 'bg-[#2C2420] text-white border border-[#2C2420] hover:bg-[#333333] active:bg-black',
-    danger: 'bg-white text-[#2C2420] border border-[#2C2420] hover:bg-[#2C2420] hover:text-white active:bg-black',
-    outline: 'bg-transparent text-[#2C2420] border border-[#2C2420] hover:bg-[#2C2420] hover:text-white active:bg-[#333333]'
+    primary: 'bg-foreground text-background border border-foreground hover:opacity-80 active:opacity-60',
+    secondary: 'bg-secondary text-foreground border border-border hover:bg-muted active:bg-muted',
+    success: 'bg-foreground text-background border border-foreground hover:opacity-80 active:opacity-60',
+    danger: 'bg-background text-foreground border border-foreground hover:bg-foreground hover:text-background active:opacity-60',
+    outline: 'bg-transparent text-foreground border border-foreground hover:bg-foreground hover:text-background active:opacity-60'
   };
   
   const sizeStyles = {

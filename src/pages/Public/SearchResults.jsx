@@ -15,10 +15,10 @@ export const SearchResults = () => {
 
     if (loading) {
         return (
-        <div className="min-h-screen flex items-center justify-center p-6 bg-white">
+        <div className="min-h-screen flex items-center justify-center p-6 bg-background">
             <div className="text-center">
             <div className="text-6xl mb-4">🔍</div>
-            <p className="text-sm text-[#7A6B5A] font-sans-elegant uppercase tracking-wider">Buscando productos...</p>
+            <p className="text-sm text-muted-foreground font-sans-elegant uppercase tracking-wider">Buscando productos...</p>
             </div>
         </div>
         );
@@ -26,11 +26,11 @@ export const SearchResults = () => {
 
     if (error) {
         return (
-        <div className="min-h-screen flex items-center justify-center p-6 bg-white">
-            <div className="bg-[#F5F0EB] border border-[#E0D6CC] p-8 text-center max-w-md">
+        <div className="min-h-screen flex items-center justify-center p-6 bg-background">
+            <div className="bg-secondary border border-border p-8 text-center max-w-md">
             <div className="text-6xl mb-4">❌</div>
-            <h2 className="text-lg font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-2">Error</h2>
-            <p className="text-[#7A6B5A] font-sans-elegant text-sm">{error}</p>
+            <h2 className="text-lg font-sans-elegant uppercase tracking-wider text-foreground mb-2">Error</h2>
+            <p className="text-muted-foreground font-sans-elegant text-sm">{error}</p>
             </div>
         </div>
         );
@@ -87,23 +87,23 @@ export const SearchResults = () => {
     const categorized = categorizeResults(results, query);
 
     return (
-        <div className="min-h-screen bg-[#FAF8F5]">
+        <div className="min-h-screen bg-background">
         <div className="max-w-7xl mx-auto px-4 py-8">
             {/* Breadcrumb */}
             <nav className="text-xs font-sans-elegant uppercase tracking-wider mb-6">
-            <Link to="/" className="text-[#7A6B5A] hover:text-[#2C2420] transition-colors">
+            <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Inicio
             </Link>
-            <span className="mx-2 text-[#E0D6CC]">/</span>
-            <span className="text-[#2C2420]">Resultados de búsqueda</span>
+            <span className="mx-2 text-border">/</span>
+            <span className="text-foreground">Resultados de búsqueda</span>
             </nav>
 
             {/* Header con query */}
             <div className="mb-8">
-            <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-2">
+            <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-foreground mb-2">
                 Resultados para: "{query}"
             </h1>
-            <p className="text-[#7A6B5A] font-sans-elegant text-sm">
+            <p className="text-muted-foreground font-sans-elegant text-sm">
                 {results.length}{" "}
                 {results.length === 1
                 ? "producto encontrado"
@@ -113,23 +113,23 @@ export const SearchResults = () => {
 
             {/* Resultados */}
             {results.length === 0 ? (
-            <div className="bg-white border border-[#E0D6CC] p-12 text-center">
+            <div className="bg-card border border-border p-12 text-center">
                 <div className="text-6xl mb-4">🔍</div>
-                <h2 className="text-xl font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-2">
+                <h2 className="text-xl font-sans-elegant uppercase tracking-wider text-foreground mb-2">
                 No se encontraron resultados
                 </h2>
-                <p className="text-[#7A6B5A] font-sans-elegant text-sm mb-6">
+                <p className="text-muted-foreground font-sans-elegant text-sm mb-6">
                 Intenta con otros términos de búsqueda o explora nuestras
                 categorías
                 </p>
                 <div className="flex gap-4 justify-center flex-wrap">
                 <Link to="/products">
-                    <button className="bg-[#2C2420] text-white px-6 py-3 font-sans-elegant text-xs uppercase tracking-wider hover:bg-[#333333] transition">
+                    <button className="bg-foreground text-background px-6 py-3 font-sans-elegant text-xs uppercase tracking-wider hover:opacity-80 transition">
                     Ver todos los productos
                     </button>
                 </Link>
                 <Link to="/">
-                    <button className="bg-white text-[#2C2420] border border-[#2C2420] px-6 py-3 font-sans-elegant text-xs uppercase tracking-wider hover:bg-[#2C2420] hover:text-white transition">
+                    <button className="bg-card text-foreground border border-foreground px-6 py-3 font-sans-elegant text-xs uppercase tracking-wider hover:bg-foreground hover:text-background transition">
                     Volver al inicio
                     </button>
                 </Link>
@@ -137,10 +137,10 @@ export const SearchResults = () => {
 
                 {/* Sugerencias de búsqueda */}
                 <div className="mt-8 text-left max-w-md mx-auto">
-                <h3 className="font-sans-elegant uppercase tracking-wider text-xs text-[#2C2420] mb-3">
+                <h3 className="font-sans-elegant uppercase tracking-wider text-xs text-foreground mb-3">
                     Sugerencias de búsqueda:
                 </h3>
-                <ul className="text-sm text-[#7A6B5A] font-sans-elegant space-y-2">
+                <ul className="text-sm text-muted-foreground font-sans-elegant space-y-2">
                     <li>• Verifica la ortografía de las palabras</li>
                     <li>• Intenta con términos más generales</li>
                     <li>• Busca por categoría: vestidos, blusas, faldas</li>
@@ -153,7 +153,7 @@ export const SearchResults = () => {
                 {/* Resultados en el nombre (mayor relevancia) */}
                 {categorized.inName.length > 0 && (
                 <div className="mb-8">
-                    <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-4 flex items-center gap-2">
+                    <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-foreground mb-4 flex items-center gap-2">
                     <span className="text-2xl">🎯</span>
                     Coincidencias exactas ({categorized.inName.length})
                     </h2>
@@ -168,7 +168,7 @@ export const SearchResults = () => {
                 {/* Resultados en la descripción */}
                 {categorized.inDescription.length > 0 && (
                 <div className="mb-8">
-                    <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-4 flex items-center gap-2">
+                    <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-foreground mb-4 flex items-center gap-2">
                     <span className="text-2xl">📝</span>
                     En la descripción ({categorized.inDescription.length})
                     </h2>
@@ -183,7 +183,7 @@ export const SearchResults = () => {
                 {/* Resultados en la categoría */}
                 {categorized.inCategory.length > 0 && (
                 <div className="mb-8">
-                    <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-4 flex items-center gap-2">
+                    <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-foreground mb-4 flex items-center gap-2">
                     <span className="text-2xl">🏷️</span>
                     Por categoría ({categorized.inCategory.length})
                     </h2>

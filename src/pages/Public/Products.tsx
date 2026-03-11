@@ -33,16 +33,16 @@ export const AllProducts = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center p-6">
-        <div className="bg-white border border-[#E0D6CC] p-12 text-center max-w-md">
+      <div className="min-h-screen bg-background flex items-center justify-center p-6">
+        <div className="bg-card border border-border p-12 text-center max-w-md">
           <div className="text-5xl mb-6">✕</div>
-          <h2 className="text-2xl font-serif-display text-[#2C2420] mb-4">
+          <h2 className="text-2xl font-serif-display text-foreground mb-4">
             Error
           </h2>
-          <p className="text-[#7A6B5A] font-sans-elegant mb-6">{error}</p>
+          <p className="text-muted-foreground font-sans-elegant mb-6">{error}</p>
           <Link
             to="/"
-            className="inline-block px-8 py-3 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-wide hover:bg-[#6B5A45] transition-all duration-300"
+            className="inline-block px-8 py-3 bg-[var(--brand-brown)] text-white font-sans-elegant text-sm tracking-wide hover:opacity-80 transition-all duration-300"
           >
             Volver al inicio
           </Link>
@@ -66,24 +66,24 @@ export const AllProducts = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
+    <div className="min-h-screen bg-background">
 
       {/* Filter Bar */}
-      <div className="border-b border-[#E0D6CC] bg-white sticky top-0 z-30">
+      <div className="border-b border-border bg-card sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between py-3">
             {/* Left - Filter buttons */}
             <div className="flex items-center gap-6">
-              <button className="text-[11px] font-sans-elegant uppercase tracking-wider text-[#2C2420] hover:text-[#666] transition-colors">
+              <button className="text-[11px] font-sans-elegant uppercase tracking-wider text-foreground hover:text-muted-foreground transition-colors">
                 FILTROS
               </button>
-              <button className="text-[11px] font-sans-elegant uppercase tracking-wider text-[#2C2420] hover:text-[#666] transition-colors hidden md:block">
+              <button className="text-[11px] font-sans-elegant uppercase tracking-wider text-foreground hover:text-muted-foreground transition-colors hidden md:block">
                 CARACTERÍSTICAS
               </button>
             </div>
 
             {/* Center - Count */}
-            <p className="text-[11px] text-[#666] font-sans-elegant">
+            <p className="text-[11px] text-muted-foreground font-sans-elegant">
               {(filtered || []).length} PRODUCTOS
             </p>
 
@@ -91,13 +91,13 @@ export const AllProducts = () => {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-1 ${viewMode === "grid" ? "text-[#2C2420]" : "text-[#999]"}`}
+                className={`p-1 ${viewMode === "grid" ? "text-foreground" : "text-muted-foreground"}`}
               >
                 <LayoutGrid className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-1 ${viewMode === "list" ? "text-[#2C2420]" : "text-[#999]"}`}
+                className={`p-1 ${viewMode === "list" ? "text-foreground" : "text-muted-foreground"}`}
               >
                 <List className="w-4 h-4" />
               </button>
@@ -110,15 +110,15 @@ export const AllProducts = () => {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {paginatedProducts.length === 0 ? (
           <div className="text-center py-20">
-            <Shirt className="w-16 h-16 text-[#E0D6CC] mx-auto mb-6" />
-            <h2 className="text-lg font-sans-elegant uppercase tracking-wider text-[#2C2420] mb-4">
+            <Shirt className="w-16 h-16 text-border mx-auto mb-6" />
+            <h2 className="text-lg font-sans-elegant uppercase tracking-wider text-foreground mb-4">
               No hay piezas en esta categoría
             </h2>
-            <p className="text-[#666] font-sans-elegant text-sm mb-8">
+            <p className="text-muted-foreground font-sans-elegant text-sm mb-8">
               Explora otras categorías o descubre toda nuestra colección
             </p>
             <Link to="/products">
-              <button className="px-8 py-3 bg-[#2C2420] text-white font-sans-elegant text-[11px] tracking-[0.2em] uppercase hover:bg-[#333] transition-all duration-300">
+              <button className="px-8 py-3 bg-foreground text-background font-sans-elegant text-[11px] tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300">
                 Ver toda la colección
               </button>
             </Link>
@@ -136,11 +136,11 @@ export const AllProducts = () => {
               return (
                 <div
                 key={product.id}
-                className="flex bg-white max-w-2xl w-full mx-auto border border-[#E0D6CC] hover:border-zinc-400 transition-all duration-300"
+                className="flex bg-card max-w-2xl w-full mx-auto border border-border hover:border-foreground/40 transition-all duration-300"
               >
                 <Link
                   to={`/product/${product.id}`}
-                  className="block w-48 h-56 flex-shrink-0 bg-[#F5F0EB] overflow-hidden relative group"
+                  className="block w-48 h-56 flex-shrink-0 bg-secondary overflow-hidden relative group"
                 >
                   {product.image ? (
                     <img
@@ -149,7 +149,7 @@ export const AllProducts = () => {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[#E0D6CC]">
+                    <div className="w-full h-full flex items-center justify-center text-border">
                       <Shirt className="w-16 h-16" />
                     </div>
                   )}
@@ -158,24 +158,24 @@ export const AllProducts = () => {
                 <div className="flex-1 xl:flex flex-col justify-between p-6">
                   <div>
                     <Link to={`/product/${product.id}`}>
-                      <h3 className="font-sans-elegant text-sm uppercase tracking-wider text-[#2C2420] mb-3 hover:text-[#666] transition-colors">
+                      <h3 className="font-sans-elegant text-sm uppercase tracking-wider text-foreground mb-3 hover:text-muted-foreground transition-colors">
                         {product.name}
                       </h3>
                     </Link>
                     {product.description && (
-                      <p className="text-xs text-[#7A6B5A] font-sans-elegant line-clamp-2 mb-4 leading-relaxed">
+                      <p className="text-xs text-muted-foreground font-sans-elegant line-clamp-2 mb-4 leading-relaxed">
                         {product.description}
                       </p>
                     )}
                     <div className="flex items-baseline gap-3 mb-4">
-                      <span className="text-xl font-sans-elegant text-[#2C2420]">
+                      <span className="text-xl font-sans-elegant text-foreground">
                         ${product.price}
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <Link to={`/product/${product.id}`}>
-                      <button className="px-6 py-2.5 bg-[#2C2420] text-white text-[10px] font-sans-elegant uppercase tracking-[0.15em] hover:bg-[#333333] transition-all duration-300">
+                      <button className="px-6 py-2.5 bg-foreground text-background text-[10px] font-sans-elegant uppercase tracking-[0.15em] hover:opacity-80 transition-all duration-300">
                         Ver Detalle
                       </button>
                     </Link>
@@ -191,7 +191,7 @@ export const AllProducts = () => {
         {totalPages > 1 && (
           <div className="flex items-center justify-center gap-1 mt-16">
             <button
-              className="w-8 h-8 flex items-center justify-center text-[#2C2420] hover:bg-[#F5F5F5] transition-colors disabled:opacity-30"
+              className="w-8 h-8 flex items-center justify-center text-foreground hover:bg-secondary transition-colors disabled:opacity-30"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
               aria-label="Página anterior"
@@ -212,7 +212,7 @@ export const AllProducts = () => {
               return (
                 <button
                   key={pageNum}
-                  className={`w-8 h-8 text-[11px] font-sans-elegant ${currentPage === pageNum ? "bg-[#2C2420] text-white" : "text-[#2C2420] hover:bg-[#F5F5F5]"} transition-colors`}
+                  className={`w-8 h-8 text-[11px] font-sans-elegant ${currentPage === pageNum ? "bg-foreground text-background" : "text-foreground hover:bg-secondary"} transition-colors`}
                   onClick={() => setCurrentPage(pageNum)}
                 >
                   {pageNum}
@@ -220,7 +220,7 @@ export const AllProducts = () => {
               );
             })}
             <button
-              className="w-8 h-8 flex items-center justify-center text-[#2C2420] hover:bg-[#F5F5F5] transition-colors disabled:opacity-30"
+              className="w-8 h-8 flex items-center justify-center text-foreground hover:bg-secondary transition-colors disabled:opacity-30"
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
               aria-label="Página siguiente"
@@ -232,24 +232,24 @@ export const AllProducts = () => {
       </div>
 
       {/* Features Bar */}
-      <div className="border-t border-[#E0D6CC] bg-white py-10">
+      <div className="border-t border-border bg-card py-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex items-center justify-center gap-4">
-              <Truck className="w-5 h-5 text-[#2C2420]" />
-              <p className="text-[11px] font-sans-elegant uppercase tracking-[0.15em] text-[#2C2420]">
+              <Truck className="w-5 h-5 text-foreground" />
+              <p className="text-[11px] font-sans-elegant uppercase tracking-[0.15em] text-foreground">
                 ENVÍOS Y RETIROS FLASH
               </p>
             </div>
             <div className="flex items-center justify-center gap-4">
-              <Package className="w-5 h-5 text-[#2C2420]" />
-              <p className="text-[11px] font-sans-elegant uppercase tracking-[0.15em] text-[#2C2420]">
+              <Package className="w-5 h-5 text-foreground" />
+              <p className="text-[11px] font-sans-elegant uppercase tracking-[0.15em] text-foreground">
                 CONFECCIÓN NACIONAL
               </p>
             </div>
             <div className="flex items-center justify-center gap-4">
-              <Ruler className="w-5 h-5 text-[#2C2420]" />
-              <p className="text-[11px] font-sans-elegant uppercase tracking-[0.15em] text-[#2C2420]">
+              <Ruler className="w-5 h-5 text-foreground" />
+              <p className="text-[11px] font-sans-elegant uppercase tracking-[0.15em] text-foreground">
                 TALLAS PARA TODAS DE XS A XL
               </p>
             </div>

@@ -71,7 +71,7 @@ export const Home = () => {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6">
-        <p className="text-[#B85450] text-lg font-sans-elegant">
+        <p className="text-destructive text-lg font-sans-elegant">
           Chequee la conexión a internet. {error}
         </p>
       </div>
@@ -81,7 +81,7 @@ export const Home = () => {
   return (
     <div
       onClick={() => setShowAdd(false)}
-      className="min-h-screen bg-[#FAF8F5] overflow-x-hidden"
+      className="min-h-screen bg-background overflow-x-hidden"
     >
       <section className="relative h-[70vh] md:h-[85vh] overflow-hidden">
         <div className="absolute inset-0">
@@ -105,7 +105,7 @@ export const Home = () => {
           </p>
           <button
             onClick={() => navigate("/products")}
-            className="px-8 py-3 bg-white text-[#2C2420] font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#F5E6E0] transition-all duration-300"
+            className="px-8 py-3 bg-white text-[var(--brand-dark)] font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-secondary transition-all duration-300"
           >
             Ver Colección
           </button>
@@ -114,12 +114,12 @@ export const Home = () => {
 
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex justify-between items-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-serif-display text-[#2C2420]">
+          <h2 className="text-2xl md:text-3xl font-serif-display text-foreground">
             NUEVOS INGRESOS
           </h2>
           <Link
             to="/products"
-            className="text-[#2C2420] hover:text-[#7A6B5A] font-sans-elegant text-xs tracking-[0.15em] uppercase border-b border-[#2C2420] pb-1 transition-colors duration-300"
+            className="text-foreground hover:text-muted-foreground font-sans-elegant text-xs tracking-[0.15em] uppercase border-b border-foreground pb-1 transition-colors duration-300"
           >
             Ver Más
           </Link>
@@ -154,14 +154,14 @@ export const Home = () => {
           <div className="flex justify-end gap-2 mt-6">
             <button
               onClick={() => swiperRef?.slidePrev()}
-              className="w-10 h-10 border border-[#2C2420] flex items-center justify-center hover:bg-[#2C2420] hover:text-white transition-all duration-200"
+              className="w-10 h-10 border border-foreground flex items-center justify-center hover:bg-foreground hover:text-background transition-all duration-200"
               aria-label="Anterior"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => swiperRef?.slideNext()}
-              className="w-10 h-10 border border-[#2C2420] flex items-center justify-center hover:bg-[#2C2420] hover:text-white transition-all duration-200"
+              className="w-10 h-10 border border-foreground flex items-center justify-center hover:bg-foreground hover:text-background transition-all duration-200"
               aria-label="Siguiente"
             >
               <ChevronRight className="w-5 h-5" />
@@ -172,12 +172,12 @@ export const Home = () => {
 
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex justify-between items-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-serif-display text-[#2C2420]">
+          <h2 className="text-2xl md:text-3xl font-serif-display text-foreground">
             CATEGORÍAS
           </h2>
           <Link
             to="/products"
-            className="text-[#2C2420] font-sans-elegant text-xs tracking-[0.15em] uppercase border border-[#2C2420] px-4 py-2 hover:bg-[#2C2420] hover:text-white transition-all duration-300"
+            className="text-foreground font-sans-elegant text-xs tracking-[0.15em] uppercase border border-foreground px-4 py-2 hover:bg-foreground hover:text-background transition-all duration-300"
           >
             Ver Todas
           </Link>
@@ -236,12 +236,12 @@ export const Home = () => {
 
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex justify-between items-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-serif-display text-[#2C2420]">
+          <h2 className="text-2xl md:text-3xl font-serif-display text-foreground">
             MÁS VENDIDOS
           </h2>
           <Link
             to="/products"
-            className="text-[#2C2420] hover:text-[#7A6B5A] font-sans-elegant text-xs tracking-[0.15em] uppercase border-b border-[#2C2420] pb-1 transition-colors duration-300"
+            className="text-foreground hover:text-muted-foreground font-sans-elegant text-xs tracking-[0.15em] uppercase border-b border-foreground pb-1 transition-colors duration-300"
           >
             Ver Más
           </Link>
@@ -280,14 +280,14 @@ export const Home = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => swiperRef2?.slidePrev()}
-                className="w-10 h-10 border border-[#2C2420] flex items-center justify-center hover:bg-[#2C2420] hover:text-white transition-all duration-200"
+                className="w-10 h-10 border border-foreground flex items-center justify-center hover:bg-foreground hover:text-background transition-all duration-200"
                 aria-label="Anterior"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={() => swiperRef2?.slideNext()}
-                className="w-10 h-10 border border-[#2C2420] flex items-center justify-center hover:bg-[#2C2420] hover:text-white transition-all duration-200"
+                className="w-10 h-10 border border-foreground flex items-center justify-center hover:bg-foreground hover:text-background transition-all duration-200"
                 aria-label="Siguiente"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -321,34 +321,34 @@ export const Home = () => {
       </section>
 
       {/* Beneficios - Minimalist */}
-      <section className="bg-[#F5F0EB] border-t border-[#E0D6CC]">
+      <section className="bg-secondary border-t border-border">
         <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center p-6">
-            <Truck className="w-8 h-8 mx-auto mb-3 text-[#2C2420]" />
-            <h4 className="font-sans-elegant text-sm uppercase tracking-wider text-[#2C2420] mb-2">
+            <Truck className="w-8 h-8 mx-auto mb-3 text-foreground" />
+            <h4 className="font-sans-elegant text-sm uppercase tracking-wider text-foreground mb-2">
               Envíos y Retiros Flash
             </h4>
-            <p className="text-xs text-[#7A6B5A] font-sans-elegant">
+            <p className="text-xs text-muted-foreground font-sans-elegant">
               Gratis en compras superiores a $60.000
             </p>
           </div>
 
           <div className="text-center p-6">
-            <Package className="w-8 h-8 mx-auto mb-3 text-[#2C2420]" />
-            <h4 className="font-sans-elegant text-sm uppercase tracking-wider text-[#2C2420] mb-2">
+            <Package className="w-8 h-8 mx-auto mb-3 text-foreground" />
+            <h4 className="font-sans-elegant text-sm uppercase tracking-wider text-foreground mb-2">
               Confección Nacional
             </h4>
-            <p className="text-xs text-[#7A6B5A] font-sans-elegant">
+            <p className="text-xs text-muted-foreground font-sans-elegant">
               Prendas de calidad premium
             </p>
           </div>
 
           <div className="text-center p-6">
-            <Shirt className="w-8 h-8 mx-auto mb-3 text-[#2C2420]" />
-            <h4 className="font-sans-elegant text-sm uppercase tracking-wider text-[#2C2420] mb-2">
+            <Shirt className="w-8 h-8 mx-auto mb-3 text-foreground" />
+            <h4 className="font-sans-elegant text-sm uppercase tracking-wider text-foreground mb-2">
               Talles para Todas
             </h4>
-            <p className="text-xs text-[#7A6B5A] font-sans-elegant">
+            <p className="text-xs text-muted-foreground font-sans-elegant">
               XS a XL disponibles
             </p>
           </div>
@@ -356,8 +356,8 @@ export const Home = () => {
       </section>
 
       {showAdd && (
-        <section className="fixed bottom-0 left-0 w-full z-50 animate-slide-up border-t-4 border-[#C4A574] ">
-          <div className="bg-[#2C2420] border-t border-[#8B7355]/30 shadow-[0_-4px_30px_rgba(0,0,0,0.3)]">
+        <section className="fixed bottom-0 left-0 w-full z-50 animate-slide-up border-t-4 border-[var(--brand-gold)] ">
+          <div className="bg-[var(--brand-dark)] border-t border-primary/30 shadow-[0_-4px_30px_rgba(0,0,0,0.3)]">
             <button
               onClick={() => setShowAdd(false)}
               className="absolute top-3 right-4 text-white/50 hover:text-white transition-colors text-xl leading-none"
@@ -366,21 +366,21 @@ export const Home = () => {
               ✕
             </button>
             {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-16 h-16 bg-[#C4A574]/10 rounded-bl-full"></div>
-            <div className="absolute bottom-0 left-0 w-12 h-12 bg-[#C4A574]/10 rounded-tr-full"></div>
+            <div className="absolute top-0 right-0 w-16 h-16 bg-[var(--brand-gold)]/10 rounded-bl-full"></div>
+            <div className="absolute bottom-0 left-0 w-12 h-12 bg-[var(--brand-gold)]/10 rounded-tr-full"></div>
             <div className="max-w-4xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-5">
-                <div className="hidden sm:flex items-center justify-center w-16 h-16 border-2 border-[#C4A574] rounded-full shrink-0">
-                  <span className="text-[#C4A574] font-serif-display text-xl font-bold tracking-tight">
+                <div className="hidden sm:flex items-center justify-center w-16 h-16 border-2 border-[var(--brand-gold)] rounded-full shrink-0">
+                  <span className="text-[var(--brand-gold)] font-serif-display text-xl font-bold tracking-tight">
                     {discountContent?.discount}%
                   </span>
                 </div>
                 <div className="text-center sm:text-left">
-                  <p className="text-[#C4A574] font-sans-elegant text-[10px] tracking-[0.3em] uppercase mb-1">
+                  <p className="text-[var(--brand-gold)] font-sans-elegant text-[10px] tracking-[0.3em] uppercase mb-1">
                     Oferta Exclusiva
                   </p>
                   <h3 className="text-white font-serif-display text-2xl sm:text-3xl tracking-wide uppercase">
-                    <span className="sm:hidden text-[#C4A574]">
+                    <span className="sm:hidden text-[var(--brand-gold)]">
                       {discountContent?.discount}%{" "}
                     </span>
                     Descuento
@@ -397,7 +397,7 @@ export const Home = () => {
                   setShowAdd(false);
                   navigate("/products");
                 }}
-                className="px-8 py-3 bg-[#C4A574] text-[#2C2420] font-sans-elegant text-xs tracking-[0.2em] uppercase font-bold hover:bg-[#d4b584] transition-all duration-300 shrink-0"
+                className="px-8 py-3 bg-[var(--brand-gold)] text-[var(--brand-dark)] font-sans-elegant text-xs tracking-[0.2em] uppercase font-bold hover:brightness-110 transition-all duration-300 shrink-0"
               >
                 Obtener Cupón
               </button>

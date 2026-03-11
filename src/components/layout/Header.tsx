@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
-import { Menu, X, LogOut, Home, LayoutDashboard, ChevronRight, ShoppingBag, Shirt, Truck, Loader, Tags, Instagram, Facebook } from "lucide-react";
+import { Menu, X, LogOut, Home, LayoutDashboard, ChevronRight, ShoppingBag, Shirt, Truck, Loader, Tags, Instagram, Facebook, Sun, Moon } from "lucide-react";
 import { useProducts } from "../../contexts/ProductContext";
 import { normalize } from "../../utils/normalize";
 import type { User } from "../../types/global";
 import { TikTokIcon } from "./Footer";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface HeaderProps {
   isAuthenticated: boolean;
@@ -19,6 +20,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
   const { products } = useProducts();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { getCartItemsCount } = useCart();
+  const { theme, setTheme } = useTheme();
   const [isTabOpen, setIsTabOpen] = useState(false);
   const cleanedProducts = Array.isArray(products) ? [
     ...new Map(products.map((p) => [p.category, p])).values(),
@@ -74,25 +76,25 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
   }
 
   return (
-    <header className="w-full z-50 bg-[#FAF8F5] relative">
-      <div className="bg-[#FAF8F5] text-[#2C2420] text-xs hidden sm:block border-b border-[#E0D6CC]">
+    <header className="w-full z-50 bg-background relative">
+      <div className="bg-background text-foreground text-xs hidden sm:block border-b border-border">
         <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
           <div className="flex gap-6 font-sans-elegant tracking-wide">
             <Link
               to="/"
-              className="hover:text-[#7A6B5A] transition-colors duration-200"
+              className="hover:text-muted-foreground transition-colors duration-200"
             >
               Inicio
             </Link>
             <Link
               to="/about"
-              className="hover:text-[#7A6B5A] transition-colors duration-200"
+              className="hover:text-muted-foreground transition-colors duration-200"
             >
               Acerca de
             </Link>
             <Link
               to="/help#bottom"
-              className="hover:text-[#7A6B5A] transition-colors duration-200"
+              className="hover:text-muted-foreground transition-colors duration-200"
             >
               Contacto
             </Link>
@@ -102,7 +104,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
               <div className="flex items-center gap-3">
                 <Link
                   to="user/profile"
-                  className="hover:text-[#7A6B5A] flex gap-1 items-center transition-colors duration-200"
+                  className="hover:text-muted-foreground flex gap-1 items-center transition-colors duration-200"
                   style={{
                     fontWeight:
                       location.pathname === "/user/profile" ? "900" : "",
@@ -114,7 +116,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                       width={19}
                       height={19}
                       alt=""
-                      className="hidden md:flex rounded-full border border-[#E0D6CC] object-contain aspect-square"
+                      className="hidden md:flex rounded-full border border-border object-contain aspect-square"
                     />
                   </picture>
                   <span>
@@ -124,7 +126,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 {userRole === "seller" && (
                   <Link
                     to="/seller/dashboard"
-                    className="hover:text-[#7A6B5A] transition-colors duration-200 flex items-center gap-1"
+                    className="hover:text-muted-foreground transition-colors duration-200 flex items-center gap-1"
                     style={{
                       fontWeight:
                         location.pathname === "/seller/dashboard" ? "900" : "",
@@ -137,7 +139,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 {userRole === "buyer" && (
                   <Link
                     to="/buyer/orders"
-                    className="hover:text-[#7A6B5A] transition-colors duration-200 flex items-center gap-1"
+                    className="hover:text-muted-foreground transition-colors duration-200 flex items-center gap-1"
                   >
                     <Tags size={12} />
                     Mis Compras
@@ -145,7 +147,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 )}
                 <button
                   onClick={onLogout}
-                  className="hover:text-[#7A6B5A] transition-colors duration-200 flex items-center gap-1"
+                  className="hover:text-muted-foreground transition-colors duration-200 flex items-center gap-1"
                 >
                   {isLoading ? (
                     <Loader size={12} className="animate-spin" />
@@ -160,17 +162,24 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 ¡Bienvenida!
                 <Link
                   to="/login"
-                  className="text-[#2C2420] font-medium hover:underline"
+                  className="text-foreground font-medium hover:underline"
                 >
                   Ingresar
                 </Link>
                 o
                 <Link
                   to="/register"
-                  className="text-[#2C2420] font-medium hover:underline"
+                  className="text-foreground font-medium hover:underline"
                 >
                   Registrarse
                 </Link>
+                <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+                  {theme === "dark" ? (
+                    <Sun size={15} />
+                  ) : (
+                    <Moon size={15} />
+                  )}
+                </button>
               </p>
             )}
           </div>
@@ -178,21 +187,21 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
       </div>
 
       {/* Main Header - (MOBILE _SECTION) */}
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4 border-b border-[#E0D6CC] md:bg-transparent bg-primary-foreground md:static w-full fixed z-50">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4 border-b border-border md:bg-transparent bg-primary-foreground md:static w-full fixed z-50">
         {/* Mobile menu button */}
         <button
-          className="sm:hidden p-2 hover:bg-[#F5F0EB] transition-colors duration-200"
+          className="sm:hidden p-2 hover:bg-secondary transition-colors duration-200"
           onClick={() => {
             document.body.style.overflow = "hidden";
             setIsMenuOpen(true)
           }}
         >
-          <Menu size={22} className="text-[#2C2420]" />
+          <Menu size={22} className="text-foreground" />
         </button>
 
         {/* Logo */}
         <Link to="/" className="shrink-0">
-          <h1 className="text-2xl sm:text-2xl md:text-3xl font-serif-display tracking-wider text-[#2C2420] uppercase">
+          <h1 className="text-2xl sm:text-2xl md:text-3xl font-serif-display tracking-wider text-foreground uppercase">
             Pascale
           </h1>
         </Link>
@@ -201,7 +210,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
         {user?.role !== "seller" ? (
           <Link
             to="/cart"
-            className="md:hidden text-black items-center hover:text-zinc-500 relative"
+            className="md:hidden text-foreground items-center hover:text-muted-foreground relative"
           >
             <ShoppingBag size={22} />
             <span
@@ -214,7 +223,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
         ) : (
           <Link
             to="/seller/dashboard"
-            className="md:hidden text-black items-center hover:text-zinc-500 relative"
+            className="md:hidden text-foreground items-center hover:text-muted-foreground relative"
           >
             <LayoutDashboard size={22} />
           </Link>
@@ -223,9 +232,9 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
         {/* Cart - Minimalist */}
         <Link
           to="/cart"
-          className="hidden md:flex items-center gap-2 px-3 py-2 hover:bg-[#F5F0EB] transition-all duration-200 relative"
+          className="hidden md:flex items-center gap-2 px-3 py-2 hover:bg-secondary transition-all duration-200 relative"
         >
-          <ShoppingBag size={20} className="text-[#2C2420]" />
+          <ShoppingBag size={20} className="text-foreground" />
           <span
             style={{ display: getCartItemsCount() <= 0 ? "none" : "flex" }}
             className="px-1.5 pt-0.5 absolute top-0 right-0 text-xs font-medium bg-[var(--brand-dark)] text-white rounded-full"
@@ -236,14 +245,14 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
       </div>
 
       {/* Categories bar - Elegant */}
-      <nav data-nosnippet className="bg-[#FAF8F5] overflow-hidden flex mt-18 md:mt-0 border-b border-border">
-        <div className="max-w-6xl mx-auto flex text-xs font-sans-elegant tracking-[0.15em] uppercase text-[#2C2420] overflow-x-auto whitespace-nowrap">
+      <nav data-nosnippet className="bg-background overflow-hidden flex mt-18 md:mt-0 border-b border-border">
+        <div className="max-w-6xl mx-auto flex text-xs font-sans-elegant tracking-[0.15em] uppercase text-foreground overflow-x-auto whitespace-nowrap">
           {categories.map((category) => {
             return (
               <Link
                 key={category.slug}
                 to={category.url}
-                className={`hover:text-white transition-colors duration-200 px-4 py-2 hover:bg-[#2C2420] ${activeCategory?.slug === category.slug ? "bg-[#2C2420] text-white" : ""}`}
+                className={`hover:text-background transition-colors duration-200 px-4 py-2 hover:bg-foreground ${activeCategory?.slug === category.slug ? "bg-foreground text-background" : ""}`}
               >
                 {category.name}
               </Link>
@@ -252,7 +261,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
         </div>
       </nav>
 
-      <div data-nosnippet className="bg-[#2C2420] text-white text-center py-2 text-xs tracking-wider font-sans-elegant flex items-center justify-center gap-2">
+      <div data-nosnippet className="bg-foreground text-background text-center py-2 text-xs tracking-wider font-sans-elegant flex items-center justify-center gap-2">
         <span>ENVÍO GRATIS A PARTIR DE $60.000</span>
         <Truck className="inline w-4 h-4 mb-[2px]" />
       </div>
@@ -266,11 +275,11 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
       )}
 
       <aside className={`fixed top-0 left-0 md:w-80 w-full h-dvh overflow-y-auto 
-        bg-[#FAF8F5] shadow-xl z-50 p-6 flex flex-col gap-4 transition-transform duration-500
+        bg-background shadow-xl z-50 p-6 flex flex-col gap-4 transition-transform duration-500
         ${isMenuOpen ? "translate-x-0" : "-translate-x-[100%]"}
         `}>
-        <div className="flex justify-between items-center mb-6 pb-4 border-b border-[#E0D6CC]">
-          <h2 className="font-sans-elegant text-lg uppercase tracking-wider text-[#2C2420]">
+        <div className="flex justify-between items-center mb-6 pb-4 border-b border-border">
+          <h2 className="font-sans-elegant text-lg uppercase tracking-wider text-foreground">
             Menú
           </h2>
           <button
@@ -278,7 +287,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
           >
             <X
               size={22}
-              className="text-[#7A6B5A] hover:text-[#2C2420] transition-colors duration-200"
+              className="text-muted-foreground hover:text-foreground transition-colors duration-200"
             />
           </button>
         </div>
@@ -287,7 +296,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
           <div className="flex flex-col font-sans-elegant gap-4">
             <Link
               to="/user/profile"
-              className="flex items-center gap-3 text-[#2C2420]"
+              className="flex items-center gap-3 text-foreground"
               onClick={handleCloseMenu}
             >
               <img
@@ -295,7 +304,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 width={24}
                 height={24}
                 alt="Avatar del usuario"
-                className="rounded-full border border-[#E0D6CC] object-cover aspect-square"
+                className="rounded-full border border-border object-cover aspect-square"
               />
               <span className="font-medium">
                 {(user && user.name) || "Sin Nombre"}{" "}
@@ -305,7 +314,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
             <Link
               to="/"
               onClick={handleCloseMenu}
-              className="flex items-center gap-3 text-[#2C2420] hover:text-[#7A6B5A] transition-colors duration-200"
+              className="flex items-center gap-3 text-foreground hover:text-muted-foreground transition-colors duration-200"
             >
               <Home size={18} /> Inicio
             </Link>
@@ -313,7 +322,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
               <Link
                 to="/seller/dashboard"
                 onClick={handleCloseMenu}
-                className="flex items-center gap-3 text-[#2C2420] hover:text-[#7A6B5A] transition-colors duration-200"
+                className="flex items-center gap-3 text-foreground hover:text-muted-foreground transition-colors duration-200"
               >
                 <LayoutDashboard size={18} /> Panel Vendedor
               </Link>
@@ -322,14 +331,14 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
               <Link
                 to="/buyer/orders"
                 onClick={handleCloseMenu}
-                className="flex items-center gap-3 text-[#2C2420] hover:text-[#7A6B5A] transition-colors duration-200"
+                className="flex items-center gap-3 text-foreground hover:text-muted-foreground transition-colors duration-200"
               >
                 <ShoppingBag size={18} /> Mis Compras
               </Link>
             )}
             <button
               onClick={() => setIsTabOpen(!isTabOpen)}
-              className="flex items-center justify-between gap-3 text-[#2C2420] hover:text-[#7A6B5A] transition-colors duration-200"
+              className="flex items-center justify-between gap-3 text-foreground hover:text-muted-foreground transition-colors duration-200"
             >
               <div className="inline-flex gap-3 items-center">
                 <Shirt size={18} /> Categorías
@@ -350,7 +359,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                         key={product.id}
                         to={`/products/category/${product.category}`}
                         onClick={handleCloseMenu}
-                        className="flex items-center text-[#2C2420] hover:text-[#7A6B5A] transition-colors duration-200"
+                        className="flex items-center text-foreground hover:text-muted-foreground transition-colors duration-200"
                       >
                         <picture className="relative hover:brightness-125 hover:scale-101">
                           <div className="absolute top-0 left-0 w-full h-full bg-zinc-950/50" />
@@ -370,12 +379,19 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                   : null}
               </div>
             )}
+            <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+              {theme === "dark" ? (
+                <Sun size={15} />
+              ) : (
+                <Moon size={15} />
+              )}
+            </button>
             <button
               onClick={() => {
                 onLogout();
                 handleCloseMenu();
               }}
-              className="flex items-center gap-3 text-[#DC3545] hover:underline mt-4 pt-4 border-t border-[#E0D6CC]"
+              className="flex items-center gap-3 text-destructive hover:underline mt-4 pt-4 border-t border-border"
             >
               <LogOut size={18} /> Salir
             </button>
@@ -386,17 +402,23 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
               <Link
                 to="/login"
                 onClick={handleCloseMenu}
-                className="text-[#2C2420] hover:underline"
+                className="text-foreground hover:underline"
               >
                 Ingresar
               </Link>
               <Link
                 to="/register"
                 onClick={handleCloseMenu}
-                className="text-[#2C2420] font-medium hover:underline"
+                className="text-foreground font-medium hover:underline"
               >
                 Registrarse
               </Link>
+            </div>
+            <div className="w-full flex justify-between">
+              <span>Apariencia</span>
+              <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
             </div>
             <div className="absolute bottom-0 left-0 w-full h-16 border-t border-border">
               <div className="flex justify-between px-4 my-6">
