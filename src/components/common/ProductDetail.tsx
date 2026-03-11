@@ -89,7 +89,7 @@ const ProductDetail = () => {
         <div className="flex items-center gap-2">
           {result ? (
             <>
-              <Heart className="fill-[var(--brand-brown)] stroke-none" />
+              <Heart className="fill-background stroke-none" />
               <small>Agregado a Favoritos</small>
             </>
           ) : (
@@ -444,7 +444,7 @@ const ProductDetail = () => {
                       onClick={() => setSelectedColor(color)}
                       className={`w-8 h-8 rounded-full border-2 transition-all ${String(selectedColor).toLowerCase() ===
                         String(color).toLowerCase()
-                        ? "border-foreground scale-110"
+                        ? "border-foreground dark:border-zinc-600/50 scale-110"
                         : "border-border"
                         }`}
                       style={{ backgroundColor: colorDetect(color) }}
@@ -477,7 +477,7 @@ const ProductDetail = () => {
                     key={size}
                     onClick={() => setSelectedSize(size)}
                     className={`w-12 h-12 border text-xs font-sans-elegant uppercase tracking-wider transition-all ${selectedSize === size
-                      ? "bg-foreground text-white border-foreground"
+                      ? "bg-foreground text-white dark:text-black border-foreground"
                       : "border-border text-foreground hover:border-foreground"
                       }`}
                   >
@@ -606,7 +606,7 @@ const ProductDetail = () => {
               </button>
               <button
                 onClick={handleBuyNow}
-                className="w-full py-4 border border-foreground text-foreground font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-all duration-300"
+                className="w-full py-4 border border-border text-foreground font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-all duration-300"
               >
                 Comprar ahora
               </button>
@@ -614,12 +614,12 @@ const ProductDetail = () => {
                 <button
                   onClick={handleToggleFavorite}
                   className={`flex-1 py-3 border font-sans-elegant text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 ${isFav
-                    ? "border-[#C9B8A8] bg-[#FDF8F8] text-foreground"
-                    : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+                    ? "border bg-[#FDF8F8] text-foreground"
+                    : "text-muted-foreground hover:border-foreground hover:text-foreground"
                     }`}
                 >
                   <Heart
-                    className={`w-4 h-4 ${isFav ? "fill-[#C9B8A8] text-accent-foreground" : ""}`}
+                    className={`w-4 h-4 ${isFav ? "fill-accent-foreground text-accent-foreground" : ""}`}
                   />
                   {isFav ? "En Favoritos" : "Favoritos"}
                 </button>
