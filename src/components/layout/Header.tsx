@@ -159,7 +159,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 </button>
                 <button
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="ml-2 hover:opacity-80"
+                  className="ml-1 hover:opacity-80"
                   title={`${theme === "dark" ? "Cambiar a tema claro" : "Cambiar a tema oscuro"}`}
                 >
                   {theme === "dark" ? (
@@ -187,7 +187,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 </Link>
                 <button
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="ml-2 hover:opacity-80"
+                  className="ml-1 hover:opacity-80"
                   title={`${theme === "dark" ? "Cambiar a tema claro" : "Cambiar a tema oscuro"}`}
                 >
                   {theme === "dark" ? (

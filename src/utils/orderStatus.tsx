@@ -1,34 +1,52 @@
-﻿import { CheckCircle, AlertCircle, Package, Truck, Clock } from "lucide-react"
+﻿import { CheckCircle, AlertCircle, Package, Truck, Clock, XCircle } from "lucide-react"
 
 export const getStatusColor = (status: string) => {
     switch (status) {
       case "approved":
-        return "bg-green-50 border-foreground text-foreground";
-      case "pending":
-        return "bg-yellow-50 border-foreground text-foreground";
-      case "cancelled":
-      case "Cancelado":
-        return "bg-red-50 border-foreground text-foreground";
+        return "bg-green-100 dark:bg-green-300 border-foreground text-foreground dark:text-green-600";
       case "En Tránsito":
         return "bg-secondary border-foreground text-foreground";
+      case "pending":
+        return "bg-yellow-100 dark:bg-yellow-200 border-foreground text-foreground dark:text-yellow-600";
+      case "cancelled":
+        return "bg-red-100 dark:bg-red-200 border-foreground text-foreground dark:text-red-600";
       default:
         return "bg-secondary border-border text-muted-foreground";
     }
   };
 
-  export const getStatusIcon = (status: string) => {
+   export const getStatusIcon = (status: string) => {
     switch (status) {
       case "approved":
-        return <CheckCircle size={16} className="mr-2" />;
-      case "pending":
-        return <Clock size={16} className="mr-2" />;
-      case "cancelled":
-      case "Cancelado":
-        return <AlertCircle size={16} className="mr-2" />;
+        return (
+          <span className="flex items-center gap-1">
+            <CheckCircle size={14} /> Pago aprobado
+          </span>
+        );
       case "En Tránsito":
-        return <Truck size={16} className="mr-2" />;
+        return (
+          <span className="flex items-center gap-1">
+            <Truck size={14} /> En Tránsito
+          </span>
+        );
+      case "pending":
+        return (
+          <span className="flex items-center gap-1">
+            <Clock size={14} /> Pendiente de pago
+          </span>
+        );
+      case "cancelled":
+        return (
+          <span className="flex items-center gap-1">
+            <XCircle size={14} /> Pago Cancelado
+          </span>
+        );
       default:
-        return <Package size={16} className="mr-2" />;
+        return (
+          <span className="flex items-center gap-1">
+            <Package size={14} />
+          </span>
+        );
     }
   };
 
