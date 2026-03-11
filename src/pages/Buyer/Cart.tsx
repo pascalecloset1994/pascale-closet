@@ -10,6 +10,7 @@ const Cart = () => {
     removeFromCart,
     updateQuantity,
     getCartTotal,
+    getCartItemsCount,
     MAX_PAYMENT,
     SHIPMENT_COST,
     discount,
@@ -202,7 +203,7 @@ const Cart = () => {
               <div className="space-y-4 mb-8">
                 <div className="flex justify-between text-sm font-sans-elegant">
                   <span className="text-muted-foreground">
-                    Subtotal ({cartItems.length} unidades)
+                    Subtotal ({getCartItemsCount()} unidades)
                   </span>
                   <span className="text-foreground">
                     ${getCartTotal().toLocaleString("es-CL")}
