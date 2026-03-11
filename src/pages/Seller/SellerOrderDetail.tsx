@@ -17,13 +17,19 @@ import {
   MapPin,
 } from "lucide-react";
 import { getStatusColor, getStatusIcon, getStatusLabel } from "../../utils/orderStatus";
+import { useProducts } from "../../contexts/ProductContext";
 
 const SellerOrderDetail = () => {
   const { id } = useParams();
   const { sellerOrders } = useOrder();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
+  const { getProductById } = useProducts();
   const navigate = useNavigate();
+
+  const productId = order?.items?.map(p => p.product_id as string);
+  const product = getProductById(productId?.[0] as string);
+  const images = JSON.parse(product && product.image || "[]");
 
   useEffect(() => {
     if (sellerOrders && sellerOrders.length > 0) {
@@ -35,7 +41,6 @@ const SellerOrderDetail = () => {
     }
   }, [sellerOrders, id, navigate]);
 
-  
 
   if (loading) {
     return (
@@ -297,17 +302,10 @@ const SellerOrderDetail = () => {
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 bg-secondary border border-border flex items-center justify-center">
-                      {(item as typeof item & { image_url?: string })
-                        .image_url ? (
+                      {images ? (
                         <img
-                          src={
-                            (item as typeof item & { image_url?: string })
-                              .image_url
-                          }
-                          alt={
-                            (item as typeof item & { product_name?: string })
-                              .product_name ?? item.name
-                          }
+                          src={images[index]}
+                          alt={product?.name}
                           className="w-full h-full object-cover"
                         />
                       ) : (

@@ -16,6 +16,7 @@ export interface OrderItem {
   price: number;
   quantity: number;
   image?: string;
+  product_id?: string;
 }
 
 export interface Order {

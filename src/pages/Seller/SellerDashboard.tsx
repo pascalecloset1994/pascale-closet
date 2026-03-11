@@ -247,7 +247,7 @@ const SellerDashboard = () => {
                         className={`text-[10px] px-2 py-1 font-sans-elegant uppercase tracking-wide ${order.status === "pending"
                             ? "bg-secondary border border-border text-muted-foreground"
                             : order.status === "approved"
-                              ? "bg-green-50 border border-foreground text-foreground"
+                              ? "bg-green-50 dark:bg-green-200 border border-green-300 text-green-600"
                               : "bg-secondary border border-border text-muted-foreground"
                           }`}
                       >
