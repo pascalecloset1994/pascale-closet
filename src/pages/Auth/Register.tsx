@@ -239,7 +239,7 @@ export const Register = () => {
 
             <button
               type="submit"
-              className="w-full py-4 bg-foreground text-white dark:text-zinc-900 font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300 mb-6"
+              className="w-full py-4 bg-foreground text-background dark:text-zinc-900 font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300 mb-6"
             >
               {isLoading ? (
                 <span className="flex gap-2 items-center justify-center">

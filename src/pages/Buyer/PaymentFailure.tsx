@@ -55,7 +55,7 @@ export const PaymentFailure = () => {
                     {/* Actions */}
                     <div className="flex flex-col sm:flex-row gap-4">
                         <Link to="/cart" className="flex-1">
-                            <button className="w-full py-4 bg-foreground text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300">
+                            <button className="w-full py-4 bg-foreground text-background font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300">
                                 Reintentar Compra
                             </button>
                         </Link>

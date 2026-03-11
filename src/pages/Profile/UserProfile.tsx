@@ -241,7 +241,7 @@ export const UserProfile = () => {
                 await refreshUser();
                 closeDialog();
               }}
-              className="px-5 py-2.5 bg-foreground text-white font-sans-elegant text-xs tracking-wide uppercase hover:opacity-80 transition-all duration-200"
+              className="px-5 py-2.5 bg-foreground text-background font-sans-elegant text-xs tracking-wide uppercase hover:opacity-80 transition-all duration-200"
             >
               Eliminar cuenta
             </button>
@@ -422,7 +422,7 @@ export const UserProfile = () => {
                   </button>
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="absolute bottom-2 right-2 p-2 bg-foreground text-white rounded-full shadow-lg border-2 border-white hover:opacity-80 transition"
+                    className="absolute bottom-2 right-2 p-2 bg-foreground text-background rounded-full shadow-lg border-2 border-background hover:opacity-80 transition"
                   >
                     <Camera size={16} />
                   </button>
@@ -463,7 +463,7 @@ export const UserProfile = () => {
               <button
                 onClick={handleEdit}
                 className={`flex items-center gap-2 px-3 py-1.5 text-xs font-sans-elegant tracking-[0.1em] uppercase transition-all duration-300 ${isEditing
-                    ? "bg-foreground text-white ring-2 ring-foreground ring-offset-2"
+                    ? "bg-foreground text-background ring-2 ring-foreground ring-offset-2"
                     : "bg-card border border-border text-foreground hover:bg-background hover:border-primary"
                   }`}
               >
@@ -774,7 +774,7 @@ export const UserProfile = () => {
                   <div className="flex gap-4 pt-4 border-t border-border">
                     <button
                       type="submit"
-                      className="px-6 py-2.5 bg-foreground text-white font-sans-elegant text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg hover:bg-[#403630] transition-all transform active:scale-95"
+                      className="px-6 py-2.5 bg-foreground text-background font-sans-elegant text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg hover:opacity-80 transition-all transform active:scale-95"
                     >
                       Guardar Cambios
                     </button>
@@ -828,7 +828,7 @@ export const UserProfile = () => {
                         </button>
                         <button
                           onClick={handleAddToCart}
-                          className="flex items-center gap-1 px-3 py-1.5 bg-foreground text-white text-[10px] font-bold uppercase tracking-wider hover:bg-[#403630]"
+                          className="flex items-center gap-1 px-3 py-1.5 bg-foreground text-background text-[10px] font-bold uppercase tracking-wider hover:opacity-80"
                         >
                           <ShoppingCart size={12} /> Añadir Todo
                         </button>

@@ -116,7 +116,7 @@ export const ResetPassword = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-4 bg-foreground text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300 mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-4 bg-foreground text-background font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300 mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <span className="flex gap-2 items-center justify-center">
@@ -157,7 +157,7 @@ export const ResetPassword = () => {
 
               <Link
                 to="/login"
-                className="inline-block w-full py-4 bg-foreground text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300"
+                className="inline-block w-full py-4 bg-foreground text-background font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300"
               >
                 Iniciar Sesión
               </Link>

@@ -63,7 +63,7 @@ const SellerOrderDetail = () => {
               No pudimos encontrar la orden que buscas.
             </p>
             <Link to="/seller/orders">
-              <button className="px-8 py-4 bg-foreground text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300">
+              <button className="px-8 py-4 bg-foreground text-background font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300">
                 Volver a pedidos
               </button>
             </Link>
@@ -375,7 +375,7 @@ const SellerOrderDetail = () => {
             </button>
           </Link>
           <Link to="/seller/dashboard">
-            <button className="px-6 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300">
+            <button className="px-6 py-3 bg-foreground text-background font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300">
               Ir al Dashboard
             </button>
           </Link>

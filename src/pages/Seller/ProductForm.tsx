@@ -645,7 +645,7 @@ const ProductForm = () => {
                         className="w-full h-full object-cover border border-border"
                       />
                       {index === 0 && (
-                        <span className="absolute top-1 left-1 bg-foreground text-white text-[10px] px-1.5 py-0.5 font-sans-elegant">
+                        <span className="absolute top-1 left-1 bg-foreground text-background text-[10px] px-1.5 py-0.5 font-sans-elegant">
                           Principal
                         </span>
                       )}
@@ -655,7 +655,7 @@ const ProductForm = () => {
                           e.stopPropagation();
                           removeImage(img.id);
                         }}
-                        className="absolute top-1 right-1 w-6 h-6 bg-foreground/80 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-foreground"
+                        className="absolute top-1 right-1 w-6 h-6 bg-foreground/80 text-background rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-foreground"
                       >
                         <svg
                           className="w-3 h-3"
@@ -715,7 +715,7 @@ const ProductForm = () => {
             </button>
             <button
               type="submit"
-              className="flex-1 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200"
+              className="flex-1 py-3 bg-foreground text-background font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200"
             >
               {isEditing ? "Actualizar" : "Publicar"} {loading ? "..." : ""}
             </button>

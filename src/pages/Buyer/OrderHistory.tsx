@@ -87,7 +87,7 @@ const OrderHistory = () => {
                   ¡Explora nuestros productos y realiza tu primera compra!
                 </p>
                 <Link to="/">
-                  <button className="px-8 py-4 bg-foreground text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300">
+                  <button className="px-8 py-4 bg-foreground text-background font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300">
                     Ir a la tienda
                   </button>
                 </Link>
@@ -185,7 +185,7 @@ const OrderHistory = () => {
                 <div className="border-t border-border p-5 bg-secondary">
                   <div className="flex gap-3">
                     <Link to={`/buyer/orders/${order.id}`}>
-                      <button className="px-6 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300">
+                      <button className="px-6 py-3 bg-foreground text-background font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300">
                         Ver Detalles
                       </button>
                     </Link>

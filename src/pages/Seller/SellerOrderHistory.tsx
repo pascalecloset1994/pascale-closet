@@ -187,7 +187,7 @@ const SellerOrderHistory = () => {
                 <div className="border-t border-border p-5 bg-secondary">
                   <div className="flex gap-3">
                     <Link to={`/seller/orders/${order.id}`}>
-                      <button className="px-6 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300">
+                      <button className="px-6 py-3 bg-foreground text-background font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300">
                         Ver Detalles
                       </button>
                     </Link>

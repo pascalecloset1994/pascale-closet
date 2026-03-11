@@ -53,7 +53,7 @@ const Cart = () => {
               guardarropa
             </p>
             <Link to="/">
-              <button className="px-8 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#333] transition-all duration-300">
+              <button className="px-8 py-3 bg-foreground text-background font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#333] transition-all duration-300">
                 Explorar Colección
               </button>
             </Link>
@@ -274,7 +274,7 @@ const Cart = () => {
               </div>
 
               <Link to="/">
-                <button className="w-full py-4 bg-foreground text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300 mb-4">
+                <button className="w-full py-4 bg-foreground text-background font-sans-elegant text-xs tracking-[0.2em] uppercase hover:opacity-80 transition-all duration-300 mb-4">
                   Seguir Comprando
                 </button>
               </Link>

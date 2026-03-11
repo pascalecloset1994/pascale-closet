@@ -97,7 +97,7 @@ const SellerDashboard = () => {
             </p>
           </div>
           <Link to="/seller/products/new">
-            <button className="px-6 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300">
+            <button className="px-6 py-3 bg-foreground text-background font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300">
               + Nueva Prenda
             </button>
           </Link>

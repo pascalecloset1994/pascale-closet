@@ -72,7 +72,7 @@ const ProductManagement = () => {
             </p>
           </div>
           <Link to="/seller/products/new">
-            <button className="px-5 py-2.5 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200 flex items-center gap-2">
+            <button className="px-5 py-2.5 bg-foreground text-background font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200 flex items-center gap-2">
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -98,7 +98,7 @@ const ProductManagement = () => {
               <button
                 onClick={() => setFilter("all")}
                 className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "all"
-                  ? "bg-foreground text-white"
+                  ? "bg-foreground text-background"
                   : "border border-border text-muted-foreground hover:border-foreground hover:text-foreground"
                   }`}
               >
@@ -107,7 +107,7 @@ const ProductManagement = () => {
               <button
                 onClick={() => setFilter("active")}
                 className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "active"
-                  ? "bg-foreground text-white"
+                  ? "bg-foreground text-background"
                   : "border border-border text-muted-foreground hover:border-foreground hover:text-foreground"
                   }`}
               >
@@ -116,7 +116,7 @@ const ProductManagement = () => {
               <button
                 onClick={() => setFilter("inactive")}
                 className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "inactive"
-                  ? "bg-foreground text-white"
+                  ? "bg-foreground text-background"
                   : "border border-border text-muted-foreground hover:border-foreground hover:text-foreground"
                   }`}
               >
@@ -126,7 +126,7 @@ const ProductManagement = () => {
               <button
                 onClick={() => setFilter("out-of-stock")}
                 className={`px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${filter === "out-of-stock"
-                  ? "bg-foreground text-white"
+                  ? "bg-foreground text-background"
                   : "border border-border text-muted-foreground hover:border-foreground hover:text-foreground"
                   }`}
               >
@@ -142,22 +142,22 @@ const ProductManagement = () => {
             <table className="w-full">
               <thead className="bg-foreground">
                 <tr>
-                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-background/90 uppercase tracking-wider">
                     Producto
                   </th>
-                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-background/90 uppercase tracking-wider">
                     Categoría
                   </th>
-                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-background/90 uppercase tracking-wider">
                     Precio
                   </th>
-                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-background/90 uppercase tracking-wider">
                     Stock
                   </th>
-                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-background/90 uppercase tracking-wider">
                     Estado
                   </th>
-                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-background/90 uppercase tracking-wider">
                     Acciones
                   </th>
                 </tr>

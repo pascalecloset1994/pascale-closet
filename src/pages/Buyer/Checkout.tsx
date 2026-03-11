@@ -124,7 +124,7 @@ export const Checkout = () => {
             >
               <div
                 className={`w-10 h-10 mx-auto rounded-full border ${step >= 1
-                  ? "bg-foreground border-foreground text-white"
+                  ? "bg-foreground border-foreground text-background"
                   : "border-border text-muted-foreground"
                   } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
@@ -144,7 +144,7 @@ export const Checkout = () => {
             >
               <div
                 className={`w-10 h-10 mx-auto rounded-full border ${step >= 2
-                  ? "bg-foreground border-foreground text-white"
+                  ? "bg-foreground border-foreground text-background"
                   : "border-border text-muted-foreground"
                   } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
@@ -164,7 +164,7 @@ export const Checkout = () => {
             >
               <div
                 className={`w-10 h-10 mx-auto rounded-full border ${step >= 3
-                  ? "bg-foreground border-foreground text-white"
+                  ? "bg-foreground border-foreground text-background"
                   : "border-border text-muted-foreground"
                   } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
@@ -318,7 +318,7 @@ export const Checkout = () => {
                     </button>
                     <button
                       onClick={() => setStep(3)}
-                      className="flex-1 py-4 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300"
+                      className="flex-1 py-4 bg-foreground text-background font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300"
                     >
                       Ir a Pagar
                     </button>

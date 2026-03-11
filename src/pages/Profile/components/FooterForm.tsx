@@ -123,7 +123,7 @@ export const FooterForm = ({
             <small>SUBIR ARCHIVO</small>
             <span
               onClick={() => inputRef.current!.click()}
-              className="flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200 cursor-pointer"
+              className="flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-3 bg-foreground text-background font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200 cursor-pointer"
             >
               <ImageUp size={20} />
               Cargar Imagen Footer
@@ -137,7 +137,7 @@ export const FooterForm = ({
             />
             <button
               type="submit"
-              className="w-full sm:w-auto px-6 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200"
+              className="w-full sm:w-auto px-6 py-3 bg-foreground text-background font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200"
             >
               Modificar Footer
             </button>

@@ -1,4 +1,4 @@
-import { ProductCard } from "../../components/common/ProductCard";
+﻿import { ProductCard } from "../../components/common/ProductCard";
 import { useProducts } from "../../contexts/ProductContext";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Loader } from "../../components/common/Loader";
@@ -42,7 +42,7 @@ export const AllProducts = () => {
           <p className="text-muted-foreground font-sans-elegant mb-6">{error}</p>
           <Link
             to="/"
-            className="inline-block px-8 py-3 bg-[var(--brand-brown)] text-white font-sans-elegant text-sm tracking-wide hover:opacity-80 transition-all duration-300"
+            className="inline-block px-8 py-3 bg-[var(--brand-brown)] text-background font-sans-elegant text-sm tracking-wide hover:opacity-80 transition-all duration-300"
           >
             Volver al inicio
           </Link>

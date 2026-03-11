@@ -7,6 +7,7 @@ import { normalize } from "../../utils/normalize";
 import type { User } from "../../types/global";
 import { TikTokIcon } from "./Footer";
 import { useTheme } from "../../contexts/ThemeContext";
+import { ThemeSwitch } from "../common/ThemeSwitch";
 
 interface HeaderProps {
   isAuthenticated: boolean;
@@ -155,6 +156,17 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                     <LogOut size={12} />
                   )}
                   Salir
+                </button>
+                <button
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="ml-2 hover:opacity-80"
+                  title={`${theme === "dark" ? "Cambiar a tema claro" : "Cambiar a tema oscuro"}`}
+                >
+                  {theme === "dark" ? (
+                    <Sun size={15} />
+                  ) : (
+                    <Moon size={15} />
+                  )}
                 </button>
               </div>
             ) : (
@@ -383,18 +395,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                   : null}
               </div>
             )}
-            <div className="w-full flex justify-between items-center">
-              <span>Apariencia</span>
-              <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-[58px] border dark:border-zinc-800 border-zinc-300 rounded-2xl flex items-center bg-[#eee] dark:bg-[#111111]"
-              >
-                <span className="p-1 rounded-full bg-background border border-zinc-300 dark:border-zinc-800 text-muted-foreground m-0.5 transition-transform duration-300 shadow-2xs"
-                  style={{ transform: `${theme === "dark" ? "translateX(0)" : "translateX(100%)"}` }}
-                >
-                  {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-                </span>
-              </button>
-            </div>
+            <ThemeSwitch />
             <button
               onClick={() => {
                 onLogout();
@@ -423,18 +424,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout, isLoading }: Header
                 Registrarse
               </Link>
             </div>
-            <div className="w-full flex justify-between items-center">
-              <span>Apariencia</span>
-              <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-[58px] border dark:border-zinc-800 border-zinc-300 rounded-2xl flex items-center bg-[#eee] dark:bg-[#111111]"
-              >
-                <span className="p-1 rounded-full bg-background border border-zinc-300 dark:border-zinc-800 text-muted-foreground m-0.5 transition-transform duration-300 shadow-2xs"
-                  style={{ transform: `${theme === "dark" ? "translateX(0)" : "translateX(100%)"}` }}
-                >
-                  {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-                </span>
-              </button>
-            </div>
+            <ThemeSwitch />
             <div className="absolute bottom-0 left-0 w-full h-16 border-t border-border">
               <div className="flex justify-between px-4 my-6">
                 <h3 className="font-sans-elegant text-xs uppercase tracking-wider">

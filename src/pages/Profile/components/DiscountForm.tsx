@@ -86,7 +86,7 @@ export const DiscountForm = ({
               
               <div className="relative w-full max-w-md mx-auto overflow-hidden">
                 <div className={`
-                  relative bg-foreground text-white p-6 
+                  relative bg-foreground text-background p-6 
                   border-t-4 border-[#C4A574] 
                   shadow-xl transition-all duration-300
                   ${!formData.discount_is_active ? 'opacity-50 grayscale' : 'opacity-100'}
@@ -139,7 +139,7 @@ export const DiscountForm = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full sm:w-auto px-8 py-3 bg-foreground text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+              className="w-full sm:w-auto px-8 py-3 bg-foreground text-background font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
             >
               {isLoading ? "Guardando..." : "Guardar Cambios"}
             </button>

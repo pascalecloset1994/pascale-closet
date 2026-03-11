@@ -25,7 +25,6 @@ import { HeartCrack } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
 import { Tag } from "lucide-react";
 import { colorDetect } from "../../utils/colorDetect";
-import Button from "./Button";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -219,7 +218,7 @@ const ProductDetail = () => {
           </h2>
           <Link
             to="/products"
-            className="inline-block bg-foreground text-white px-8 py-3 text-xs uppercase tracking-widest hover:opacity-80 transition-colors"
+            className="inline-block bg-foreground text-background px-8 py-3 text-xs uppercase tracking-widest hover:opacity-80 transition-colors"
           >
             Volver a la tienda
           </Link>
@@ -477,7 +476,7 @@ const ProductDetail = () => {
                     key={size}
                     onClick={() => setSelectedSize(size)}
                     className={`w-12 h-12 border text-xs font-sans-elegant uppercase tracking-wider transition-all ${selectedSize === size
-                      ? "bg-foreground text-white dark:text-black border-foreground"
+                      ? "bg-foreground text-background dark:text-black border-foreground"
                       : "border-border text-foreground hover:border-foreground"
                       }`}
                   >
@@ -600,7 +599,7 @@ const ProductDetail = () => {
             <div className="space-y-3 mb-8">
               <button
                 onClick={handleAddToCart}
-                className="w-full py-4 bg-foreground text-white dark:text-zinc-900 font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300"
+                className="w-full py-4 bg-foreground text-background dark:text-zinc-900 font-sans-elegant text-xs tracking-[0.15em] uppercase hover:opacity-80 transition-all duration-300"
               >
                 Añadir al carrito
               </button>

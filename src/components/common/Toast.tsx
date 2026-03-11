@@ -33,7 +33,7 @@ export const toast = ({ message, timer = 6, tunner = 20 }: ToastProps) => {
   const interval = setInterval(
     () => {
       root.render(
-        <div className="w-fit py-4 bg-foreground text-white overflow-hidden toast">
+        <div className="w-fit py-4 bg-foreground text-background overflow-hidden toast">
           <article className="flex px-4 gap-2 items-center relative">
             {message}
             <div
