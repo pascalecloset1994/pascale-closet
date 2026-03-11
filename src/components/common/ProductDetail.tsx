@@ -32,7 +32,7 @@ const ProductDetail = () => {
   const { addToCart, MAX_PAYMENT, SHIPMENT_COST, discount, discountContent } = useCart();
   const { getProductById, products, loading, isFavorite, toggleFavorite } =
     useProducts();
-  const product = getProductById(id ?? "");
+  const product = getProductById(id as string);
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
@@ -135,9 +135,9 @@ const ProductDetail = () => {
       timer: 4,
       tunner: 8,
       message: (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center text-[10px] md:text-sm">
           <ShoppingBag />
-          Agregado en tu bolso:
+          Agregado:
           <span className="font-semibold">{product!.name}</span> - Talla{" "}
           {selectedSize}
           <p>Color: {selectedColor}</p>

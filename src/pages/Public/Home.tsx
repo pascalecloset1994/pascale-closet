@@ -105,7 +105,7 @@ export const Home = () => {
           </p>
           <button
             onClick={() => navigate("/products")}
-            className="px-8 py-3 bg-white text-[var(--brand-dark)] font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-secondary transition-all duration-300"
+            className="px-8 py-3 bg-white text-[var(--brand-dark)] font-sans-elegant text-xs tracking-[0.2em] uppercase hover:ring-2 hover:ring-black transition-all duration-300"
           >
             Ver Colección
           </button>

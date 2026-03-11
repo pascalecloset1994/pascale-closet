@@ -7,7 +7,7 @@ export const Loader = () => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-6">
       <div className="text-center">
-        <div className="w-12 h-12 border-2 border-border border-t-[#2C2420] rounded-full animate-spin mx-auto mb-6"></div>
+        <div className="w-12 h-12 border-2 border-border border-t-foreground rounded-full animate-spin mx-auto mb-6"></div>
         <p className="text-muted-foreground font-sans-elegant tracking-wider uppercase text-xs">Cargando...</p>
       </div>
     </div>

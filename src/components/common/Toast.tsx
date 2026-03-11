@@ -9,7 +9,7 @@ export interface ToastProps {
 
 export const toast = ({ message, timer = 6, tunner = 20 }: ToastProps) => {
   const toastContainer = document.createElement("div");
-  toastContainer.className = "fixed top-20 md:top-6 right-6 z-50";
+  toastContainer.className = "fixed top-20 md:top-6 md:right-6 right-0 top-10 z-50";
   const root = createRoot(toastContainer);
   document.body.appendChild(toastContainer);
 
@@ -33,7 +33,7 @@ export const toast = ({ message, timer = 6, tunner = 20 }: ToastProps) => {
   const interval = setInterval(
     () => {
       root.render(
-        <div className="w-fit py-4 bg-foreground text-background overflow-hidden toast">
+        <div className="w-full md:w-fit py-4 bg-foreground text-background overflow-hidden toast">
           <article className="flex px-4 gap-2 items-center relative">
             {message}
             <div
