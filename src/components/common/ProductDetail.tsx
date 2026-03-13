@@ -613,12 +613,12 @@ const ProductDetail = () => {
                 <button
                   onClick={handleToggleFavorite}
                   className={`flex-1 py-3 border font-sans-elegant text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 ${isFav
-                    ? "border bg-[#FDF8F8] text-foreground"
+                    ? "border bg-[#FDF8F8] text-black"
                     : "text-muted-foreground hover:border-foreground hover:text-foreground"
                     }`}
                 >
                   <Heart
-                    className={`w-4 h-4 ${isFav ? "fill-accent-foreground text-accent-foreground" : ""}`}
+                    className={`w-4 h-4 ${isFav ? "fill-black text-black" : ""}`}
                   />
                   {isFav ? "En Favoritos" : "Favoritos"}
                 </button>
